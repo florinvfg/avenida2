@@ -1,7 +1,7 @@
 package avenida.avenida.Controllers;
 
 import avenida.avenida.Modelo.Comanda;
-import avenida.avenida.Services.BicicletaService;
+import avenida.avenida.Services.EventsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,69 +18,69 @@ import java.util.List;
 public class ComandaController {
 
     @Autowired
-    private BicicletaService bicicletaService;
+    private EventsService ComandaService;
 
-// Obtener todas las bicicletas (GET)
+// Obtener todas las Comandas (GET)
     @GetMapping
-    public ResponseEntity<List<Bicicleta>> getAllBicicletas() {
-        List<Bicicleta> bicicletas = bicicletaService.findAll();
-        return new ResponseEntity<>(bicicletas, HttpStatus.OK);
+    public ResponseEntity<List<Comanda>> getAllComandas() {
+        List<Comanda> Comandas = ComandaService.findAll();
+        return new ResponseEntity<>(Comandas, HttpStatus.OK);
     }
 
-// Obtener una bicicleta por ID (GET)
+// Obtener una Comanda por ID (GET)
     @GetMapping("/{id}")
-    public ResponseEntity<Bicicleta> getBicicletaById(@PathVariable Long id) {
-        Bicicleta bicicleta = bicicletaService.findById(id);
-        return new ResponseEntity<>(bicicleta, HttpStatus.OK);
+    public ResponseEntity<Comanda> getComandaById(@PathVariable Long id) {
+        Comanda Comanda = ComandaService.findById(id);
+        return new ResponseEntity<>(Comanda, HttpStatus.OK);
     }
 
-// Obtener bicicletas por marca (GET)
-    @GetMapping("/marca")
-    public ResponseEntity<List<Bicicleta>> getBicicletasPorMarca(@RequestParam String marca) {
-        List<Bicicleta> bicicletas = bicicletaService.findByMarca(marca);
-        return new ResponseEntity<>(bicicletas, HttpStatus.OK);
-    }
+// Obtener Comandas por marca (GET)
+   /*  @GetMapping("/marca")
+    public ResponseEntity<List<Comanda>> getComandasPorMarca(@RequestParam String marca) {
+        List<Comanda> Comandas = ComandaService.findByMarca(marca);
+        return new ResponseEntity<>(Comandas, HttpStatus.OK);
+    }*/
 
-//Obtener bicicleta para editar en html
+//Obtener Comanda para editar en html
     @GetMapping("/detalle/{id}")
-    public String verBicicletaDetalle(@PathVariable Long id, Model model) {
-        Bicicleta bicicleta = bicicletaService.findById(id);
-        model.addAttribute("bicicleta", bicicleta);
-        return "/views/Bicicletas/bicicleta-detalle";
+    public String verComandaDetalle(@PathVariable Long id, Model model) {
+        Comanda Comanda = ComandaService.findById(id);
+        model.addAttribute("Comanda", Comanda);
+        return "/views/Comandas/Comanda-detalle";
     }
 
-// Crear una nueva bicicleta (POST)
+// Crear una nueva Comanda (POST)
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-public ResponseEntity<Bicicleta> createBicicleta(@ModelAttribute Bicicleta bicicleta) {
-    Bicicleta newBicicleta = bicicletaService.save(bicicleta);
-    return new ResponseEntity<>(newBicicleta, HttpStatus.CREATED);
+public ResponseEntity<Comanda> createComanda(@ModelAttribute Comanda Comanda) {
+    Comanda newComanda = ComandaService.save(Comanda);
+    return new ResponseEntity<>(newComanda, HttpStatus.CREATED);
 }  
 
-// Actualizar una bicicleta existente (PUT)
+// Actualizar una Comanda existente (PUT)
     @PutMapping("/{id}")
-    public ResponseEntity<Bicicleta> updateBicicleta(@PathVariable Long id, @RequestBody Bicicleta bicicleta) {
-        Bicicleta updatedBicicleta = bicicletaService.update(id, bicicleta);
-        return new ResponseEntity<>(updatedBicicleta, HttpStatus.OK);
+    public ResponseEntity<Comanda> updateComanda(@PathVariable Long id, @RequestBody Comanda Comanda) {
+        Comanda updatedComanda = ComandaService.update(id, Comanda);
+        return new ResponseEntity<>(updatedComanda, HttpStatus.OK);
     }
 
-// Eliminar una bicicleta por ID (DELETE)
+// Eliminar una Comanda por ID (DELETE)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBicicleta(@PathVariable Long id) {
-        bicicletaService.delete(id);
+    public ResponseEntity<Void> deleteComanda(@PathVariable Long id) {
+        ComandaService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 // Creando la interfaz web
-    public BicicletaController(BicicletaService bicicletaService) {
-        this.bicicletaService = bicicletaService;
+    public ComandaController(EventsService ComandaService) {
+        this.ComandaService = ComandaService;
     }
 
-    @GetMapping("/listado-bicicletas")
-    public String listarBicicletas(Model model) {
-        List<Bicicleta> bicicletas = bicicletaService.findAll();
-        model.addAttribute("bicicletas", bicicletas);
-        model.addAttribute("bicicleta", new Bicicleta()); // Añade esta línea
-        return "/views/Bicicletas/listado-bicicletas";
+    @GetMapping("/listado-Comandas")
+    public String listarComandas(Model model) {
+        List<Comanda> Comandas = ComandaService.findAll();
+        model.addAttribute("Comandas", Comandas);
+        model.addAttribute("Comanda", new Comanda()); // Añade esta línea
+        return "/views/Comandas/listado-Comandas";
     }
 
 }
