@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import avenida.avenida.Repositorios.LineaComandaRepository;
-import java.util.List;
 import avenida.avenida.Modelo.LineaComanda;
 
 @Service

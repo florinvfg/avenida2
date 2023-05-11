@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/lineascomanda")
 public class LineaComandaController {
@@ -19,11 +17,11 @@ public class LineaComandaController {
     @Autowired
     private  LineaComandaService lineaComandaService;
 
-    @GetMapping
-    public ResponseEntity<List<LineaComanda>> obtenerTodasLasLineasComanda() {
-        List<LineaComanda> lineasComanda = lineaComandaService.obtenerTodasLasLineasComanda();
-        return new ResponseEntity<>(lineasComanda, HttpStatus.OK);
-    }
+   // @GetMapping
+ //   public ResponseEntity<List<LineaComanda>> obtenerTodasLasLineasComanda() {
+//        List<LineaComanda> lineasComanda = lineaComandaService.obtenerTodasLasLineasComanda();
+//        return new ResponseEntity<>(lineasComanda, HttpStatus.OK);
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<LineaComanda> obtenerLineaComandaPorId(@PathVariable("id") int idLineaComanda) {
@@ -41,11 +39,11 @@ public class LineaComandaController {
         return new ResponseEntity<>(nuevaLineaComanda, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<LineaComanda> updatemesalineaComanda(@PathVariable int id, @RequestBody LineaComanda lineaComanda, LineaComanda llineaComandaService) {
-        LineaComanda updatedmesalineaComanda = lineaComandaService.update(id, lineaComanda);
-        return new ResponseEntity<>(updatedmesalineaComanda, HttpStatus.OK);
-    }
+   // @PutMapping("/{id}")
+    //public ResponseEntity<LineaComanda> updatemesalineaComanda(@PathVariable int id, @RequestBody LineaComanda lineaComanda, LineaComanda llineaComandaService) {
+    //    LineaComanda updatedmesalineaComanda = lineaComandaService.update(id, lineaComanda);
+    //    return new ResponseEntity<>(updatedmesalineaComanda, HttpStatus.OK);
+   // }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarLineaComanda(@PathVariable("id") int idLineaComanda) {
