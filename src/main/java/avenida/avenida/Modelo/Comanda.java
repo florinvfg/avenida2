@@ -4,6 +4,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -38,7 +41,7 @@ public class Comanda {
     private java.util.Date date;
 
     @Column(name = "Hour")
-    private java.util.Date hour;
+    private LocalTime hour;
 
     @Column(name = "RegistryDate")
     private java.util.Date registryDate;
@@ -54,7 +57,7 @@ public class Comanda {
     }
 
     // Constructor con parámetros
-    public Comanda(int idMesa, UUID idCamarero, String uuid, java.util.Date date, java.util.Date hour,
+    public Comanda(int idMesa, UUID idCamarero, String uuid, java.util.Date date, LocalTime hour,
                    java.util.Date registryDate, Double importeComanda, int numComensales) {
         this.idMesa = idMesa;
         this.idCamarero = idCamarero;
@@ -108,12 +111,12 @@ public class Comanda {
         this.date = date;
     }
 
-    public java.util.Date getHour() {
+    public LocalTime getHour() {
         return hour;
     }
 
-    public void setHour(java.util.Date hour) {
-        this.hour = hour;
+    public void setHour(LocalTime localTime) {
+        this.hour = localTime;
     }
 
     public java.util.Date getRegistryDate() {
@@ -128,8 +131,8 @@ public class Comanda {
         return importeComanda;
     }
 
-    public void setImporteComanda(Double importeComanda) {
-        this.importeComanda = importeComanda;
+    public void setImporteComanda(Double comanda) {
+        this.importeComanda = comanda;
     }
 
     public int getNumComensales() {
@@ -138,5 +141,34 @@ public class Comanda {
 
     public void setNumComensales(int numComensales) {
         this.numComensales = numComensales;
+    }
+
+    public Object getModelo() {
+        return null;
+    }
+
+    public Object getLineaComanda() {
+        return null;
+    }
+
+    public void setLineaComanda(Object lineaComanda) {
+    }
+
+    public void setProducto(Producto producto) {
+    }
+
+    public void save(Comanda event) {
+    }
+
+    public List<Comanda> findAll() {
+        return null;
+    }
+
+    public Comanda findById(UUID id2) {
+        return null;
+    }
+
+    public Optional<Comanda> findByUuidString(String id2) {
+        return null;
     }
 }

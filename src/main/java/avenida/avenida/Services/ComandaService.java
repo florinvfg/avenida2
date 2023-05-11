@@ -47,10 +47,10 @@ public class ComandaService {
     public Comanda update(Long id, Comanda ComandaDetails) {
         Comanda Comanda = findById(id);
 
-        Comanda.setModelo(ComandaDetails.getModelo());
-        Comanda.setMesa(ComandaDetails.getMesa());
+        
+        Comanda.setIdMesa(ComandaDetails.getIdMesa());
         Comanda.setId(ComandaDetails.getId());
-        Comanda.setReparaciones(ComandaDetails.getReparaciones());
+        Comanda.setLineaComanda(ComandaDetails.getLineaComanda());
 
         return ComandaRepository.save(Comanda);
     }
