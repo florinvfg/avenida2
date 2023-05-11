@@ -23,7 +23,8 @@ public class LineaComanda {
 
     @ManyToOne
     @JoinColumn(name = "IdComanda")
-    private Double comanda;
+    private Comanda comanda;
+
 
     @ManyToOne
     @JoinColumn(name = "IdProducto")
@@ -37,7 +38,7 @@ public class LineaComanda {
     }
 
     // Constructor con parámetros
-    public LineaComanda(Double comanda, Producto producto, int unidadesProducto) {
+    public LineaComanda(Comanda comanda, Producto producto, int unidadesProducto) {
         this.comanda = comanda;
         this.producto = producto;
         this.unidadesProducto = unidadesProducto;
@@ -53,11 +54,11 @@ public class LineaComanda {
         this.idLineaComanda = idLineaComanda;
     }
 
-    public Double getComanda() {
+    public Comanda getComanda() {
         return comanda;
     }
 
-    public void setComanda(Double comanda) {
+    public void setComanda(Comanda comanda) {
         this.comanda = comanda;
     }
 

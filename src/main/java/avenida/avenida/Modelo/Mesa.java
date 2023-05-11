@@ -49,4 +49,18 @@ public class Mesa {
     public void setNumComensales(int numComensales) {
         this.numComensales = numComensales;
     }
+
+    public Object getNombre() {
+        return null;
+    }
+
+    public void setNombre(Object nombre) {
+    }
+
+    public Object getPrecio() {
+        return null;
+    }
+
+    public void setPrecio(Object precio) {
+    }
 }

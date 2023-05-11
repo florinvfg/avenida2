@@ -1,6 +1,8 @@
 package avenida.avenida.Services;
 
 import avenida.avenida.Modelo.Producto;
+import avenida.avenida.Repositorios.ProductoRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,42 +10,54 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductoService<ProductoRepository> {
-
-    private final ProductoRepository productoRepository;
+public class ProductoService {
 
     @Autowired
-    public ProductoService(ProductoRepository productoRepository) {
-        this.productoRepository = productoRepository;
-    }
+    private ProductoRepository productoRepository;
 
-    public List<Producto> obtenerTodosLosProductos() {
+
+    public List<Producto> findAll() {
         return productoRepository.findAll();
     }
 
-    public Producto obtenerProductoPorId(Long id) {
-        Optional<Producto> productoOptional = ((Object) productoRepository).findById(id);
-        return productoOptional.orElse(null);
-    }
-
-    public Producto crearProducto(Producto producto) {
-        return productoRepository.save(producto);
-    }
-
-    public Producto actualizarProducto(Long id, Producto productoActualizado) {
-        Optional<Producto> productoOptional = ((Object) productoRepository).findById(id);
-        if (productoOptional.isPresent()) {
-            Producto producto = productoOptional.get();
-            producto.setNombre(productoActualizado.getNombre());
-            producto.setPrecio(productoActualizado.getPrecio());
-            return ((Object) productoRepository).save(producto);
+    public Producto findById(Long id) {
+        Optional<Producto> producto = productoRepository.findById(id);
+        if (producto.isPresent()) {
+            return producto.get();
         } else {
-            return null;
+            throw new RuntimeException("Producto no encontrado con id: " + id);
         }
     }
 
-    public void eliminarProducto(Long id) {
-        ((Object) productoRepository).deleteById(id);
+    public Producto save(Producto producto) {
+        return productoRepository.save(producto);
+    }
+
+    public Producto update(Long id, Producto productoDetails) {
+        Producto producto = findById(id);
+        producto.setNombre(productoDetails.getNombre());
+        producto.setPrecio(productoDetails.getPrecio());
+        return productoRepository.save(producto);
+    }
+
+    public void delete(Long id) {
+        Producto producto = findById(id);
+        productoRepository.delete(producto);
+    }
+
+    public Producto get(Long idProducto) {
+        return null;
+    }
+
+    public Producto updateProducto(Long idProducto, Producto productoActualizado) {
+        return null;
+    }
+
+    public void deleteProducto(Long idProducto) {
+    }
+
+    public Producto crearProducto(Producto producto) {
+        return null;
     }
 }
 

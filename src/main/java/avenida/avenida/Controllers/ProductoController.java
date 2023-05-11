@@ -11,23 +11,24 @@ import java.util.List;
 @RestController
 @RequestMapping("/productos")
 public class ProductoController<productoService> {
-
+   
+    @Autowired
     private final avenida.avenida.Services.ProductoService productoService;
 
-    @Autowired
+    
     public ProductoController(avenida.avenida.Services.ProductoService productoService) {
         this.productoService = productoService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Producto>> obtenerTodosLosProductos() {
-        List<Producto> productos = productoService.obtenerTodosLosProductos();
+    public ResponseEntity<List<Producto>> findAll() {
+        List<Producto> productos = productoService.findAll();
         return new ResponseEntity<>(productos, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Producto> obtenerProductoPorId(@PathVariable("id") Long idProducto) {
-        Producto producto = productoService.obtenerProductoPorId(idProducto);
+    public ResponseEntity<Producto> get(@PathVariable("id") Long idProducto) {
+        Producto producto = productoService.get(idProducto);
         if (producto != null) {
             return new ResponseEntity<>(producto, HttpStatus.OK);
         } else {
@@ -42,9 +43,9 @@ public class ProductoController<productoService> {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizarProducto(
+    public ResponseEntity<Producto> updateProducto(
             @PathVariable("id") Long idProducto, @RequestBody Producto productoActualizado) {
-        Producto producto = productoService.actualizarProducto(idProducto, productoActualizado);
+        Producto producto = productoService.updateProducto(idProducto, productoActualizado);
         if (producto != null) {
             return new ResponseEntity<>(producto, HttpStatus.OK);
         } else {
@@ -53,8 +54,8 @@ public class ProductoController<productoService> {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarProducto(@PathVariable("id") Long idProducto) {
-        productoService.eliminarProducto(idProducto);
+    public ResponseEntity<Void> deliteProducto(@PathVariable("id") Long idProducto) {
+        productoService.deleteProducto(idProducto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

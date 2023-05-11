@@ -10,8 +10,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @SpringBootApplication
-@EntityScan("avenida.avenida..Modelo")
-@EnableJpaRepositories(basePackages = {"avenida.avenida..Repositorios"})
+@EntityScan("avenida.avenida.Modelo")
+@EnableJpaRepositories(basePackages = {"avenida.avenida.Repositorios"})
 public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);

@@ -14,39 +14,53 @@ import java.util.Optional;
 @Service
 public class MesaService {
 
-    private final MesaRepository mesaRepository;
-
     @Autowired
-    public MesaService(MesaRepository mesaRepository) {
-        this.mesaRepository = mesaRepository;
-    }
+    private MesaRepository mesaRepository;
 
-    public List<Mesa> obtenerTodasLasMesas() {
+
+    public List<Mesa> findAll() {
         return mesaRepository.findAll();
     }
 
-    public Mesa obtenerMesaPorId(Integer idMesa) {
-        Optional<Mesa> optionalMesa = mesaRepository.findById(idMesa);
-        return optionalMesa.orElse(null);
-    }
-
-    public Mesa crearMesa(Mesa mesa) {
-        return mesaRepository.save(mesa);
-    }
-
-    public Mesa actualizarMesa(Integer idMesa, Mesa mesaActualizada) {
-        Optional<Mesa> optionalMesa = mesaRepository.findById(idMesa);
-        if (optionalMesa.isPresent()) {
-            Mesa mesa = optionalMesa.get();
-            mesa.setUbicacion(mesaActualizada.getUbicacion());
-            mesa.setNumComensales(mesaActualizada.getNumComensales());
-            return mesaRepository.save(mesa);
+    public Mesa findById(int id) {
+        Optional<Mesa> mesa = mesaRepository.findById(id);
+        if (mesa.isPresent()) {
+            return mesa.get();
         } else {
-            return null;
+            throw new RuntimeException("mesa no encontrado con id: " + id);
         }
     }
 
-    public void eliminarMesa(Integer idMesa) {
-        mesaRepository.deleteById(idMesa);
+    public Mesa save(Mesa mesa) {
+        return mesaRepository.save(mesa);
+    }
+
+    public Mesa update(int id, Mesa mesaDetails) {
+        Mesa mesa = findById(id);
+        mesa.setNombre(mesaDetails.getNombre());
+        mesa.setPrecio(mesaDetails.getPrecio());
+        return mesaRepository.save(mesa);
+    }
+
+    public void delete(int id) {
+        Mesa mesa = findById(id);
+        mesaRepository.delete(mesa);
+    }
+
+    public Mesa get(Long idmesa) {
+        return null;
+    }
+
+    public Mesa updatemesa(Long idmesa, Mesa mesaActualizado) {
+        return null;
+    }
+
+    public void deletemesa(Long idmesa) {
+    }
+
+    public Mesa crearmesa(Mesa mesa) {
+        return null;
     }
 }
+
+

@@ -1,6 +1,7 @@
 package avenida.avenida.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import avenida.avenida.Modelo.Comanda;
@@ -9,7 +10,7 @@ import avenida.avenida.Repositorios.ComandaRepository;
 import java.util.List;
 import java.util.Optional;
 
-
+@ComponentScan
 @Service
 public class ComandaService {
 
@@ -22,7 +23,7 @@ public class ComandaService {
     }
 
     // Encontrar una Comanda por ID
-    public Comanda findById(Long id) {
+    public Comanda findById(int id) {
         Optional<Comanda> Comanda = ComandaRepository.findById(id);
         if (Comanda.isPresent()) {
             return Comanda.get();
@@ -44,7 +45,7 @@ public class ComandaService {
     }
 
     // Actualizar una Comanda existente
-    public Comanda update(Long id, Comanda ComandaDetails) {
+    public Comanda update(int id, Comanda ComandaDetails) {
         Comanda Comanda = findById(id);
 
         
@@ -56,7 +57,7 @@ public class ComandaService {
     }
 
     // Eliminar una Comanda por ID
-    public void delete(Long id) {
+    public void delete(int id) {
         Comanda Comanda = findById(id);
         ComandaRepository.delete(Comanda);
     }

@@ -17,12 +17,7 @@ import java.util.List;
 public class LineaComandaController {
     
     @Autowired
-    private  LineaComanda lineaComandaService;
-
-    @Autowired
-    public LineaComandaController(LineaComanda lineaComandaService) {
-        this.lineaComandaService = lineaComandaService;
-    }
+    private  LineaComandaService lineaComandaService;
 
     @GetMapping
     public ResponseEntity<List<LineaComanda>> obtenerTodasLasLineasComanda() {
@@ -47,15 +42,9 @@ public class LineaComandaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LineaComanda> updateLineaComanda(
-            @PathVariable("id") int idLineaComanda, @RequestBody LineaComanda lineaComandaActualizada, Object id) {
-                Object LineaComanda;
-                LineaComanda updatedLineaComanda = LineaComandaService.update(id, LineaComanda);(idLineaComanda, lineaComandaActualizada);
-        if (lineaComandaActualizada != null) {
-            return new ResponseEntity<>(lineaComandaActualizada, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<LineaComanda> updatemesalineaComanda(@PathVariable int id, @RequestBody LineaComanda lineaComanda, LineaComanda llineaComandaService) {
+        LineaComanda updatedmesalineaComanda = lineaComandaService.update(id, lineaComanda);
+        return new ResponseEntity<>(updatedmesalineaComanda, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
