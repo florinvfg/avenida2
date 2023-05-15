@@ -3,57 +3,51 @@ package avenida.avenida.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import avenida.avenida.Repositorios.ReparacionRepository;
-
-import java.util.List;
-import java.util.Optional;
-
-
+import avenida.avenida.Repositorios.LineaComandaRepository;
 import avenida.avenida.Modelo.LineaComanda;
-import avenida.avenida.Repository.LineaComandaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LineaComandaService {
-
-    private final LineaComandaRepository lineaComandaRepository;
-
+   
     @Autowired
+    private  LineaComandaRepository lineaComandaRepository;
+
+    
     public LineaComandaService(LineaComandaRepository lineaComandaRepository) {
         this.lineaComandaRepository = lineaComandaRepository;
     }
 
-    public List<LineaComanda> obtenerTodasLasLineasComanda() {
-        return lineaComandaRepository.findAll();
-    }
+ //   public List<LineaComanda> obtenerTodasLasLineasComanda() {
+//        return lineaComandaRepository.obtenerTodasLasLineasComanda();
+ //   }
 
     public LineaComanda obtenerLineaComandaPorId(int idLineaComanda) {
         return lineaComandaRepository.findById(idLineaComanda).orElse(null);
     }
 
-    public LineaComanda crearLineaComanda(LineaComanda lineaComanda) {
+    public LineaComanda save(LineaComanda lineaComanda) {
         return lineaComandaRepository.save(lineaComanda);
     }
 
-    public LineaComanda actualizarLineaComanda(int idLineaComanda, LineaComanda lineaComandaActualizada) {
-        Optional<LineaComanda> lineaComandaOptional = lineaComandaRepository.findById(idLineaComanda);
-        if (lineaComandaOptional.isPresent()) {
-            LineaComanda lineaComandaExistente = lineaComandaOptional.get();
-            lineaComandaExistente.setComanda(lineaComandaActualizada.getComanda());
-            lineaComandaExistente.setProducto(lineaComandaActualizada.getProducto());
-            lineaComandaExistente.setUnidadesProducto(lineaComandaActualizada.getUnidadesProducto());
+    public LineaComanda actualizarLineaComanda(int idLineaComanda, LineaComanda lineaComandaDetails) {
+        LineaComanda lineaComanda = obtenerLineaComandaPorId(idLineaComanda);
+            lineaComanda.setComanda(lineaComandaDetails.getComanda());
+            lineaComanda.setUnidadesProducto(lineaComandaDetails.getUnidadesProducto());
+            lineaComanda.setProducto(lineaComandaDetails.getProducto());
+            
             // Actualizar otros campos según sea necesario
-            return lineaComandaRepository.save(lineaComandaExistente);
-        }
-        return null;
+            return lineaComandaRepository.save(lineaComanda);
     }
 
     public void eliminarLineaComanda(int idLineaComanda) {
-        lineaComandaRepository.deleteById(idLineaComanda);
+        lineaComandaRepository.deleteById((long) idLineaComanda);
+    }
+
+    public static LineaComanda update(Object id, Object lineaComanda) {
+        return null;
+    }
+
+    public LineaComanda crearLineaComanda(LineaComanda lineaComanda) {
+        return null;
     }
 }

@@ -10,13 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import java.time.LocalDate;
-import java.math.BigDecimal;
-import org.springframework.format.annotation.DateTimeFormat;
-
-
-
-import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "LineaComanda")
@@ -30,6 +24,7 @@ public class LineaComanda {
     @ManyToOne
     @JoinColumn(name = "IdComanda")
     private Comanda comanda;
+
 
     @ManyToOne
     @JoinColumn(name = "IdProducto")
@@ -81,5 +76,32 @@ public class LineaComanda {
 
     public void setUnidadesProducto(int unidadesProducto) {
         this.unidadesProducto = unidadesProducto;
+    }
+
+    public List<LineaComanda> obtenerTodasLasLineasComanda() {
+        return null;
+    }
+
+    public LineaComanda obtenerLineaComandaPorId(int idLineaComanda2) {
+        return null;
+    }
+
+    public LineaComanda crearLineaComanda(LineaComanda lineaComanda) {
+        return null;
+    }
+
+    public LineaComanda actualizarLineaComanda(int idLineaComanda2, LineaComanda lineaComandaActualizada) {
+        return null;
+    }
+
+    public void eliminarLineaComanda(int idLineaComanda2) {
+    }
+
+    public LineaComanda aupdateLineaComanda(int idLineaComanda2, LineaComanda lineaComandaActualizada) {
+        return null;
+    }
+
+    public LineaComanda update(int idLineaComanda2, LineaComanda lineaComandaActualizada) {
+        return null;
     }
 }

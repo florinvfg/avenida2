@@ -4,6 +4,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -12,9 +15,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.ComponentScan;
+
+
+@ComponentScan
 @Entity
 @Table(name = "Comanda")
-
 public class Comanda {
 
 
@@ -25,20 +31,19 @@ public class Comanda {
 
     @ManyToOne
     @JoinColumn(name = "IdMesa")
-    private int idMesa;
+    private Mesa mesa;
+
    
     @ManyToOne
     @JoinColumn(name = "IdCamarero")
-    private UUID idCamarero;
+    private User idCamarero;
 
-    @Column(name = "UUID")
-    private String uuid;
 
     @Column(name = "Date")
     private java.util.Date date;
 
     @Column(name = "Hour")
-    private java.util.Date hour;
+    private LocalTime hour;
 
     @Column(name = "RegistryDate")
     private java.util.Date registryDate;
@@ -54,11 +59,10 @@ public class Comanda {
     }
 
     // Constructor con parámetros
-    public Comanda(int idMesa, UUID idCamarero, String uuid, java.util.Date date, java.util.Date hour,
+    public Comanda(Mesa idMesa, User idCamarero, String uuid, java.util.Date date, LocalTime hour,
                    java.util.Date registryDate, Double importeComanda, int numComensales) {
-        this.idMesa = idMesa;
+        this.mesa = idMesa;
         this.idCamarero = idCamarero;
-        this.uuid = uuid;
         this.date = date;
         this.hour = hour;
         this.registryDate = registryDate;
@@ -76,28 +80,21 @@ public class Comanda {
         this.id = id;
     }
 
-    public int getIdMesa() {
-        return idMesa;
+    public Mesa getIdMesa() {
+        return mesa;
     }
 
-    public void setIdMesa(int idMesa) {
-        this.idMesa = idMesa;
+    public void setIdMesa(Mesa idMesa) {
+        this.mesa = idMesa;
     }
 
-    public UUID getIdCamarero() {
+    
+    public User getIdCamarero() {
         return idCamarero;
     }
 
-    public void setIdCamarero(UUID idCamarero) {
+    public void setIdCamarero(User idCamarero) {
         this.idCamarero = idCamarero;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     public java.util.Date getDate() {
@@ -108,12 +105,12 @@ public class Comanda {
         this.date = date;
     }
 
-    public java.util.Date getHour() {
+    public LocalTime getHour() {
         return hour;
     }
 
-    public void setHour(java.util.Date hour) {
-        this.hour = hour;
+    public void setHour(LocalTime localTime) {
+        this.hour = localTime;
     }
 
     public java.util.Date getRegistryDate() {
@@ -128,8 +125,8 @@ public class Comanda {
         return importeComanda;
     }
 
-    public void setImporteComanda(Double importeComanda) {
-        this.importeComanda = importeComanda;
+    public void setImporteComanda(Double comanda) {
+        this.importeComanda = comanda;
     }
 
     public int getNumComensales() {
@@ -139,4 +136,34 @@ public class Comanda {
     public void setNumComensales(int numComensales) {
         this.numComensales = numComensales;
     }
+
+    public Object getModelo() {
+        return null;
+    }
+
+    public Object getLineaComanda() {
+        return null;
+    }
+
+    public void setLineaComanda(Object lineaComanda) {
+    }
+
+    public void setProducto(Producto producto) {
+    }
+
+    public void save(Comanda event) {
+    }
+
+    public List<Comanda> findAll() {
+        return null;
+    }
+
+    public Comanda findById(UUID id2) {
+        return null;
+    }
+
+    public Optional<Comanda> findByUuidString(String id2) {
+        return null;
+    }
+
 }

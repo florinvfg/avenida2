@@ -1,86 +1,93 @@
 package avenida.avenida.Controllers;
+import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 
-import avenida.avenida.Modelo.Comanda;
-import avenida.avenida.Services.EventsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import avenida.avenida.Modelo.Comanda;
 
 @Controller
-@RequestMapping("/comanda")
+@RequestMapping("/Comanda")
 public class ComandaController {
 
     @Autowired
-    private EventsService ComandaService;
+    private avenida.avenida.Services.ComandaService ComandaService;
 
-// Obtener todas las Comandas (GET)
+// Guardar un nuevo comanda
+    @PostMapping("/create")
+    public String createEvent(@ModelAttribute("newcomanda") Comanda event) {
+        String hourString = event.getHour().toString();
+        event.setHour(convertToLocalTime(hourString));       
+// Crea un nuevo registro
+        ComandaService.save(event);
+        return "redirect:/Comanda/listado-comandas";
+    }
+    
+// Actualizar comanda (POST)
+    @PostMapping("/update-post")
+    public String updateEvent(@ModelAttribute("comanda") Comanda event) {
+        String hourString = event.getHour().toString();
+        event.setHour(convertToLocalTime(hourString));
+
+        ComandaService.save(event);
+        return "redirect:/Comanda/listado-comandas";
+    }
+
+   
+
+    // Obtener todos los comandas (GET)
     @GetMapping
-    public ResponseEntity<List<Comanda>> getAllComandas() {
-        List<Comanda> Comandas = ComandaService.findAll();
-        return new ResponseEntity<>(Comandas, HttpStatus.OK);
+    public ResponseEntity<List<Comanda>> getAllComanda() {
+        List<Comanda> comandas = ComandaService.findAll();
+        return new ResponseEntity<>(comandas, HttpStatus.OK);
     }
 
-// Obtener una Comanda por ID (GET)
-    @GetMapping("/{id}")
-    public ResponseEntity<Comanda> getComandaById(@PathVariable Long id) {
-        Comanda Comanda = ComandaService.findById(id);
-        return new ResponseEntity<>(Comanda, HttpStatus.OK);
-    }
-
-// Obtener Comandas por marca (GET)
-   /*  @GetMapping("/marca")
-    public ResponseEntity<List<Comanda>> getComandasPorMarca(@RequestParam String marca) {
-        List<Comanda> Comandas = ComandaService.findByMarca(marca);
-        return new ResponseEntity<>(Comandas, HttpStatus.OK);
+// Obtener un comanda por ID (GET)
+   /*  @GetMapping("/{id}")
+    public ResponseEntity<Comanda> getEventById(@PathVariable UUID id) {
+        Comanda comanda = ComandaService.findById(id);
+        return new ResponseEntity<>(comanda, HttpStatus.OK);
     }*/
 
-//Obtener Comanda para editar en html
-    @GetMapping("/detalle/{id}")
-    public String verComandaDetalle(@PathVariable Long id, Model model) {
-        Comanda Comanda = ComandaService.findById(id);
-        model.addAttribute("Comanda", Comanda);
-        return "/views/Comandas/Comanda-detalle";
+// Editar un comanda por ID (GET)
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable int id, Model model) {
+        Comanda event = ComandaService.findById(id);
+        model.addAttribute("comanda", event);
+        return "/views/Comanda/edit-event";
     }
 
-// Crear una nueva Comanda (POST)
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-public ResponseEntity<Comanda> createComanda(@ModelAttribute Comanda Comanda) {
-    Comanda newComanda = ComandaService.save(Comanda);
-    return new ResponseEntity<>(newComanda, HttpStatus.CREATED);
-}  
-
-// Actualizar una Comanda existente (PUT)
-    @PutMapping("/{id}")
-    public ResponseEntity<Comanda> updateComanda(@PathVariable Long id, @RequestBody Comanda Comanda) {
-        Comanda updatedComanda = ComandaService.update(id, Comanda);
-        return new ResponseEntity<>(updatedComanda, HttpStatus.OK);
+// Método para listar comandas
+    @GetMapping("/listado-comandas")
+    public String listarcomandas(Model model) {
+        List<Comanda> comandas = ComandaService.findAll();
+        model.addAttribute("comandas", comandas);
+        model.addAttribute("comanda", new Comanda());
+        model.addAttribute("newcomanda", new Comanda()); // Añade esta línea aquí
+        return "/views/Comanda/Comanda-list";
+    }
+ 
+    @GetMapping("/event-details/{id}")
+    public String showEventDetails(@PathVariable int id, Model model) {
+        Comanda comanda = ComandaService.findById(id);
+        model.addAttribute("comanda", comanda);
+        return "/views/Comanda/event-details";
     }
 
-// Eliminar una Comanda por ID (DELETE)
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteComanda(@PathVariable Long id) {
-        ComandaService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//Convertir hora
+    private LocalTime convertToLocalTime(String hourString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return LocalTime.parse(hourString, formatter);
     }
-
-// Creando la interfaz web
-    public ComandaController(EventsService ComandaService) {
-        this.ComandaService = ComandaService;
-    }
-
-    @GetMapping("/listado-Comandas")
-    public String listarComandas(Model model) {
-        List<Comanda> Comandas = ComandaService.findAll();
-        model.addAttribute("Comandas", Comandas);
-        model.addAttribute("Comanda", new Comanda()); // Añade esta línea
-        return "/views/Comandas/listado-Comandas";
-    }
-
 }

@@ -8,7 +8,7 @@ import avenida.avenida.Modelo.Comanda;
 
 
 public interface ComandaRepository extends JpaRepository<Comanda, UUID> {
-   Optional<Comanda> findById(Long id);
+   Optional<Comanda> findById(int id);
 
 List<Comanda> findByMesa(String mesa);
   }
