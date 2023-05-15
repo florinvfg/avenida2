@@ -126,4 +126,29 @@ public Events(String name, LocalDate date, LocalTime hour, String locationUrl) {
     public void prePersist() {
         this.registryDate = LocalDateTime.now();
     }
+
+    public Object getMarca() {
+        return null;
+    }
+
+    public Object getMesa() {
+        return null;
+    }
+
+    public void setMesa(Object mesa) {
+    }
+
+    public Object getModelo() {
+        return null;
+    }
+
+    public void setModelo(Object modelo) {
+    }
+
+    public Object getReparaciones() {
+        return null;
+    }
+
+    public void setReparaciones(Object reparaciones) {
+    }
 }

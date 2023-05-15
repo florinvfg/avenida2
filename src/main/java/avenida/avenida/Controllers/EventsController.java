@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import avenida.avenida.Exceptions.ResourceNotFoundException;
 import avenida.avenida.Modelo.Comanda;
-import avenida.avenida.Services.ComandaService;
+import avenida.avenida.Services.EventsService;
 
 @Controller
 @RequestMapping("/Comanda")
-public class ComandaController {
+public class EventsController {
 
     @Autowired
     private Comanda ComandaService;

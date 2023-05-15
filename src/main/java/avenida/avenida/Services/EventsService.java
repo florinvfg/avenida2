@@ -12,14 +12,14 @@ import avenida.avenida.Repositorios.ComandaRepository;
 import avenida.avenida.Exceptions.ResourceNotFoundException;
 
 @Service
-public class ComandaService {
+public class EventsService {
 
     @Autowired
     private ComandaRepository ComandaRepository;
 
 //guardar eventos
-public void save(Comanda event) {
-    ComandaRepository.saveAndFlush(event);
+public Comanda save(Comanda event) {
+    return ComandaRepository.saveAndFlush(event);
 }
 
 //actualizar Eventos
@@ -55,13 +55,24 @@ public Comanda updateEvent(UUID eventId, Comanda eventDetails) {
     }
 
 // Encontrar un evento por ID
-    public Comanda findById(UUID id) {
+    public Comanda findById(Long id) {
         Optional<Comanda> evento = ComandaRepository.findById(id);
         if (evento.isPresent()) {
             return evento.get();
         } else {
             throw new RuntimeException("Evento no encontrado con el ID: " + id);
         }
+    }
+
+    public Comanda updateEvent(Long id, Comanda comanda) {
+        return null;
+    }
+
+    public Comanda update(Long id, Comanda comanda) {
+        return null;
+    }
+
+    public void delete(Long id) {
     }
     
 }
