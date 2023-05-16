@@ -55,7 +55,7 @@ public Comanda updateEvent(UUID eventId, Comanda eventDetails) {
     }
 
 // Encontrar un evento por ID
-    public Comanda findById(Long id) {
+    public Comanda findById(int id) {
         Optional<Comanda> evento = ComandaRepository.findById(id);
         if (evento.isPresent()) {
             return evento.get();

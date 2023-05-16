@@ -1,40 +1,37 @@
 <!DOCTYPE html>
-<html> lang="es"
-<head>
-</head>
-<style>
-    .jumbotron {
-        background-image: url('/images/imagen cafe.jpg');
-        background-size: cover;
-        background-position: center;
-    }
-</style>
+<html lang="es">
+    <head th:replace="fragments/common-head :: common-head">
+    </head>
+    <style>
+        .jumbotron {
+            background-image: url('/images/coffee.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 <body>
-    <!-- Barra de navegación -->
+    <!-- Fragmento de la barra de navegación -->
     <div th:replace="fragments/navbar :: navbar"></div>
-    <div class="jumbotron jumbotron-fluid">   
-    <div class="container">
-            <div class="navbar-brand">
-                <img src="logo.png" alt="Logo de La Avenida">
-                <h1 class="navbar-title">La Avenida</h1>
-                <p class="text-center">¡Disfruta de nuestra deliciosa comida y excelente servicio!</p>
-            </div>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="text-start"style="color: red;">Bienvenido a Restaurante Avenida</h1>
+            <p class="text-start"style="color: blue;">Aquí encontrarás una amplia gama de productos y servicios </p>
         </div>
-    
+    </div>
 
-    <!-- Contenido de la página -->
     <div class="container mt-5">
         <div class="row">
             <div class="col-12">
-        <h2>Bienvenido a Restaurante Avenida</h2>
-        <p>¡Disfruta de nuestra deliciosa comida y excelente servicio!</p>
-        <!-- Aquí puedes agregar más contenido principal -->
-       </div>
-   </div>
-</div>
-    <!-- Pie de página -->
+                <h2 class="text-start"style="color: red;">En Restaurante Avenida <span th:text="${nombre}"></span>!</h2>
+                <p class="text-start"style="color: blue;">Encuentraras una amplia gama y si no....pide y le tendras!</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Incluir el fragmento del footer -->
     <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
+
 
 

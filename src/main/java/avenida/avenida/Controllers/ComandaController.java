@@ -41,7 +41,7 @@ public class ComandaController {
         event.setHour(convertToLocalTime(hourString));
 
         ComandaService.save(event);
-        return "redirect:/Comanda/listado-comandas";
+        return "redirect:/Comanda/listado-comanda";
     }
 
    
@@ -49,8 +49,8 @@ public class ComandaController {
     // Obtener todos los comandas (GET)
     @GetMapping
     public ResponseEntity<List<Comanda>> getAllComanda() {
-        List<Comanda> comandas = ComandaService.findAll();
-        return new ResponseEntity<>(comandas, HttpStatus.OK);
+        List<Comanda> comanda = ComandaService.findAll();
+        return new ResponseEntity<>(comanda, HttpStatus.OK);
     }
 
 // Obtener un comanda por ID (GET)
@@ -69,11 +69,10 @@ public class ComandaController {
     }
 
 // Método para listar comandas
-    @GetMapping("/listado-comandas")
+    @GetMapping("/listado-comanda")
     public String listarcomandas(Model model) {
-        List<Comanda> comandas = ComandaService.findAll();
-        model.addAttribute("comandas", comandas);
-        model.addAttribute("comanda", new Comanda());
+        List<Comanda> comanda = ComandaService.findAll();
+        model.addAttribute("comanda", comanda);
         model.addAttribute("newcomanda", new Comanda()); // Añade esta línea aquí
         return "/views/Comanda/Comanda-list";
     }

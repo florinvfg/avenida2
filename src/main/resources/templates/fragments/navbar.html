@@ -1,18 +1,83 @@
-<nav class="navbar">
-    <div class="container">
-        <div class="navbar-brand">
-            <img src="logo.png" alt="Logo de  Avenida">
-            <h1 class="navbar-title">La Avenida</h1>
-        </div>
-        <ul class="navbar-menu">
-            <li class="navbar-item"><a href="inicio.html">Inicio</a></li>
-            <li class="navbar-item"><a href="menu.html">Menú</a></li>
-            <li class="navbar-item"><a href="reservas.html">Reservas</a></li>
-            <li class="navbar-item"><a href="contacto.html">Contacto</a></li>
-        </ul>
-    </div>
-</nav>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+        <!-- Agregar referencia al archivo CSS externo -->
+        <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Fragmento de la barra de navegación -->
+    <nav th:fragment="navbar" class="navbar navbar-expand-md navbar-light bg-light">
+        <!-- Contenedor para centrar la barra de navegación -->
+        <div class="container">
+            <!-- Enlace y logotipo de la marca -->
+            <a class="navbar-brand" href="#">
+                <img src="/images/coffee.png" alt="Logo" height="40">
+            </a>
+            <!-- Botón de alternancia de navegación para pantallas pequeñas -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- Icono del botón de alternancia -->
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Contenedor de la lista de elementos de navegación -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Lista de elementos de navegación -->
+                <ul class="navbar-nav">
+                    <!-- Elemento de navegación individual (Inicio) -->
+                    <li class="nav-item active">
+                        <a class="nav-link" href="http://localhost:8080/hello">
+                            <i class="bi bi-house-fill"></i> Inicio
+                        </a>
+                    </li>
+                    <!-- Elemento de navegación individual (Productos) -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8080/bicicletas/listado-producto">
+                            <i class="bi bi-shop"></i> Restaurante Avenida
+                        </a>
+                    </li>
+                    <!-- Elemento de navegación individual (Clientes) -->
+                    
+                    <!-- Elemento de navegación individual (Users) -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8080/users/listado-users">
+                            <i class="bi bi-people-fill"></i> Usuarios
+                        </a>
+                    </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/comanda/listado-comanda}">
+                            <i class="bi bi-bell"></i> Comanda
+                        </a>
+                    </li>
+
+                    <!-- Elemento de navegación Reparaciones -->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/lineaComandacomanda/listado-lineComanda}">
+                            <i class="bi bi-bell"></i> LineaComanda
+                        </a>
+                    </li>
+
+
+                    <!-- Elemento de navegación Eventos -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8080/mesa/listado-mesa">
+                            <i class="bi bi-emoji-sunglasses"></i>Mesa
+                        </a>
+                    </li>       
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8080/productos/listado-producto">
+                            <i class="bi bi-bucket"></i>Productos
+                        </a>
+                    </li>
+                    <!-- Elemento de navegación individual (Contacto) -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-envelope-fill"></i> Contacto
+                        </a>
+                    </li>
+                </ul>
+                <!-- Aquí puedes añadir más elementos a la barra de navegación, como un formulario de búsqueda o enlaces adicionales -->
             </div>
         </div>
     </nav>

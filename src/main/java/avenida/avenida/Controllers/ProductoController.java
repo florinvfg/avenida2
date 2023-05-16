@@ -4,13 +4,15 @@ import avenida.avenida.Modelo.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/productos")
-public class ProductoController<productoService> {
+public class ProductoController {
    
     @Autowired
     private final avenida.avenida.Services.ProductoService productoService;
@@ -57,5 +59,17 @@ public class ProductoController<productoService> {
     public ResponseEntity<Void> deliteProducto(@PathVariable("id") Long idProducto) {
         productoService.deleteProducto(idProducto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    //Creando la interfaz web
+    //public ProductoController(ProductoService productoService) {
+       // this.productoService = productoService;
+    //}
+
+    @GetMapping("/listado-producto")
+    public String listarProducto(Model model) {
+        List<Producto> producto = productoService.findAll();
+        model.addAttribute("producto", producto);
+        model.addAttribute("producto", new Producto()); // Añade esta línea
+        return "/views/Producto/listado-producto";
     }
 }

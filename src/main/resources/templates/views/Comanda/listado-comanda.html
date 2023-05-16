@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/common-head :: common-head">
+    </head>
+<body>
+    <h1>Listado de Comanda</h1>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container">
+        <a th:href="@{/comanda/comanda-add}" class="btn btn-primary">Añadir Listado</a>
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="userFilter">Buscar por Usuario</label>
+                    <select class="form-control" id="userFilter" name="userFilter">
+                        <option value="" selected>Seleccione un usuario</option>
+                        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.userName}"></option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="comandaFilter">Buscar por comanda</label>
+                    <select class="form-control" id="comandaFilter" name="comandaFilter">
+                        <option value="" selected>Seleccione una comanda</option>
+                        <option th:each="comanda : ${comandas}" th:value="${comanda.id}" th:text="${comanda.marca} + ' ' + ${comanda.modelo}"></option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>comanda</th>
+                    <th>Fecha de entrada</th>
+                    <th>Fecha de salida</th>
+                    <th>Concepto</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Importe</th>
+                    <th>IVA</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="listado : ${listado}">
+                    <td th:text="${listado.id}"></td>
+                    <td th:text="${listado.user.userName} + ' ' + ${listado.user.userSurname}"></td>
+                    <td th:text="${listado.comanda.marca} + ' ' + ${listado.comanda.modelo}"></td>
+                    <td th:text="${listado.fecha}"></td>
+                    <td th:text="${listado.fechaSalida}"></td>
+                    <td th:text="${listado.concepto}"></td>
+                    <td th:text="${listado.descripcion}"></td>
+                    <td th:text="${listado.estado}"></td>
+                    <td th:text="${listado.importe}"></td>
+                    <td th:text="${listado.iva}"></td>
+                    <td th:text="${listado.total}"></td>
+                     <!-- Columna para el botón Editar -->
+                    <td>
+                        <a th:href="@{'/listado/edit/' + ${listado.id}}" class="btn btn-primary">Editar</a>
+                    </td>
+                    <!-- Columna para el botón Eliminar -->
+                    <td>
+                        <form th:action="@{'/listado/delete/' + ${listado.id}}" method="post">
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#userFilter').change(function () {
+                filterlistadoes();
+            });
+
+            $('#comandaFilter').change(function () {
+                filterlistadoes();
+            });
+
+            function filterlistadoes() {
+                var userFilter = $('#userFilter').val();
+                var comandaFilter = $('#comandaFilter').val();
+                var url = '/listadoes/listado-comanda';
+
+                if (userFilter !== '' || comandaFilter !== '') {
+                    url += '?';
+
+                    if (userFilter !== '') {
+                        url += 'userFilter=' + userFilter;
+                    }
+
+                    if (comandaFilter !== '') {
+                        if (userFilter !== '') {
+                            url += '&';
+                        }
+                        url += 'comandaFilter=' + comandaFilter;
+                    }
+                }
+
+                window.location.href = url;
+            }
+        });
+    </script>
+</body>
+</html>

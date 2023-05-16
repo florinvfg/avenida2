@@ -9,7 +9,7 @@ public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private int id;
 
     @Column(name = "Nombre")
     private String nombre;
@@ -17,23 +17,25 @@ public class Producto {
     @Column(name = "Precio")
     private Double precio;
 
-    // Constructor vacío
-    public Producto() {
-    }
+    
 
     // Constructor con parámetros
     public Producto(String nombre, Double precio) {
         this.nombre = nombre;
         this.precio = precio;
     }
-
+     // Constructor vacío
+     public Producto() {
+     }
     // Getters y setters
 
-    public Long getId() {
+   
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

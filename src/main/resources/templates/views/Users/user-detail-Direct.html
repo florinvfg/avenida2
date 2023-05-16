@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+  <head th:replace="fragments/common-head :: common-head">
+  </head>
+  <body>
+    <h1>Detalle de Usuarios <span th:text="${nombre}"></span>!</h1>
+    <!-- Fragmento de la barra de navegación -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+        <div class="container">
+            <button
+                type="button"
+                class="btn btn-warning"
+                data-toggle="modal"
+                data-target="#editarUserModal"
+            >Editar</button>
+            <button type="button" class="btn btn-success" onclick="saveChanges()">Guardar cambios</button>
+            <form id="userForm">
+                <tr>
+                    <th>ID</th>
+                    <td><input type="text" readonly th:value="${user.id}"></td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td><input type="text" th:value="${user.userName}"></td>
+                </tr>
+                <tr>
+                    <th>Apellidos</th>
+                    <td><input type="text" th:value="${user.userSurname}"></td>
+                </tr>
+                <tr>
+                    <th>DNI</th>
+                    <td><input type="text" readonly th:value="${user.userDni}"></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td><input type="email" th:value="${user.emailUser}"></td>
+                </tr>
+                <tr>
+                    <th>Fecha de nacimiento</th>
+                    <td><input type="date" th:value="${user.userBirthDate}"></td>
+                </tr>
+                <tr>
+                    <th>Contraseña</th>
+                    <td><input type="password" th:value="${user.userPassword}"></td>
+                </tr>
+                <tr>
+                    <th>Teléfono</th>
+                    <td><input type="tel" th:value="${user.userPhone}"></td>
+                </tr>
+                <tr>
+                    <th>Dirección</th>
+                    <td><input type="text" th:value="${user.userAddress}"></td>
+                </tr>
+                <tr>
+                    <th>Ciudad</th>
+                    <td><input type="text" th:value="${user.userCity}"></td>
+                </tr>
+                <tr>
+                    <th>País</th>
+                    <td><input type="text" th:value="${user.userCountry}"></td>
+                </tr>
+                <tr>
+                    <th>Código postal</th>
+                    <td><input type="text" th:value="${user.userPostalCode}"></td>
+                </tr>
+                <tr>
+                    <th>Rol</th>
+                    <td><input type="text" th:value="${user.userRole}"></td>
+                </tr>
+                <tr>
+                    <th>Peso</th>
+                    <td><input type="number" th:value="${user.userWeigth}"></td>
+                </tr>
+                <tr>
+                    <th>Altura</th>
+                    <td><input type="number" th:value="${user.userHeight}"></td>
+                </tr>
+                <tr>
+                    <th>Consentimiento</th>
+                    <td><input type="checkbox" th:checked="${user.userConsent}"></td>
+                </tr>
+                <tr>
+                    <th>Fecha de consentimiento</th>
+                    <td><input type="datetime-local" th:value="${userDateConsent}"></td>
+                </tr>
+                <tr>
+                    <th>Activo</th>
+                    <td><input type="text" th:value="${user.userActive}"></td>
+                </tr>
+                <tr>
+                    <th>Fecha de creación</th>
+                    <td><input type="datetime-local" th:value="${userCreatedAt}" readonly></td>
+                </tr>
+            </form>
+            
+            <button type="button" class="btn btn-danger" onclick="mostrarModalEliminar()">Eliminar</button>
+            <a href="/users/listado-users" class="btn btn-primary">Volver al listado</a>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-between">
+                        <strong>ID:</strong>
+                        <span th:text="${user.id}"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-between">
+                        <strong>Nombre:</strong>
+                        <span th:text="${user.userName}"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-between">
+                        <strong>Apellidos:</strong>
+                        <span th:text="${user.userSurname}"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-between">
+                        <strong>Fecha de nacimiento:</strong>
+                        <span th:text="${user.userBirthDate}"></span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-between">
+                        <strong>Email:</strong>
+                        <span th:text="${user.emailUser}"></span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-between">
+                        <strong>Teléfono:</strong>
+                        <span th:text="${user.userPhone}"></span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4" hidden>
+                    <div class="d-flex justify-content-between">
+                        <strong>Contraseña:</strong>
+                        <span th:text="${user.userPassword}"></span>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="d-flex justify-content-between">
+                        <strong>Dirección:</strong>
+                        <span th:text="${user.userAddress}"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="d-flex justify-content-between">
+                        <strong>Ciudad:</strong>
+                        <span th:text="${user.userCity}"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="d-flex justify-content-between">
+                        <strong>País:</strong>
+                        <span th:text="${user.userCountry}"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="d-flex justify-content-between">
+                        <strong>Código postal:</strong>
+                        <span th:text="${user.userPostalCode}"></span>
+                    </div>
+                </div>
+                <!-- ... -->
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-between">
+                        <strong>Rol:</strong>
+                        <span th:text="${user.userRole}"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-between">
+                        <strong>Peso:</strong>
+                        <span th:text="${user.userWeigth}"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-between">
+                        <strong>Altura:</strong>
+                        <span th:text="${user.userHeight}"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-between">
+                        <strong>Consentimiento:</strong>
+                        <span th:text="${user.userConsent}"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4" hidden>
+                    <div class="d-flex justify-content-between">
+                        <strong>Fecha de consentimiento:</strong>
+                        <span th:text="${user.userDateConsent}"></span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        
+        <!--Ventana modal de edicion-->
+        <div th:replace="views/Users/user_editModal :: body"></div>
+
+        <!-- Ventana modal de confirmación de eliminación -->
+        <div th:replace="views/Users/user_deleteModal :: body"></div>
+
+       
+        <!-- Ventana modal de error -->
+        <div
+            class="modal fade"
+            id="errorModal"
+            tabindex="-1"
+            aria-labelledby="errorModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        Ocurrió un error al actualizar el usuario. Por favor, inténtalo de nuevo.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            function cargarFechas() {
+              const userDateConsent = document.getElementById('userDateConsentHidden').value;
+              const userCreatedAt = document.getElementById('userCreatedAtHidden').value;
+            
+              document.getElementById('userDateConsent').value = userDateConsent;
+              document.getElementById('userCreatedAt').value = userCreatedAt;
+            
+              $('#editarUserModal').modal('show');
+            }
+            
+            function saveChanges() {
+              const formData = new FormData(document.querySelector('#userForm'));
+            
+              const user = Object.fromEntries(formData.entries());
+            
+              fetch(`/users/${user.id}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+              })
+              .then(response => {
+                if (response.ok) {
+                  alert('Usuario actualizado con éxito');
+                } else {
+                  alert('Error al actualizar el usuario');
+                }
+              })
+              .catch(error => {
+                console.error('Error al actualizar el usuario:', error);
+                alert('Error al actualizar el usuario');
+              });
+            }
+            
+            function actualizarUser() {
+              const formData = new FormData(document.querySelector('#userForm'));
+            
+              const user = Object.fromEntries(formData.entries());
+            
+              user.userConsent = $('#userConsent').is(':checked') ? 'true' : 'false';
+            
+              fetch(`/users/${user.id}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+              })
+              .then((response) => {
+                if (response.ok) {
+                  $('#editarUserModal').modal('hide');
+                  $('#confirmModal').modal('show');
+                  setTimeout(() => {
+                    location.reload();
+                  }, 2000);
+                } else {
+                  $('#editarUserModal').modal('hide');
+                  $('#errorModal').modal('show');
+                }
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+                $('#editarUserModal').modal('hide');
+                $('#errorModal').modal('show');
+              });
+            }
+            
+            function eliminarUser() {
+              const userId = document.getElementById('userId').value;
+            
+              fetch(`/users/${userId}`, {
+                  method: 'DELETE',
+              })
+              .then((response) => {
+                  if (response.ok) {
+                      $('#eliminarUserModal').modal('hide');
+                      $('#eliminacionExitosaModal').modal('show');
+                  } else {
+                      $('#eliminarUserModal').modal('hide');
+                      $('#errorModal').modal('show');
+                  }
+              })
+              .catch((error) => {
+                  console.error('Error:', error);
+                  $('#eliminarUserModal').modal('hide');
+                  $('#errorModal').modal('show');
+              });
+            }
+            
+            function mostrarModalEliminar() {
+              const userId = document.getElementById('userId').value;
+              document.getElementById('modalEliminarUserId').innerText = userId;
+              $('#eliminarUserModal').modal('show');
+            }
+            
+            function redirigirAlListado() {
+              window.location.href = "/users/listado-users";
+            }
+            </script>
+            </body>
+            </html>
+            

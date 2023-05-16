@@ -166,4 +166,18 @@ public class Comanda {
         return null;
     }
 
+    public Object getName() {
+        return null;
+    }
+
+    public void setName(Object name) {
+    }
+
+    public Object getLocationUrl() {
+        return null;
+    }
+
+    public void setLocationUrl(Object locationUrl) {
+    }
+
 }

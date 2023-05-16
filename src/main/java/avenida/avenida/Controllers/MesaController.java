@@ -46,9 +46,9 @@ public class MesaController {
 
     @GetMapping("/detalle/{id}")
     public String verMesaDetalle(@PathVariable int id, Model model) {
-        Mesa bicicleta = mesaService.findById(id);
-        model.addAttribute("bicicleta", bicicleta);
-        return "/views/Bicicletas/bicicleta-detalle";
+        Mesa mesa = mesaService.findById(id);
+        model.addAttribute("mesa", mesa);
+        return "/views/mesas/mesa-detalle";
     }
    
     @DeleteMapping("/{id}")
@@ -63,10 +63,10 @@ public class MesaController {
 }
 
     @GetMapping("/listado-mesas")
-    public String listarBicicletas(Model model) {
-        List<Mesa> bicicletas = mesaService.findAll();
-        model.addAttribute("bicicletas", bicicletas);
-        model.addAttribute("bicicleta", new Mesa()); // Añade esta línea
-        return "/views/Bicicletas/listado-bicicletas"; 
+    public String listarmesas(Model model) {
+        List<Mesa> mesas = mesaService.findAll();
+        model.addAttribute("mesas", mesas);
+        model.addAttribute("mesa", new Mesa()); // Añade esta línea
+        return "/views/mesas/listado-mesas"; 
     }
 }

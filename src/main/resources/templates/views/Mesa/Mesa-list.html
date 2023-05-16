@@ -2,39 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head th:replace="fragments/common-head :: common-head"></head>
 <body>
-<h1>Listado de Eventos</h1>
+<h1>Listado de Mesa</h1>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container">
-    <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addEventModal">Agregar evento</a>
+    <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addEventModal">Agregar mesa</a>
     <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">volver a Home</button>
     <table class="table table-striped">
         <thead class="thead-dark">
         <tr><th>ID</th><th>Nombre</th><th>Fecha</th><th>Hora</th><th>Ubicación</th><th>Acciones</th></tr>
         </thead>
         <tbody>
-        <tr th:each="evento : ${eventos}">
-            <td th:text="${evento.id}" th:data-id="${evento.id}"></td>
-            <td th:text="${evento.name}" th:data-name="${evento.name}"></td>
-            <td th:text="${evento.date}" th:data-date="${evento.date}"></td>
-            <td th:text="${evento.hour}" th:data-hour="${evento.hour}"></td>
-            <td th:text="${evento.locationUrl}" th:data-locationUrl="${evento.locationUrl}"></td>
+        <tr th:each="mesa : ${mesas}">
+            <td th:text="${mesa.id}" th:data-id="${mesa.id}"></td>
+            <td th:text="${mesa.name}" th:data-name="${mesa.name}"></td>
+            <td th:text="${mesa.date}" th:data-date="${mesa.date}"></td>
+            <td th:text="${mesa.hour}" th:data-hour="${mesa.hour}"></td>
+            <td th:text="${mesa.locationUrl}" th:data-locationUrl="${mesa.locationUrl}"></td>
             <td>
-                <a th:href="@{/events/event-details/{id}(id=${evento.id})}" class="btn btn-warning">Editar</a>
+                <a th:href="@{/events/event-details/{id}(id=${mesa.id})}" class="btn btn-warning">Editar</a>
             </td>                                
         </tr>
         </tbody>
     </table>
 </div>
 
-<!-- Modal para agregar evento -->
+<!-- Modal para agregar mesa -->
 <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addEventModalLabel">Agregar evento</h5>
+                <h5 class="modal-title" id="addEventModalLabel">Agregar mesa</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-            <form th:action="@{/events}" th:object="${newEvento}" method="post" enctype="multipart/form-data">
+            <form th:action="@{/events}" th:object="${newmesa}" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Nombre</label>
@@ -61,19 +61,19 @@
         </div>
     </div>
 </div>
-<!-- Modal para editar evento -->
+<!-- Modal para editar mesa -->
 <div class="modal fade" id="editEventModal" tabindex="-1" role="dialog" aria-labelledby="editEventModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editEventModalLabel">Editar evento</h5>
+                <h5 class="modal-title" id="editEventModalLabel">Editar mesa</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-            <form action="#" th:action="@{/events/update}" th:object="${evento}" method="post">
+            <form action="#" th:action="@{/events/update}" th:object="${mesa}" method="post">
                 <div class="modal-body">
                     <input type="hidden" th:field="*{id}" id="id" />
                     <div class="form-group">
-                        <label for="name">Nombre del evento:</label>
+                        <label for="name">Nombre del mesa:</label>
                         <input type="text" th:field="*{name}" id="name" class="form-control" />
                     </div>
                     <div class="form-group">
@@ -101,7 +101,7 @@
 <script>
     $(document).ready(function() {
     $(".edit-btn").click(function() {
-        // Obtenemos los datos del evento seleccionado
+        // Obtenemos los datos del mesa seleccionado
         let id = $(this).closest("tr").data("id");
         let name = $(this).closest("tr").data("name");
         let date = $(this).closest("tr").data("date");
