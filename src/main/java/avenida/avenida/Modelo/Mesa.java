@@ -1,60 +1,132 @@
 package avenida.avenida.Modelo;
 
 
-import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "mesa")
 public class Mesa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Type(type="org.hibernate.type.UUIDBinaryType")
+    @Column(name = "id", columnDefinition = "BINARY(16)", updatable = false, nullable = false, unique = true)
+    private UUID id;
 
-    @Column(name = "ubicacion")
-    private String ubicacion;
 
-    @Column(name = "num_comensales")
-    private int numComensales;
+    @Column(name = "name")
+    private String name;
 
+    @Column(name = "date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+
+    @Column(name = "hour")
+    private LocalTime hour;
+
+    @Column(name = "registryDate", updatable = false, nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime registryDate;
+
+    @Column(name = "location_url")
+    private String locationUrl;
+
+
+    // Constructor vacío
     public Mesa() {
     }
 
-    public Mesa(String ubicacion, int numComensales) {
-        this.ubicacion = ubicacion;
-        this.numComensales = numComensales;
+// Constructor con argumentos
+public Mesa(String name, LocalDate date, LocalTime hour, String locationUrl) {
+    this.name = name;
+    this.date = date;
+    this.hour = hour;
+    this.locationUrl = locationUrl;
+}
+
+    // Getters y setters
+
+
+    public String getName() {
+        return name;
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
+    public void setRegistryDate(LocalDateTime registryDate) {
+        this.registryDate = registryDate;
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setName(String nombre) {
+        this.name = nombre;
     }
 
-    public int getNumComensales() {
-        return numComensales;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setNumComensales(int numComensales) {
-        this.numComensales = numComensales;
+    public void setDate(LocalDate fecha) {
+        this.date = fecha;
     }
 
-    public Object getNombre() {
-        return null;
+    public LocalTime getHour() {
+        return hour;
     }
 
-    public void setNombre(Object nombre) {
+    public void setHour(LocalTime localTime) {
+        this.hour = localTime;
+    }
+
+    public LocalDateTime getRegistryDate() {
+        return registryDate;
+    }
+
+        public Mesa(UUID id, String name, LocalDate date, LocalTime hour, LocalDateTime registryDate,
+            String locationUrl) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.hour = hour;
+        this.registryDate = registryDate;
+        this.locationUrl = locationUrl;
+    }
+
+    // Getters y setters
+    public String getLocationUrl() {
+        return locationUrl;
+    }
+
+    public void setLocationUrl(String locationUrl) {
+        this.locationUrl = locationUrl;
+    }
+
+    // Método para asignar automáticamente la fecha y hora de registro antes de persistir
+    @PrePersist
+    public void prePersist() {
+        this.registryDate = LocalDateTime.now();
     }
 
     public Object getPrecio() {
@@ -62,5 +134,9 @@ public class Mesa {
     }
 
     public void setPrecio(Object precio) {
+    }
+
+    public Mesa orElseThrow(Object object) {
+        return null;
     }
 }

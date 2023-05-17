@@ -2,65 +2,69 @@ package avenida.avenida.Services;
 
 
 
-import avenida.avenida.Modelo.Mesa;
-import avenida.avenida.Repositorios.MesaRepository;
-
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import avenida.avenida.Modelo.Mesa;
+import avenida.avenida.Repositorios.MesaRepository;
 
 @Service
 public class MesaService {
 
+    private static MesaRepository mesaRepository;
+
     @Autowired
-    private MesaRepository mesaRepository;
+    public MesaService(MesaRepository mesaRepository) {
+        MesaService.mesaRepository = mesaRepository;
+    }
 
+//guardar mesaos
+public void save(Mesa mesa) {
+    mesaRepository.saveAndFlush(mesa);
+}
 
-    public List<Mesa> findAll() {
+//actualizar mesa
+public Mesa updatemesa(int mesaId, Mesa mesaDetails) {
+    // Encuentra el mesao existente por su ID
+    Mesa existingmesa = mesaRepository.findById(mesaId)
+            .orElseThrow();
+    
+    // Actualiza los campos necesarios en el mesao existente
+    existingmesa.setName(mesaDetails.getName());
+    existingmesa.setDate(mesaDetails.getDate());
+    existingmesa.setHour(mesaDetails.getHour());
+    existingmesa.setLocationUrl(mesaDetails.getLocationUrl());
+    
+    // Guarda y devuelve el mesao actualizado
+    return mesaRepository.save(existingmesa);
+}
+
+// Encontrar todos los mesaos
+    public static List<Mesa> findAll() {
         return mesaRepository.findAll();
     }
 
-    public Mesa findById(int id) {
+// Encontrar mesa por UUID en formato de cadena
+    public List<Mesa> findByUuidString(String uuidString) {
+        try {
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("El UUID proporcionado no es válido: " + uuidString);
+        }
+        return mesaRepository.findAll();
+    }
+
+// Encontrar un mesao por ID
+    public static Mesa findById(int id) {
         Optional<Mesa> mesa = mesaRepository.findById(id);
         if (mesa.isPresent()) {
             return mesa.get();
         } else {
-            throw new RuntimeException("mesa no encontrado con id: " + id);
+            throw new RuntimeException("mesao no encontrado con el ID: " + id);
         }
     }
-
-    public Mesa save(Mesa mesa) {
-        return mesaRepository.save(mesa);
-    }
-
-    public Mesa update(int id, Mesa mesaDetails) {
-        Mesa mesa = findById(id);
-        mesa.setNombre(mesaDetails.getNombre());
-        mesa.setPrecio(mesaDetails.getPrecio());
-        return mesaRepository.save(mesa);
-    }
-
-    public void delete(int id) {
-        Mesa mesa = findById(id);
-        mesaRepository.delete(mesa);
-    }
-
-    public Mesa get(Long idmesa) {
-        return null;
-    }
-
-    public Mesa updatemesa(Long idmesa, Mesa mesaActualizado) {
-        return null;
-    }
-
-    public void deletemesa(Long idmesa) {
-    }
-
-    public Mesa crearmesa(Mesa mesa) {
-        return null;
-    }
+    
 }
 
 

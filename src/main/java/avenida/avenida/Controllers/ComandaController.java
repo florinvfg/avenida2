@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import avenida.avenida.Modelo.Comanda;
 
 @Controller
-@RequestMapping("/Comanda")
+@RequestMapping("/comanda")
 public class ComandaController {
 
     @Autowired
@@ -26,7 +26,7 @@ public class ComandaController {
 
 // Guardar un nuevo comanda
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute("newcomanda") Comanda event) {
+    public String createComanda(@ModelAttribute("newcomanda") Comanda event) {
         String hourString = event.getHour().toString();
         event.setHour(convertToLocalTime(hourString));       
 // Crea un nuevo registro
@@ -36,7 +36,7 @@ public class ComandaController {
     
 // Actualizar comanda (POST)
     @PostMapping("/update-post")
-    public String updateEvent(@ModelAttribute("comanda") Comanda event) {
+    public String update(@ModelAttribute("comanda") Comanda event) {
         String hourString = event.getHour().toString();
         event.setHour(convertToLocalTime(hourString));
 
@@ -53,35 +53,38 @@ public class ComandaController {
         return new ResponseEntity<>(comanda, HttpStatus.OK);
     }
 
-// Obtener un comanda por ID (GET)
-   /*  @GetMapping("/{id}")
-    public ResponseEntity<Comanda> getEventById(@PathVariable UUID id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Comanda> getEventById(@PathVariable int id) {
         Comanda comanda = ComandaService.findById(id);
         return new ResponseEntity<>(comanda, HttpStatus.OK);
-    }*/
+    }
 
 // Editar un comanda por ID (GET)
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable int id, Model model) {
         Comanda event = ComandaService.findById(id);
         model.addAttribute("comanda", event);
-        return "/views/Comanda/edit-event";
+        return "/views/Comanda/edit-comanda";
     }
-
+    @GetMapping("/comanda-add")
+    public String showComandaAddForm(Model model) {
+        // Aquí puedes agregar lógica adicional si es necesario
+        return "/views/Comanda/comanda-add"; // Ruta de la plantilla HTML
+    }
 // Método para listar comandas
     @GetMapping("/listado-comanda")
     public String listarcomandas(Model model) {
         List<Comanda> comanda = ComandaService.findAll();
         model.addAttribute("comanda", comanda);
         model.addAttribute("newcomanda", new Comanda()); // Añade esta línea aquí
-        return "/views/Comanda/Comanda-list";
+        return "/views/Comanda/listado-comanda";
     }
  
-    @GetMapping("/event-details/{id}")
+    @GetMapping("/comanda-details/{id}")
     public String showEventDetails(@PathVariable int id, Model model) {
         Comanda comanda = ComandaService.findById(id);
         model.addAttribute("comanda", comanda);
-        return "/views/Comanda/event-details";
+        return "/views/Comanda/comanda-details";
     }
 
 //Convertir hora
