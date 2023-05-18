@@ -36,7 +36,7 @@ public class MesaController {
         return "redirect:/mesa/listado-mesa";
     }
     
-// Actualizar mesao (POST)
+// Actualizar mesa (POST)
     @PostMapping("/update-post")
     public String updatemesa(@ModelAttribute("mesao") Mesa mesa) {
         String hourString = mesa.getHour().toString();

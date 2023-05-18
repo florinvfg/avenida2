@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common-head :: common-head">
-    <title>Añadir Comanda</title>
+    <title>Añadir LineaComanda</title>
 </head>
 <body>
-    <h1>Añadir Comanda</h1>
+    <h1>Añadir LineaComanda</h1>
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div class="container">
-    <form th:action="@{/comanda/comanda}" th:object="${comanda}" method="post">
+    <form th:action="@{/repairs/liniaComandas}" th:object="${liniaComanda}" method="post">
         <div class="row">
-        <!-- comanda -->
+        <!-- producto -->
         <div class="col-md-6 col-lg-4 mb-3">
-            <label for="comanda">comanda:</label>
-            <select class="form-control" th:field="*{comanda}" id="comanda">
-                <option th:each="comanda : ${comanda}"
-                        th:value="${comanda.id}"
-                        th:text="${comanda.marca + ' - ' + comanda.modelo}">
+            <label for="producto">producto:</label>
+            <select class="form-control" th:field="*{producto}" id="producto">
+                <option th:each="producto : ${productos}"
+                        th:value="${producto.id}"
+                        th:text="${producto.marca + ' - ' + producto.modelo}">
                     </option>
             </select>
         </div>
@@ -71,7 +71,7 @@
         </div>
         <!-- Botón para enviar el formulario -->
         <div class="col-md-6 col-lg-3 mb-3">
-            <button type="submit" class="btn btn-primary">Guardar comanda</button>
+            <button type="submit" class="btn btn-primary">Guardar LineaComanda</button>
         </div>
     </form>
     </div>

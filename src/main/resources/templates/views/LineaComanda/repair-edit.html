@@ -3,25 +3,25 @@
 <head th:replace="fragments/common-head :: common-head">
 </head>
 <body>
-    <h1>Editar Comanda</h1>
+    <h1>Editar LineaComanda</h1>
     <!-- Fragmento de la barra de navegación -->
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div class="container">
   
-        <form action="/comanda/update-post" method="post" th:object="${comanda}">
+        <form action="/repairs/update-post" method="post" th:object="${reparacion}">
             <div class="form-group">
-                <input class="form-control" type="text" name="id" id="userId" th:value="${comanda.id}" readonly />
+                <input class="form-control" type="text" name="id" id="userId" th:value="${reparacion.id}" readonly />
             </div>
             <div class="row">
-                <!-- comanda -->
+                <!-- producto -->
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="comanda">comanda:</label>
-                    <select class="form-control" th:field="*{comanda}" id="comanda">
-                        <option th:each="comanda : ${comanda}"
-                                th:value="${comanda.id}"
-                                th:text="${comanda.marca + ' - ' + comanda.modelo}"
-                                th:selected="${comanda.id} == ${comanda.comanda.id}">
+                    <label for="producto">producto:</label>
+                    <select class="form-control" th:field="*{producto}" id="producto">
+                        <option th:each="producto : ${productos}"
+                                th:value="${producto.id}"
+                                th:text="${producto.marca + ' - ' + producto.modelo}"
+                                th:selected="${producto.id} == ${reparacion.producto.id}">
                         </option>
                     </select>
                 </div>
@@ -32,7 +32,7 @@
                         <option th:each="user : ${users}"
                                 th:value="${user.id}"
                                 th:text="${user.userName}"
-                                th:selected="${user.id} == ${comanda.user.id}">
+                                th:selected="${user.id} == ${reparacion.user.id}">
                         </option>
                     </select>
                 </div>
@@ -78,13 +78,13 @@
                 </div>
                 <!-- Botón para enviar el formulario -->
                 <div class="col-md-6 col-12 mb-3">
-                    <button type="submit" class="btn btn-primary">Guardar Comanda</button>
+                    <button type="submit" class="btn btn-primary">Guardar LineaComanda</button>
             </div>
         </div>
         </form>
             <!-- Botón para eliminar la reparación -->
         <div class="col-md-6 col-12 mb-3"> <!-- Ajustar el contenedor del botón de eliminar -->
-            <form th:action="@{'/comanda/delete/' + ${comanda.id}}" method="post">
+            <form th:action="@{'/repairs/delete/' + ${reparacion.id}}" method="post">
                 <input type="hidden" name="_method" value="delete" />
                 <button type="submit" class="btn btn-danger">Eliminar</button>
             </form>

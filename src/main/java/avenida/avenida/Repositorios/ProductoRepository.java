@@ -1,11 +1,15 @@
 package avenida.avenida.Repositorios;
 
-import avenida.avenida.Modelo.Producto;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
+import avenida.avenida.Modelo.Producto;
 
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
-    // Aquí puedes agregar consultas personalizadas si las necesitas
-}
+    List<Producto> findByMarca(String marca);
 
+    Optional<Producto> findById(int id);
+}

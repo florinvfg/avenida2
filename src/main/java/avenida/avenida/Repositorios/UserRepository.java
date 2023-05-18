@@ -9,5 +9,5 @@ import avenida.avenida.Modelo.User;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
     List<User> findByuserName(String userName);
-    Optional<User> findById(UUID uuid);
+    Optional<User> findById(Long userId);
 }

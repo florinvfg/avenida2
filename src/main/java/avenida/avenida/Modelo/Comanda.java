@@ -16,7 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
 import org.springframework.context.annotation.ComponentScan;
-
+//events
 
 @ComponentScan
 @Entity
@@ -27,7 +27,7 @@ public class Comanda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "IdMesa")
@@ -72,11 +72,11 @@ public class Comanda {
 
     // Getters y setters
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

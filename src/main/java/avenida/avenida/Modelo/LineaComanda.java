@@ -1,6 +1,5 @@
 package avenida.avenida.Modelo;
 
-
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,98 +9,164 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import java.util.List;
-
+import java.time.LocalDate;
+import java.math.BigDecimal;
+import org.springframework.format.annotation.DateTimeFormat;
+//Reparaciones
 @Entity
-@Table(name = "LineaComanda")
+@Table(name = "reparaciones")
 public class LineaComanda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IdLineaComanda")
-    private int idLineaComanda;
+    @Column(name = "id")
+    private int id;
 
     @ManyToOne
-    @JoinColumn(name = "IdComanda")
-    private Comanda comanda;
-
-
-    @ManyToOne
-    @JoinColumn(name = "IdProducto")
+    @JoinColumn(name = "id_producto", nullable = false)
     private Producto producto;
 
-    @Column(name = "udsProducto")
-    private int unidadesProducto;
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false)
+    private User user;
 
-    // Constructor vacío
+    @Column(name = "fecha_entrada")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fecha;
+
+    @Column(name = "fecha_salida")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaSalida;
+
+    @Column(name = "concepto")
+    private String concepto;
+
+    @Column(name = "descripcion")
+    private String descripcion;
+
+    @Column(name = "estado")
+    private String estado;
+
+    @Column(name = "importe")
+    private BigDecimal importe;
+
+    @Column(name = "iva")
+    private BigDecimal iva;
+
+    @Column(name = "total")
+    private BigDecimal total;
+
+//Constructors
     public LineaComanda() {
     }
 
-    // Constructor con parámetros
-    public LineaComanda(Comanda comanda, Producto producto, int unidadesProducto) {
-        this.comanda = comanda;
+    public LineaComanda(int id, Producto producto, User user, LocalDate fecha, LocalDate fechaSalida, String concepto,
+            String descripcion, String estado, BigDecimal importe, BigDecimal iva, BigDecimal total) {
+        this.id = id;
         this.producto = producto;
-        this.unidadesProducto = unidadesProducto;
+        this.user = user;
+        this.fecha = fecha;
+        this.fechaSalida = fechaSalida;
+        this.concepto = concepto;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.importe = importe;
+        this.iva = iva;
+        this.total = total;
     }
 
-    // Getters y setters
-
-    public int getIdLineaComanda() {
-        return idLineaComanda;
+    public int getId() {
+        return id;
     }
 
-    public void setIdLineaComanda(int idLineaComanda) {
-        this.idLineaComanda = idLineaComanda;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Comanda getComanda() {
-        return comanda;
-    }
-
-    public void setComanda(Comanda comanda) {
-        this.comanda = comanda;
-    }
-
-    public Producto getProducto() {
+    public Producto getproducto() {
         return producto;
     }
 
-    public void setProducto(Producto producto) {
+    public void setproducto(Producto producto) {
         this.producto = producto;
     }
 
-    public int getUnidadesProducto() {
-        return unidadesProducto;
+    public User getUser() {
+        return user;
     }
 
-    public void setUnidadesProducto(int unidadesProducto) {
-        this.unidadesProducto = unidadesProducto;
+    public void setUser(User uuid) {
+        this.user = uuid;
     }
 
-    public List<LineaComanda> obtenerTodasLasLineasComanda() {
-        return null;
+    public LocalDate getFecha() {
+        return fecha;
     }
 
-    public LineaComanda obtenerLineaComandaPorId(int idLineaComanda2) {
-        return null;
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
-    public LineaComanda crearLineaComanda(LineaComanda lineaComanda) {
-        return null;
+    public LocalDate getFechaSalida() {
+        return fechaSalida;
     }
 
-    public LineaComanda actualizarLineaComanda(int idLineaComanda2, LineaComanda lineaComandaActualizada) {
-        return null;
+    public void setFechaSalida(LocalDate fechaSalida) {
+        this.fechaSalida = fechaSalida;
     }
 
-    public void eliminarLineaComanda(int idLineaComanda2) {
+    public String getConcepto() {
+        return concepto;
     }
 
-    public LineaComanda aupdateLineaComanda(int idLineaComanda2, LineaComanda lineaComandaActualizada) {
-        return null;
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
     }
 
-    public LineaComanda update(int idLineaComanda2, LineaComanda lineaComandaActualizada) {
-        return null;
+    public String getDescripcion() {
+        return descripcion;
     }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public BigDecimal getImporte() {
+        return importe;
+    }
+
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
+
+    public BigDecimal getIva() {
+        return iva;
+    }
+
+    public void setIva(BigDecimal iva) {
+        this.iva = iva;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+//Getters & setters
+
+
 }
+
+    
+

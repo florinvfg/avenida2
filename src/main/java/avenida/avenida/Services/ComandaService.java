@@ -1,64 +1,75 @@
 package avenida.avenida.Services;
 
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
-
 import avenida.avenida.Modelo.Comanda;
 import avenida.avenida.Repositorios.ComandaRepository;
 
-import java.util.List;
-import java.util.Optional;
+//importar exceptions
+import avenida.avenida.Exceptions.ResourceNotFoundException;
 
-@ComponentScan
 @Service
 public class ComandaService {
 
     @Autowired
     private ComandaRepository ComandaRepository;
 
-    // Encontrar todas las Comandas
+//guardar comandas
+public Comanda save(Comanda comanda) {
+    return ComandaRepository.saveAndFlush(comanda);
+}
+
+//actualizar comandas
+public Comanda updatecomanda(int comandaId, Comanda comandaDetails) {
+    // Encuentra el comanda existente por su ID
+    Comanda existingcomanda = ComandaRepository.findById(comandaId)
+            .orElseThrow(() -> new ResourceNotFoundException("comanda no encontrado con el ID: " + comandaId));
+    
+    // Actualiza los campos necesarios en el comanda existente
+    existingcomanda.setName(comandaDetails.getName());
+    existingcomanda.setDate(comandaDetails.getDate());
+    existingcomanda.setHour(comandaDetails.getHour());
+    existingcomanda.setLocationUrl(comandaDetails.getLocationUrl());
+    
+    // Guarda y devuelve el comanda actualizado
+    return ComandaRepository.save(existingcomanda);
+}
+
+// Encontrar todos los comandas
     public List<Comanda> findAll() {
         return ComandaRepository.findAll();
     }
 
-    // Encontrar una Comanda por ID
+// Encontrar comanda por UUID en formato de cadena
+   /*  public Optional<Comanda> findByUuidString(String uuidString) {
+        UUID uuid;
+        try {
+            uuid = UUID.fromString(uuidString);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("El UUID proporcionado no es válido: " + uuidString);
+        }
+        return ComandaRepository.findById(uuid);
+    }*/
+
+// Encontrar un comanda por ID
     public Comanda findById(int id) {
-        Optional<Comanda> Comanda = ComandaRepository.findById(id);
-        if (Comanda.isPresent()) {
-            return Comanda.get();
+        Optional<Comanda> comanda = ComandaRepository.findById(id);
+        if (comanda.isPresent()) {
+            return comanda.get();
         } else {
-            throw new RuntimeException("Comanda no encontrada con el ID: " + id);
+            throw new RuntimeException("comanda no encontrado con el ID: " + id);
         }
     }
 
-    // Encontrar una Comanda por mesa
-    public List<Comanda> findByMesa(String mesa) {
-        // Aquí puedes implementar la lógica para filtrar las Comandas por mesa
-        // Ejemplo: Utilizar un repositorio para buscar las Comandas con la mesa especificada
-        return ComandaRepository.findByMesa(mesa);
+   
+
+    public Comanda update(int id, Comanda comanda) {
+        return null;
     }
 
-    // Guardar una Comanda
-    public Comanda save(Comanda Comanda) {
-        return ComandaRepository.save(Comanda);
-    }
-
-    // Actualizar una Comanda existente
-    public Comanda update(int id, Comanda ComandaDetails) {
-        Comanda Comanda = findById(id);
-
-        
-        Comanda.setIdMesa(ComandaDetails.getIdMesa());
-        Comanda.setId(ComandaDetails.getId());
-        Comanda.setLineaComanda(ComandaDetails.getLineaComanda());
-
-        return ComandaRepository.save(Comanda);
-    }
-
-    // Eliminar una Comanda por ID
     public void delete(int id) {
-        Comanda Comanda = findById(id);
-        ComandaRepository.delete(Comanda);
     }
+    
 }

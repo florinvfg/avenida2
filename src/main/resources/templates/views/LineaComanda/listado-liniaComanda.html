@@ -3,10 +3,10 @@
     <head th:replace="fragments/common-head :: common-head">
     </head>
 <body>
-    <h1>Listado de Comanda</h1>
+    <h1>liniaComandaes de productos</h1>
     <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container">
-        <a th:href="@{/comanda/comanda-add}" class="btn btn-primary">Añadir Listado</a>
+        <a th:href="@{/liniaComandas/liniaComanda-add}" class="btn btn-primary">Añadir Reparación</a>
         <form>
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -17,10 +17,10 @@
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="comandaFilter">Buscar por comanda</label>
-                    <select class="form-control" id="comandaFilter" name="comandaFilter">
-                        <option value="" selected>Seleccione una comanda</option>
-                        <option th:each="comanda : ${comandas}" th:value="${comanda.id}" th:text="${comanda.marca} + ' ' + ${comanda.modelo}"></option>
+                    <label for="bikeFilter">Buscar por producto</label>
+                    <select class="form-control" id="bikeFilter" name="bikeFilter">
+                        <option value="" selected>Seleccione una producto</option>
+                        <option th:each="bike : ${productos}" th:value="${bike.id}" th:text="${bike.marca} + ' ' + ${bike.modelo}"></option>
                     </select>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Usuario</th>
-                    <th>comanda</th>
+                    <th>producto</th>
                     <th>Fecha de entrada</th>
                     <th>Fecha de salida</th>
                     <th>Concepto</th>
@@ -43,25 +43,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="listado : ${listado}">
-                    <td th:text="${listado.id}"></td>
-                    <td th:text="${listado.user.userName} + ' ' + ${listado.user.userSurname}"></td>
-                    <td th:text="${listado.comanda.marca} + ' ' + ${listado.comanda.modelo}"></td>
-                    <td th:text="${listado.fecha}"></td>
-                    <td th:text="${listado.fechaSalida}"></td>
-                    <td th:text="${listado.concepto}"></td>
-                    <td th:text="${listado.descripcion}"></td>
-                    <td th:text="${listado.estado}"></td>
-                    <td th:text="${listado.importe}"></td>
-                    <td th:text="${listado.iva}"></td>
-                    <td th:text="${listado.total}"></td>
+                <tr th:each="liniaComanda : ${liniaComandaes}">
+                    <td th:text="${liniaComanda.id}"></td>
+                    <td th:text="${liniaComanda.user.userName} + ' ' + ${liniaComanda.user.userSurname}"></td>
+                    <td th:text="${liniaComanda.producto.marca} + ' ' + ${liniaComanda.producto.modelo}"></td>
+                    <td th:text="${liniaComanda.fecha}"></td>
+                    <td th:text="${liniaComanda.fechaSalida}"></td>
+                    <td th:text="${liniaComanda.concepto}"></td>
+                    <td th:text="${liniaComanda.descripcion}"></td>
+                    <td th:text="${liniaComanda.estado}"></td>
+                    <td th:text="${liniaComanda.importe}"></td>
+                    <td th:text="${liniaComanda.iva}"></td>
+                    <td th:text="${liniaComanda.total}"></td>
                      <!-- Columna para el botón Editar -->
                     <td>
-                        <a th:href="@{'/listado/edit/' + ${listado.id}}" class="btn btn-primary">Editar</a>
+                        <a th:href="@{'/liniaComandas/edit/' + ${liniaComanda.id}}" class="btn btn-primary">Editar</a>
                     </td>
                     <!-- Columna para el botón Eliminar -->
                     <td>
-                        <form th:action="@{'/listado/delete/' + ${listado.id}}" method="post">
+                        <form th:action="@{'/liniaComandas/delete/' + ${liniaComanda.id}}" method="post">
                             <input type="hidden" name="_method" value="delete" />
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
@@ -73,30 +73,30 @@
     <script>
         $(document).ready(function () {
             $('#userFilter').change(function () {
-                filterlistadoes();
+                filterliniaComandaes();
             });
 
-            $('#comandaFilter').change(function () {
-                filterlistadoes();
+            $('#bikeFilter').change(function () {
+                filterliniaComandaes();
             });
 
-            function filterlistadoes() {
+            function filterliniaComandaes() {
                 var userFilter = $('#userFilter').val();
-                var comandaFilter = $('#comandaFilter').val();
-                var url = '/listadoes/listado-comanda';
+                var bikeFilter = $('#bikeFilter').val();
+                var url = '/liniaComandaes/listado-liniaComandas';
 
-                if (userFilter !== '' || comandaFilter !== '') {
+                if (userFilter !== '' || bikeFilter !== '') {
                     url += '?';
 
                     if (userFilter !== '') {
                         url += 'userFilter=' + userFilter;
                     }
 
-                    if (comandaFilter !== '') {
+                    if (bikeFilter !== '') {
                         if (userFilter !== '') {
                             url += '&';
                         }
-                        url += 'comandaFilter=' + comandaFilter;
+                        url += 'bikeFilter=' + bikeFilter;
                     }
                 }
 
