@@ -5,7 +5,7 @@
 <h1>Listado de Mesa</h1>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container">
-    <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addEventModal">Agregar mesa</a>
+    <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addMesaModal">Agregar mesa</a>
     <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">volver a Home</button>
     <table class="table table-striped">
         <thead class="thead-dark">
@@ -19,7 +19,7 @@
             <td th:text="${mesa.hour}" th:data-hour="${mesa.hour}"></td>
             <td th:text="${mesa.locationUrl}" th:data-locationUrl="${mesa.locationUrl}"></td>
             <td>
-                <a th:href="@{/events/event-details/{id}(id=${mesa.id})}" class="btn btn-warning">Editar</a>
+                <a th:href="@{/Mesa/edit-mesa/{id}(id=${mesa.id})}" class="btn btn-warning">Editar</a>
             </td>                                
         </tr>
         </tbody>
@@ -27,14 +27,14 @@
 </div>
 
 <!-- Modal para agregar mesa -->
-<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel" aria-hidden="true">
+<div class="modal fade" id="addMesaModal" tabindex="-1" role="dialog" aria-labelledby="addMesaModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addEventModalLabel">Agregar mesa</h5>
+                <h5 class="modal-title" id="addMesaModalLabel">Agregar mesa</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-            <form th:action="@{/events}" th:object="${newmesa}" method="post" enctype="multipart/form-data">
+            <form th:action="@{/Mesa/create}" th:object="${newmesa}" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Nombre</label>
@@ -62,14 +62,11 @@
     </div>
 </div>
 <!-- Modal para editar mesa -->
-<div class="modal fade" id="editEventModal" tabindex="-1" role="dialog" aria-labelledby="editEventModalLabel" aria-hidden="true">
+<div class="modal fade" id="editMesaModal" tabindex="-1" role="dialog" aria-labelledby="editMesaModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editEventModalLabel">Editar mesa</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <form action="#" th:action="@{/events/update}" th:object="${mesa}" method="post">
+           
+            <form action="#" th:action="@{/Mesas/update}" th:object="${mesa}" method="post">
                 <div class="modal-body">
                     <input type="hidden" th:field="*{id}" id="id" />
                     <div class="form-group">
@@ -109,11 +106,11 @@
         let locationUrl = $(this).closest("tr").data("locationUrl");
 
         // Rellena los campos del formulario en la ventana modal
-        $("#editEventModal #id").val(id);
-        $("#editEventModal #name").val(name);
-        $("#editEventModal #date").val(date);
-        $("#editEventModal #hour").val(hour);
-        $("#editEventModal #location").val(locationUrl);
+        $("#editMesaModal #id").val(id);
+        $("#editMesaModal #name").val(name);
+        $("#editMesaModal #date").val(date);
+        $("#editMesaModal #hour").val(hour);
+        $("#editMesaModal #location").val(locationUrl);
     });
 });
 </script>
