@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head th:replace="fragments/common-head :: common-head"></head>
 <body>
-<h1>Listado de comandas</h1>
+<h1>Listado de comanda</h1>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container">
     <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addComandaModal">Agregar comanda</a>
     <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">volver a Home</button>
+    <div th:replace="comanda-addModal"></div>
     <table class="table table-striped">
         <thead class="thead-dark">
         <tr><th>ID</th><th>Nombre</th><th>Fecha</th><th>Hora</th><th>Ubicación</th><th>Acciones</th></tr>
@@ -19,7 +20,7 @@
             <td th:text="${comanda.hour}" th:data-hour="${comanda.hour}"></td>
             <td th:text="${comanda.locationUrl}" th:data-locationUrl="${comanda.locationUrl}"></td>
             <td>
-                <a th:href="@{/Comandas/edit/{id}(id=${comanda.id})}" class="btn btn-warning">Editar</a>
+                <a th:href="@{/Comanda/edit/{id}(id=${comanda.id})}" class="btn btn-warning edit-btn">Editar</a>
         </tr>
         </tbody>
     </table>
@@ -33,7 +34,7 @@
                 <h5 class="modal-title" id="addComandaModalLabel">Agregar comanda</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-            <form th:action="@{/Comandas/create}" th:object="${newcomanda}" method="post" enctype="multipart/form-data">
+            <form th:action="@{/Comanda/create}" th:object="${newcomanda}" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Nombre</label>
@@ -65,7 +66,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!-- Cambia la acción del formulario a /Comandas/update y th:object a ${comanda} -->
-            <form th:action="@{/Comandas/update}" th:object="${comanda}" method="post">
+            <form th:action="@{/Comanda/update}" th:object="${comanda}" method="post">
              <div class="modal-body">
                     <input type="hidden" th:field="*{id}" id="id" />
                     <div class="form-group">

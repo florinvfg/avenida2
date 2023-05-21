@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Contactos</title>
+</head>
+<body>
+    <h1>Listado de Contactos</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterar sobre la lista de contactos -->
+            <tr th:each="contacto : ${contactos}">
+                <td th:text="${contacto.id}"></td>
+                <td th:text="${contacto.nombre}"></td>
+                <td th:text="${contacto.email}"></td>
+                <td th:text="${contacto.telefono}"></td>
+                <td>
+                    <!-- Enlaces para editar y eliminar -->
+                    <a th:href="@{/contacto/editar/{id}(id=${contacto.id})}">Editar</a>
+                    <a th:href="@{/contacto/eliminar/{id}(id=${contacto.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

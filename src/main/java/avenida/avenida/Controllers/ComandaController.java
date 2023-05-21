@@ -2,8 +2,6 @@ package avenida.avenida.Controllers;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +23,13 @@ public class ComandaController {
     private avenida.avenida.Services.ComandaService ComandaService;
 
 // Guardar un nuevo comanda
-    @PostMapping("/create")
-    public String createComanda(@ModelAttribute("newcomanda") Comanda comanda) {
-        String hourString = comanda.getHour().toString();
-        comanda.setHour(convertToLocalTime(hourString));       
-// Crea un nuevo registro
-        ComandaService.save(comanda);
-        return "redirect:/Comanda/listado-comandas";
-    }
+@PostMapping("/create")
+public String createComanda(@ModelAttribute("newcomanda") Comanda comanda) {
+    String hourString = comanda.getHour().toString();
+    comanda.setHour(convertToLocalTime(hourString));       
+    ComandaService.save(comanda);
+    return "redirect:/comanda/listado-comanda";
+}
     
 // Actualizar comanda (POST)
     @PostMapping("/update-post")
@@ -41,7 +38,7 @@ public class ComandaController {
         comanda.setHour(convertToLocalTime(hourString));
 
         ComandaService.save(comanda);
-        return "redirect:/Comanda/listado-comanda";
+        return "redirect:/comanda/listado-comanda";
     }
 
    
@@ -64,29 +61,44 @@ public class ComandaController {
     public String showEditForm(@PathVariable int id, Model model) {
         Comanda comanda = ComandaService.findById(id);
         model.addAttribute("comanda", comanda);
-        return "/views/Comanda/edit-comanda";
+        return "views/Comanda/edit-comanda";
     }
      @GetMapping("/comanda-add")
     public String showComandaAddForm(Model model) {
         // Aquí puedes agregar lógica adicional si es necesario
-        return "/views/Comanda/comanda-add"; // Ruta de la plantilla HTML
+        return "views/Comanda/comanda-add"; // Ruta de la plantilla HTML
     }
 // Método para listar comandas
-    @GetMapping("/listado-comanda")
+@GetMapping("/listado-comanda")
+public String getComandas(Model model) {
+    List<Comanda> comandas = ComandaService.findAll(); // Asegúrate de obtener los datos correctos
+    model.addAttribute("comandas", comandas);
+    model.addAttribute("newComanda", new Comanda());
+    return "views/Comanda/listado-comanda";
+}
+
+   /*  @GetMapping("/listado-comanda")
     public String listarcomandas(Model model) {
         List<Comanda> comanda = ComandaService.findAll();
         model.addAttribute("comanda", comanda);
         model.addAttribute("newcomanda", new Comanda()); // Añade esta línea aquí
         return "/views/Comanda/edit-comanda";
     }
- 
-   /*   @GetMapping("/comanda-details/{id}")
+     
+    @GetMapping("/comandas")
+    public String getComandas(Model model) {
+        List<Comanda> comandas = ComandaService.getAllComandas(); // Asegúrate de obtener los datos correctos
+        model.addAttribute("comandas", comandas);
+        model.addAttribute("newComanda", new Comanda());
+        return "comandas";
+    }*/
+     /* @GetMapping("/comanda-details/{id}")
     public String showcomandaDetails(@PathVariable("id") int id, Model model) {
         String uuidString = id.toString(); // Convertir UUID a String
         Optional<Comanda> comanda = ComandaService.findByUuidString(uuidString);
         model.addAttribute("comandao", comanda);
         return "/views/Comanda/edit-comanda";
-    }*/
+    }*/ 
     
 
 //Convertir hora

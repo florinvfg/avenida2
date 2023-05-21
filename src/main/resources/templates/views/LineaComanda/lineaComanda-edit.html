@@ -9,9 +9,9 @@
 
     <div class="container">
   
-        <form action="/repairs/update-post" method="post" th:object="${reparacion}">
+        <form action="/lineaComanda/update-post" method="post" th:object="${lineaComanda}">
             <div class="form-group">
-                <input class="form-control" type="text" name="id" id="userId" th:value="${reparacion.id}" readonly />
+                <input class="form-control" type="text" name="id" id="userId" th:value="${lineaComanda.id}" readonly />
             </div>
             <div class="row">
                 <!-- producto -->
@@ -21,7 +21,7 @@
                         <option th:each="producto : ${productos}"
                                 th:value="${producto.id}"
                                 th:text="${producto.marca + ' - ' + producto.modelo}"
-                                th:selected="${producto.id} == ${reparacion.producto.id}">
+                                th:selected="${producto.id} == ${lineaComanda.producto.id}">
                         </option>
                     </select>
                 </div>
@@ -32,7 +32,7 @@
                         <option th:each="user : ${users}"
                                 th:value="${user.id}"
                                 th:text="${user.userName}"
-                                th:selected="${user.id} == ${reparacion.user.id}">
+                                th:selected="${user.id} == ${lineaComanda.user.id}">
                         </option>
                     </select>
                 </div>
@@ -84,7 +84,7 @@
         </form>
             <!-- Botón para eliminar la reparación -->
         <div class="col-md-6 col-12 mb-3"> <!-- Ajustar el contenedor del botón de eliminar -->
-            <form th:action="@{'/repairs/delete/' + ${reparacion.id}}" method="post">
+            <form th:action="@{'/lineaComanda/delete/' + ${lineaComanda.id}}" method="post">
                 <input type="hidden" name="_method" value="delete" />
                 <button type="submit" class="btn btn-danger">Eliminar</button>
             </form>

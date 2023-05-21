@@ -45,14 +45,14 @@ public class LineaComandaController {
     private ProductoService productoService;
 
     @PostMapping("/lineaComanda")
-    public String createlineaComanda(@ModelAttribute LineaComandaController lineaComanda) {
+    public String createLineaComanda(@ModelAttribute LineaComandaController lineaComanda) {
         lineaComandaService.save(lineaComanda);
-        return "redirect:/repairs/listado-repairs";
+        return "redirect:/LineaComanda/listado-lineaComanda";
     }
     
 //cargar editar lineaComanda
     @GetMapping("/edit/{id}")
-    public String showEditlineaComandaForm(@PathVariable("id") int id, Model model) {
+    public String showEditLineaComandaForm(@PathVariable("id") int id, Model model) {
         try {
             LineaComanda lineaComanda = lineaComandaService.findById(id);
             List<Producto> productos = productoService.findAll();
@@ -62,15 +62,15 @@ public class LineaComandaController {
             model.addAttribute("productos", productos);
             model.addAttribute("users", users);
 
-            return "views/Repairs/repair-edit";
+            return "views/LineaComanda/lineaComanda-edit";
         } catch (RuntimeException e) {
             return "error"; // Mostrar una página de error personalizada si la reparación no se encuentra
         }
     }
 
 //añadir lineaComanda
-    @PostMapping("/repairs/lineaComanda")
-    public String createlineaComanda(@ModelAttribute LineaComandaController lineaComanda, BindingResult result) {
+    @PostMapping("/LineaComanda/lineaComanda")
+    public String createLineaComanda(@ModelAttribute LineaComandaController lineaComanda, BindingResult result) {
         if (result.hasErrors()) {
             return "error";
         }
@@ -97,38 +97,39 @@ private avenida.avenida.Modelo.User getUser() {
 
     //editar lineaComanda
     @PostMapping("/update-post")
-    public String updatelineaComanda(@ModelAttribute("lineaComanda") LineaComandaController lineaComanda, BindingResult result, Model model) {
+    public String updateLineaComanda(@ModelAttribute("lineaComanda") LineaComandaController lineaComanda, BindingResult result, Model model) {
         if (result.hasErrors()) {
             // Manejar errores de validación aquí
-            return "views/Repairs/repair-edit";
+            return "views/LineaComanda/lineaComanda-edit";
         }
 
         lineaComandaService.save(lineaComanda);
 
-        return "redirect:/repairs/listado-repairs"; // Redirige al usuario a la lista de lineaComanda después de guardar los cambios
+        return "redirect:/lineaComanda/listado-lineaComanda"; 
+        // Redirige al usuario a la lista de lineaComanda después de guardar los cambios"
     }
 
 
     @GetMapping
-    public String showRepairs(Model model) {
+    public String showLineaComanda(Model model) {
         List<LineaComanda> lineaComanda = lineaComandaService.findAll();
         model.addAttribute("lineaComanda", lineaComanda);
-        return "repairs";
+        return "LineaComanda";
     }
 
-    @GetMapping("/listado-repairs")
-    public String listadolineaComanda(Model model) {
+    @GetMapping("/listado-LineaComanda")
+    public String listadoLineaComanda(Model model) {
         List<LineaComanda> lineaComanda = lineaComandaService.findAll();
         List<avenida.avenida.Modelo.User> users = userService.findAll();
         List<Producto> productos = productoService.findAll();
         model.addAttribute("lineaComanda", lineaComanda);
         model.addAttribute("users", users);
         model.addAttribute("productos", productos);
-        return "/views/Repairs/listado-repairs";
+        return "/views/LineaComanda/listado-lineaComanda";
     }
 
-    @GetMapping("/repair-add")
-    public String addlineaComanda(Model model) {
+    @GetMapping("/lineaComanda-add")
+    public String addLineaComanda(Model model) {
         LineaComandaController lineaComanda = new LineaComandaController();
         List<Producto> productos = productoService.findAll();
         List<avenida.avenida.Modelo.User> users = userService.findAll();
@@ -137,18 +138,18 @@ private avenida.avenida.Modelo.User getUser() {
         model.addAttribute("productos", productos);
         model.addAttribute("users", users);
 
-        return "views/Repairs/repair-add";
+        return "views/LineaComanda/lineaComanda-add";
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LineaComanda> updatelineaComanda(@PathVariable int id, @Valid @RequestBody LineaComanda lineaComanda) {
+    public ResponseEntity<LineaComanda> updateLineaComanda(@PathVariable int id, @Valid @RequestBody LineaComanda lineaComanda) {
         LineaComanda updatedlineaComanda = lineaComandaService.update(id, lineaComanda);
         return new ResponseEntity<>(updatedlineaComanda, HttpStatus.OK);
     }
 
     @PostMapping("/delete/{id}")
-    public String deletelineaComanda(@PathVariable int id) {
+    public String deleteLineaComanda(@PathVariable int id) {
         lineaComandaService.deleteById(id);
-        return "redirect:/repairs/listado-repairs";
+        return "redirect:/LineaComanda/listado-lineaComanda";
     }
 }

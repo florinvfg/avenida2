@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import org.springframework.format.annotation.DateTimeFormat;
 //Reparaciones
 @Entity
-@Table(name = "reparaciones")
+@Table(name = "lineaComanda")
 public class LineaComanda {
 
     @Id

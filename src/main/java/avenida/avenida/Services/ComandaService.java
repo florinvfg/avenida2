@@ -71,5 +71,9 @@ public Comanda updatecomanda(int comandaId, Comanda comandaDetails) {
 
     public void delete(int id) {
     }
+
+    public List<Comanda> getAllComandas() {
+        return null;
+    }
     
 }

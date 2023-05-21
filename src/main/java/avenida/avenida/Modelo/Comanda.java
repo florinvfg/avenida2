@@ -20,7 +20,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan
 @Entity
-@Table(name = "Comanda")
+@Table(name = "comanda")
 public class Comanda {
 
 

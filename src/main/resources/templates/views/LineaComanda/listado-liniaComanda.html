@@ -6,7 +6,7 @@
     <h1>liniaComandaes de productos</h1>
     <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container">
-        <a th:href="@{/liniaComandas/liniaComanda-add}" class="btn btn-primary">Añadir Reparación</a>
+        <a th:href="@{/liniaComanda/liniaComanda-add}" class="btn btn-primary">Añadir Reparación</a>
         <form>
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -57,11 +57,11 @@
                     <td th:text="${liniaComanda.total}"></td>
                      <!-- Columna para el botón Editar -->
                     <td>
-                        <a th:href="@{'/liniaComandas/edit/' + ${liniaComanda.id}}" class="btn btn-primary">Editar</a>
+                        <a th:href="@{'/liniaComanda/edit/' + ${liniaComanda.id}}" class="btn btn-primary">Editar</a>
                     </td>
                     <!-- Columna para el botón Eliminar -->
                     <td>
-                        <form th:action="@{'/liniaComandas/delete/' + ${liniaComanda.id}}" method="post">
+                        <form th:action="@{'/liniaComanda/delete/' + ${liniaComanda.id}}" method="post">
                             <input type="hidden" name="_method" value="delete" />
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
@@ -83,7 +83,7 @@
             function filterliniaComandaes() {
                 var userFilter = $('#userFilter').val();
                 var bikeFilter = $('#bikeFilter').val();
-                var url = '/liniaComandaes/listado-liniaComandas';
+                var url = '/liniaComanda/listado-liniaComanda';
 
                 if (userFilter !== '' || bikeFilter !== '') {
                     url += '?';
