@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import avenida.avenida.Modelo.Contacto;
+
 @Service
-public class ContactoService<Contacto> {
+public class ContactoService {
     private List<Contacto> listaContactos = new ArrayList<>();
 
     public List<Contacto> obtenerContactos() {
@@ -14,58 +16,52 @@ public class ContactoService<Contacto> {
     }
 
     public Contacto obtenerContactoPorId(Long id) {
-        // Recorrer la lista de contactos y buscar el contacto por su ID
         for (Contacto contacto : listaContactos) {
             if (contacto.getId().equals(id)) {
                 return contacto;
             }
         }
-        return null; // Si no se encuentra el contacto, se devuelve null o se puede lanzar una excepción
+        return null;
     }
 
     public void agregarContacto(Contacto contacto) {
-        // Generar un ID único para el contacto
         Long nuevoId = generarNuevoId();
         contacto.setId(nuevoId);
-        // Agregar el contacto a la lista
         listaContactos.add(contacto);
     }
 
     public void actualizarContacto(Contacto contactoActualizado) {
-        // Buscar el contacto en la lista por su ID
         for (int i = 0; i < listaContactos.size(); i++) {
             Contacto contacto = listaContactos.get(i);
             if (contacto.getId().equals(contactoActualizado.getId())) {
-                // Reemplazar el contacto actual con el contacto actualizado
                 listaContactos.set(i, contactoActualizado);
                 return;
             }
         }
-        // Si no se encuentra el contacto, se puede lanzar una excepción o realizar otra acción
     }
 
     public void eliminarContacto(Long id) {
-        // Buscar el contacto en la lista por su ID
         for (int i = 0; i < listaContactos.size(); i++) {
             Contacto contacto = listaContactos.get(i);
             if (contacto.getId().equals(id)) {
-                // Eliminar el contacto de la lista
                 listaContactos.remove(i);
                 return;
             }
         }
-        // Si no se encuentra el contacto, se puede lanzar una excepción o realizar otra acción
     }
 
     private Long generarNuevoId() {
-        // Generar un nuevo ID único para el contacto
-        // Puedes implementar tu propia lógica para generar el ID, por ejemplo, utilizando un contador o un UUID
-        // Aquí se usa una implementación simple con un ID incremental
-        Long maxId = listaContactos.stream().map(Contacto::getId).max(Long::compare).orElse(0L);
+        Long maxId = listaContactos.stream().map(Contacto::getId).max((arg0, arg1) -> Long.compare(arg0, arg1)).orElse(0L);
         return maxId + 1;
     }
 
-    public void enviarMensaje(FormularioContacto formulario) {
+    public <FormularioContacto> void enviarMensaje(FormularioContacto formulario) {
     }
+
+   /*  public void enviarMensaje(FormularioContacto formulario) {
+        // Lógica para enviar el mensaje del formulario de contacto
+        // Puedes acceder a los atributos del formulario, como formulario.getNombre(), formulario.getEmail(), etc.
+    }*/
 }
+
 

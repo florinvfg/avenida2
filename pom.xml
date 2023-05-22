@@ -6,7 +6,7 @@
 		<!-- Spring Boot Starter Web: para construir aplicaciones web con Spring MVC -->
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.11</version>
+		<version>2.7.12</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>avenida</groupId>
@@ -65,7 +65,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
-			<version>2.6.3</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.flywaydb</groupId>
@@ -77,13 +76,11 @@
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
-			<version>3.0.0</version>
 		</dependency>
 		<!-- Validation API: para utilizar validaciones JSR 380 (Bean Validation 2.0) -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>2.0.1.Final</version>
 		</dependency>
 		<!-- Spring Boot Starter Test: para realizar pruebas en aplicaciones Spring Boot -->
 		<dependency>
@@ -100,7 +97,6 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.6.4.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -153,7 +149,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-jdbc</artifactId>
-				<version>2.6.3</version>
+				<version>2.7.12</version>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.persistence</groupId>

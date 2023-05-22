@@ -1,34 +1,28 @@
 package avenida.avenida.Controllers;
 
+import avenida.avenida.Modelo.Contacto;
+import avenida.avenida.Services.ContactoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import avenida.avenida.Services.ContactoService;
+import java.util.List;
 
 @Controller
-public class ContactoController<FormularioContacto, Contacto> {
+public class ContactoController {
 
     @Autowired
     private ContactoService contactoService;
-    
-    @GetMapping("/contacto")
-    public ContactoController(ContactoService contactoService) {
-        this.contactoService = contactoService;
-    }
 
+    @GetMapping("/contacto")
     public String mostrarPaginaContacto(Model model) {
-        model.addAttribute("formularioContacto", new FormularioContacto());
+        model.addAttribute("formularioContacto", new Object());
         return "contacto";
     }
 
     @PostMapping("/contacto/enviar")
-    public String enviarFormularioContacto(@ModelAttribute("formularioContacto") FormularioContacto formulario, Model model) {
-        // Validar el formulario antes de procesarlo
+    public <FormularioContacto> String enviarFormularioContacto(@ModelAttribute("formularioContacto") FormularioContacto formulario, Model model) {
         if (formularioEsValido(formulario)) {
             contactoService.enviarMensaje(formulario);
             model.addAttribute("mensaje", "El mensaje se envió correctamente");
@@ -52,13 +46,9 @@ public class ContactoController<FormularioContacto, Contacto> {
         return "contacto-details";
     }
 
-    // Otros métodos y lógica relacionados con el contacto
-
-    private boolean formularioEsValido(FormularioContacto formulario) {
+    private <FormularioContacto> boolean formularioEsValido(FormularioContacto formulario) {
         // Implementar la lógica de validación del formulario según tus requerimientos
         // Por ejemplo, validar que los campos requeridos estén presentes y sean válidos
         return true;
     }
 }
-
-
