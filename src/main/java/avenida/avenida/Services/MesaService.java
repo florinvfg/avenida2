@@ -61,6 +61,10 @@ public Mesa updatemesa(int mesaId, Mesa mesaDetails) {
             throw new RuntimeException("mesao no encontrado con el ID: " + id);
         }
     }
+
+    public Mesa getMesaById(int mesaId) {
+        return null;
+    }
     
 }
 

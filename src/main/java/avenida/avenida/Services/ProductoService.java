@@ -60,4 +60,8 @@ public class ProductoService {
         Producto producto = findById(id);
         productoRepository.delete(producto);
     }
+
+    public Producto getProductoById(int productoId) {
+        return null;
+    }
 }

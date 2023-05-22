@@ -4,6 +4,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +56,7 @@ public class Comanda {
     private int numComensales;
 
     // Constructor vacío
-    public Comanda() {
+    public Comanda(Mesa mesa2, Producto producto, LocalDate date2, LocalTime hour2) {
     }
 
     // Constructor con parámetros
@@ -178,6 +179,9 @@ public class Comanda {
     }
 
     public void setLocationUrl(Object locationUrl) {
+    }
+
+    public static void saveComanda(Comanda comanda) {
     }
 
 }

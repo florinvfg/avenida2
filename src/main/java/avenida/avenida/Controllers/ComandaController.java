@@ -1,6 +1,8 @@
 package avenida.avenida.Controllers;
 import java.util.List;
+import java.util.UUID;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,8 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import avenida.avenida.Modelo.Comanda;
+import avenida.avenida.Modelo.Mesa;
+import avenida.avenida.Modelo.Producto;
+import avenida.avenida.Services.MesaService;
+import avenida.avenida.Services.ProductoService;
 
 @Controller
 @RequestMapping("/comanda")
@@ -21,8 +28,10 @@ public class ComandaController {
 
     @Autowired
     private avenida.avenida.Services.ComandaService ComandaService;
+    @Autowired
+    private ComandaService comandaService;
 
-// Guardar un nuevo comanda
+// Guardar una nueva comanda
 @PostMapping("/create")
 public String createComanda(@ModelAttribute("newcomanda") Comanda comanda) {
     String hourString = comanda.getHour().toString();
@@ -73,9 +82,41 @@ public String createComanda(@ModelAttribute("newcomanda") Comanda comanda) {
 public String getComandas(Model model) {
     List<Comanda> comandas = ComandaService.findAll(); // Asegúrate de obtener los datos correctos
     model.addAttribute("comandas", comandas);
-    model.addAttribute("newComanda", new Comanda());
+    model.addAttribute("newComanda", new Comanda(null, null, null, null));
     return "views/Comanda/comanda-listado";
 }
+                                         
+    // Aquí va la lógica para guardar la comanda en la base de datos
+    // Puedes utilizar el servicio o repositorio correspondiente
+    // Redirige a la página de listado de comandas
+}
+
+    @Autowired
+    private MesaService mesaService;
+
+    @Autowired
+    private ProductoService productoService;
+
+  
+    // Otros métodos del controlador...
+
+    @PostMapping("/save")
+    public String saveComanda(@RequestParam("mesaId") int mesaId,
+                              @RequestParam("productoId") int productoId,
+                              @RequestParam("date") LocalDate date,
+                              @RequestParam("hour") LocalTime hour) {
+        Mesa mesa = mesaService.getMesaById(mesaId);
+        Producto producto = productoService.getProductoById(productoId);
+        Comanda comanda = new Comanda(mesa, producto, date, hour);
+        Comanda.saveComanda(comanda);
+        return "redirect:/comanda/listado";
+  }
+}
+   }   // Otros métodos del controlador...
+
+
+
+
 
    /*  @GetMapping("/listado-comanda")
     public String listarcomandas(Model model) {
@@ -105,5 +146,35 @@ public String getComandas(Model model) {
     private LocalTime convertToLocalTime(String hourString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         return LocalTime.parse(hourString, formatter);
+    }
+
+    public avenida.avenida.Services.ComandaService getComandaService() {
+        return ComandaService;
+    }
+
+    public void setComandaService(avenida.avenida.Services.ComandaService comandaService) {
+        ComandaService = comandaService;
+    }
+
+    
+
+    public void setComandaService(Comanda comandaService) {
+        this.comandaService = comandaService;
+    }
+
+    public MesaService getMesaService() {
+        return mesaService;
+    }
+
+    public void setMesaService(MesaService mesaService) {
+        this.mesaService = mesaService;
+    }
+
+    public ProductoService getProductoService() {
+        return productoService;
+    }
+
+    public void setProductoService(ProductoService productoService) {
+        this.productoService = productoService;
     }
 }

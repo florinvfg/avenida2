@@ -6,10 +6,17 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container">
     <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addEventModal">Agregar comanda</a>
-    <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">volver a Home</button>
+    <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">Volver a Home</button>
     <table class="table table-striped">
         <thead class="thead-dark">
-        <tr><th>ID</th><th>Nombre</th><th>Fecha</th><th>Hora</th><th>Ubicación</th><th>Acciones</th></tr>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Ubicación</th>
+            <th>Acciones</th>
+        </tr>
         </thead>
         <tbody>
         <tr th:each="comanda : ${comandas}">
@@ -19,11 +26,39 @@
             <td th:text="${comanda.hour}" th:data-hour="${comanda.hour}"></td>
             <td th:text="${comanda.locationUrl}" th:data-locationUrl="${comanda.locationUrl}"></td>
             <td>
-                <a th:href="@{/events/edit/{id}(id=${comanda.id})}" class="btn btn-warning">Editar</a>
+                <a th:href="@{/comanda/edit/{id}(id=${comanda.id})}" class="btn btn-warning">Editar</a>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
 
-</body>
-</html>
+<!-- Modal para agregar comanda -->
+<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEventModalLabel">Agregar comanda</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/comanda/save}" method="post">
+                    <div class="form-group">
+                        <label for="mesa">Mesa:</label>
+                        <select class="form-control" id="mesa" name="mesaId">
+                            <option th:each="mesa : ${mesas}" th:value="${mesa.id}" th:text="${mesa.name}"></option>
+                            <!-- Agrega aquí las opciones para seleccionar la mesa -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="producto">Producto:</label>
+                        <select class="form-control" id="producto" name="productoId">
+                            <!-- Agrega aquí las opciones para seleccionar el producto -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Fecha:</label>
+                        <input type="date" class="form-control" id="date" name="date" required>

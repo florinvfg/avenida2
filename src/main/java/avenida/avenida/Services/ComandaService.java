@@ -1,7 +1,11 @@
 package avenida.avenida.Services;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import avenida.avenida.Modelo.Comanda;
@@ -74,6 +78,9 @@ public Comanda updatecomanda(int comandaId, Comanda comandaDetails) {
 
     public List<Comanda> getAllComandas() {
         return null;
+    }
+
+    public void saveComanda(int mesaId, int productoId, LocalDate date, LocalTime hour) {
     }
     
 }
