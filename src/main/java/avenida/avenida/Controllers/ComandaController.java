@@ -28,7 +28,7 @@ public String createComanda(@ModelAttribute("newcomanda") Comanda comanda) {
     String hourString = comanda.getHour().toString();
     comanda.setHour(convertToLocalTime(hourString));       
     ComandaService.save(comanda);
-    return "redirect:/comanda/listado-comanda";
+    return "redirect:/Comanda/comanda-listado";
 }
     
 // Actualizar comanda (POST)
@@ -38,7 +38,7 @@ public String createComanda(@ModelAttribute("newcomanda") Comanda comanda) {
         comanda.setHour(convertToLocalTime(hourString));
 
         ComandaService.save(comanda);
-        return "redirect:/comanda/listado-comanda";
+        return "redirect:/Comanda/comanda-listado";
     }
 
    
@@ -69,12 +69,12 @@ public String createComanda(@ModelAttribute("newcomanda") Comanda comanda) {
         return "views/Comanda/comanda-add"; // Ruta de la plantilla HTML
     }
 // Método para listar comandas
-@GetMapping("/listado-comanda")
+@GetMapping("/comanda-listado")
 public String getComandas(Model model) {
     List<Comanda> comandas = ComandaService.findAll(); // Asegúrate de obtener los datos correctos
     model.addAttribute("comandas", comandas);
     model.addAttribute("newComanda", new Comanda());
-    return "views/Comanda/listado-comanda";
+    return "views/Comanda/comanda-listado";
 }
 
    /*  @GetMapping("/listado-comanda")
