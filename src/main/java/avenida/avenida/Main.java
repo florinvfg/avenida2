@@ -4,21 +4,22 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
 @SpringBootApplication
+@ComponentScan(basePackages = {"avenida.avenida", "com.ejemplo.exceptions"})
 @EntityScan("avenida.avenida.Modelo")
 @EnableJpaRepositories(basePackages = {"avenida.avenida.Repositorios"})
 public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
-
-        
     }
-    @Bean
+ 
+
+        @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
@@ -30,4 +31,7 @@ public class Main {
             }
         };
     }
+
+
 }
+

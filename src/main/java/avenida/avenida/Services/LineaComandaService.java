@@ -3,7 +3,6 @@ package avenida.avenida.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import avenida.avenida.Controllers.LineaComandaController;
 import avenida.avenida.Modelo.LineaComanda;
 import avenida.avenida.Repositorios.LineaComandaRepository;
 
@@ -29,7 +28,7 @@ public class LineaComandaService {
         }
     }    
 
-    public LineaComanda save(LineaComandaController lineaComanda) {
+    public LineaComanda save(LineaComanda lineaComanda) {
         return lineaComandaRepository.save(lineaComanda);
     }
 

@@ -1,6 +1,5 @@
 package avenida.avenida.Controllers;
 import java.util.List;
-import java.util.UUID;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -28,9 +27,9 @@ public class ComandaController {
 
     @Autowired
     private avenida.avenida.Services.ComandaService ComandaService;
-    @Autowired
-    private ComandaService comandaService;
-
+    private MesaService mesaService;
+    private ProductoService productoService;
+    
 // Guardar una nueva comanda
 @PostMapping("/create")
 public String createComanda(@ModelAttribute("newcomanda") Comanda comanda) {
@@ -89,30 +88,25 @@ public String getComandas(Model model) {
     // Aquí va la lógica para guardar la comanda en la base de datos
     // Puedes utilizar el servicio o repositorio correspondiente
     // Redirige a la página de listado de comandas
-}
 
-    @Autowired
-    private MesaService mesaService;
 
-    @Autowired
-    private ProductoService productoService;
 
   
     // Otros métodos del controlador...
 
+    
+
     @PostMapping("/save")
-    public String saveComanda(@RequestParam("mesaId") int mesaId,
-                              @RequestParam("productoId") int productoId,
-                              @RequestParam("date") LocalDate date,
-                              @RequestParam("hour") LocalTime hour) {
-        Mesa mesa = mesaService.getMesaById(mesaId);
-        Producto producto = productoService.getProductoById(productoId);
-        Comanda comanda = new Comanda(mesa, producto, date, hour);
-        Comanda.saveComanda(comanda);
-        return "redirect:/comanda/listado";
-  }
+public String saveComanda(@RequestParam("mesaId") int mesaId,
+                          @RequestParam("productoId") int productoId,
+                          @RequestParam("date") LocalDate date,
+                          @RequestParam("hour") LocalTime hour) {
+    Mesa mesa = mesaService.getMesaById(mesaId);
+    Producto producto = productoService.getProductoById(productoId);
+    Comanda comanda = new Comanda(mesa, producto, date, hour);
+    ComandaService.save(comanda); // Utiliza el servicio ComandaService para guardar la comanda
+    return "redirect:/comanda/listado";
 }
-   }   // Otros métodos del controlador...
 
 
 
@@ -158,12 +152,9 @@ public String getComandas(Model model) {
 
     
 
-    public void setComandaService(Comanda comandaService) {
-        this.comandaService = comandaService;
-    }
 
     public MesaService getMesaService() {
-        return mesaService;
+        return getMesaService();
     }
 
     public void setMesaService(MesaService mesaService) {
@@ -171,7 +162,7 @@ public String getComandas(Model model) {
     }
 
     public ProductoService getProductoService() {
-        return productoService;
+        return getProductoService();
     }
 
     public void setProductoService(ProductoService productoService) {

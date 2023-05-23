@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/common-head :: common-head">
-    </head>
+<head th:replace="fragments/common-head :: common-head">
+</head>
 <body>
-    <h1>liniaComandaes de productos</h1>
+    <h1>LineaComandas de productos</h1>
     <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container">
-        <a th:href="@{/liniaComanda/liniaComanda-add}" class="btn btn-primary">Añadir Reparación</a>
+        <a th:href="@{/lineaComanda/lineaComanda-add}" class="btn btn-primary">Añadir LineaComanda</a>
         <form>
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -43,25 +43,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="liniaComanda : ${liniaComandaes}">
-                    <td th:text="${liniaComanda.id}"></td>
-                    <td th:text="${liniaComanda.user.userName} + ' ' + ${liniaComanda.user.userSurname}"></td>
-                    <td th:text="${liniaComanda.producto.marca} + ' ' + ${liniaComanda.producto.modelo}"></td>
-                    <td th:text="${liniaComanda.fecha}"></td>
-                    <td th:text="${liniaComanda.fechaSalida}"></td>
-                    <td th:text="${liniaComanda.concepto}"></td>
-                    <td th:text="${liniaComanda.descripcion}"></td>
-                    <td th:text="${liniaComanda.estado}"></td>
-                    <td th:text="${liniaComanda.importe}"></td>
-                    <td th:text="${liniaComanda.iva}"></td>
-                    <td th:text="${liniaComanda.total}"></td>
-                     <!-- Columna para el botón Editar -->
+                <tr th:each="lineaComanda : ${lineaComandas}"> <!-- Corregir el nombre del atributo aquí -->
+                    <td th:text="${lineaComanda.id}"></td>
+                    <td th:text="${lineaComanda.user.userName} + ' ' + ${lineaComanda.user.userSurname}"></td>
+                    <td th:text="${lineaComanda.producto.marca} + ' ' + ${lineaComanda.producto.modelo}"></td>
+                    <td th:text="${lineaComanda.fecha}"></td>
+                    <td th:text="${lineaComanda.fechaSalida}"></td>
+                    <td th:text="${lineaComanda.concepto}"></td>
+                    <td th:text="${lineaComanda.descripcion}"></td>
+                    <td th:text="${lineaComanda.estado}"></td>
+                    <td th:text="${lineaComanda.importe}"></td>
+                    <td th:text="${lineaComanda.iva}"></td>
+                    <td th:text="${lineaComanda.total}"></td>
+                    <!-- Columna para el botón Editar -->
                     <td>
-                        <a th:href="@{'/liniaComanda/edit/' + ${liniaComanda.id}}" class="btn btn-primary">Editar</a>
+                        <a th:href="@{'/lineaComanda/edit/' + ${lineaComanda.id}}" class="btn btn-primary">Editar</a>
                     </td>
                     <!-- Columna para el botón Eliminar -->
                     <td>
-                        <form th:action="@{'/liniaComanda/delete/' + ${liniaComanda.id}}" method="post">
+                       <form th:action="@{'/lineaComanda/delete/' + ${lineaComanda.id}}" method="post">
                             <input type="hidden" name="_method" value="delete" />
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
@@ -73,17 +73,17 @@
     <script>
         $(document).ready(function () {
             $('#userFilter').change(function () {
-                filterliniaComandaes();
+                filterlineaComandaes();
             });
 
             $('#bikeFilter').change(function () {
-                filterliniaComandaes();
+                filterlineaComandaes();
             });
 
-            function filterliniaComandaes() {
+            function filterlineaComandaes() {
                 var userFilter = $('#userFilter').val();
                 var bikeFilter = $('#bikeFilter').val();
-                var url = '/liniaComanda/listado-liniaComanda';
+                var url = '/lineaComanda/listado-lineaComanda';
 
                 if (userFilter !== '' || bikeFilter !== '') {
                     url += '?';
