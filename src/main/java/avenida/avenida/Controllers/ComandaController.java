@@ -1,5 +1,7 @@
 package avenida.avenida.Controllers;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -36,7 +38,7 @@ public String createComanda(@ModelAttribute("newcomanda") Comanda comanda) {
     String hourString = comanda.getHour().toString();
     comanda.setHour(convertToLocalTime(hourString));       
     ComandaService.save(comanda);
-    return "redirect:/Comanda/comanda-listado";
+    return "redirect:/comanda/comanda-listado";
 }
     
 // Actualizar comanda (POST)
@@ -46,7 +48,7 @@ public String createComanda(@ModelAttribute("newcomanda") Comanda comanda) {
         comanda.setHour(convertToLocalTime(hourString));
 
         ComandaService.save(comanda);
-        return "redirect:/Comanda/comanda-listado";
+        return "redirect:/comanda/comanda-listado";
     }
 
    
@@ -81,6 +83,7 @@ public String createComanda(@ModelAttribute("newcomanda") Comanda comanda) {
 public String getComandas(Model model) {
     List<Comanda> comandas = ComandaService.findAll(); // Asegúrate de obtener los datos correctos
     model.addAttribute("comandas", comandas);
+    model.addAttribute("evento", new Comanda(null, null, null, null));
     model.addAttribute("newComanda", new Comanda(null, null, null, null));
     return "views/Comanda/comanda-listado";
 }
@@ -95,45 +98,46 @@ public String getComandas(Model model) {
     // Otros métodos del controlador...
 
     
-
     @PostMapping("/save")
-public String saveComanda(@RequestParam("mesaId") int mesaId,
-                          @RequestParam("productoId") int productoId,
-                          @RequestParam("date") LocalDate date,
-                          @RequestParam("hour") LocalTime hour) {
-    Mesa mesa = mesaService.getMesaById(mesaId);
-    Producto producto = productoService.getProductoById(productoId);
-    Comanda comanda = new Comanda(mesa, producto, date, hour);
-    ComandaService.save(comanda); // Utiliza el servicio ComandaService para guardar la comanda
-    return "redirect:/comanda/listado";
-}
+    public String saveComanda(@RequestParam("mesaId") int mesaId,
+                              @RequestParam("productoId") int productoId,
+                              @RequestParam("date") String dateStr,
+                              @RequestParam("hour") String hourStr) {
+        Mesa mesa = mesaService.getMesaById(mesaId);
+        Producto producto = productoService.getProductoById(productoId);
+        LocalDate date = LocalDate.parse(dateStr);
+        LocalTime hour = LocalTime.parse(hourStr);
+        Comanda comanda = new Comanda(mesa, producto, date, hour);
+        ComandaService.save(comanda);
+        return "redirect:/comanda/comanda-listado";
+    }
 
 
 
 
 
-   /*  @GetMapping("/listado-comanda")
+
+     @GetMapping("/listado-comanda")
     public String listarcomandas(Model model) {
         List<Comanda> comanda = ComandaService.findAll();
         model.addAttribute("comanda", comanda);
-        model.addAttribute("newcomanda", new Comanda()); // Añade esta línea aquí
-        return "/views/Comanda/edit-comanda";
+        model.addAttribute("newcomanda", new Comanda(null, null, null, null)); // Añade esta línea aquí
+        return "/views/Comanda/comanda-edit";
     }
      
-    @GetMapping("/comandas")
-    public String getComandas(Model model) {
-        List<Comanda> comandas = ComandaService.getAllComandas(); // Asegúrate de obtener los datos correctos
-        model.addAttribute("comandas", comandas);
-        model.addAttribute("newComanda", new Comanda());
-        return "comandas";
-    }*/
-     /* @GetMapping("/comanda-details/{id}")
-    public String showcomandaDetails(@PathVariable("id") int id, Model model) {
-        String uuidString = id.toString(); // Convertir UUID a String
+    @GetMapping("/comanda")
+    public String getComanda(Model model) {
+        model.addAttribute("comanda", getAllComanda());
+        model.addAttribute("newComanda", new Comanda(null, null, null, null));
+        return "comanda";
+    }
+      @GetMapping("/comanda-details/{id}")
+    public String showcomandaDetails(@PathVariable("id") UUID id, Model model) {
+        final String uuidString = id.toString(); // Convertir UUID a String
         Optional<Comanda> comanda = ComandaService.findByUuidString(uuidString);
         model.addAttribute("comandao", comanda);
         return "/views/Comanda/edit-comanda";
-    }*/ 
+    } 
     
 
 //Convertir hora

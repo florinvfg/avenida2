@@ -18,7 +18,7 @@ public class MesaService {
     }
 
 //guardar mesaos
-public void save(Mesa mesa) {
+public static void save(Mesa mesa) {
     mesaRepository.saveAndFlush(mesa);
 }
 

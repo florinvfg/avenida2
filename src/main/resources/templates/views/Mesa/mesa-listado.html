@@ -5,7 +5,7 @@
 <h1>Listado de Mesa</h1>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container">
-    <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addMesaModal">Agregar mesa</a>
+    <a href="/mesa/add" class="btn btn-primary my-3">Agregar mesa</a>
     <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">volver a Home</button>
     <table class="table table-striped">
         <thead class="thead-dark">
@@ -26,93 +26,5 @@
     </table>
 </div>
 
-<!-- Modal para agregar mesa -->
-<div class="modal fade" id="addMesaModal" tabindex="-1" role="dialog" aria-labelledby="addMesaModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addMesaModalLabel">Agregar mesa</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <form th:action="@{/Mesa/create}" th:object="${newmesa}" method="post" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="date">Fecha</label>
-                        <input type="date" class="form-control" id="date" name="date" th:field="*{date}" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="hour">Hora</label>
-                        <input type="time" class="form-control" id="hour" name="hour" th:field="*{hour}" required />
-                    </div>                    
-                    <div class="form-group">
-                        <label for="location">Ubicación</label>
-                        <input type="text" class="form-control" id="location" name="location" th:field="*{locationUrl}" required />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Modal para editar mesa -->
-<div class="modal fade" id="editMesaModal" tabindex="-1" role="dialog" aria-labelledby="editMesaModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-           
-            <form action="#" th:action="@{/Mesas/update}" th:object="${mesa}" method="post">
-                <div class="modal-body">
-                    <input type="hidden" th:field="*{id}" id="id" />
-                    <div class="form-group">
-                        <label for="name">Nombre del mesa:</label>
-                        <input type="text" th:field="*{name}" id="name" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="date">Fecha</label>
-                        <input type="date" class="form-control" id="date" name="date" th:field="*{date}" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="hour">Hora</label>
-                        <input type="time" class="form-control" id="hour" name="hour" th:field="*{hour}" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Ubicación</label>
-                        <input type="text" class="form-control" id="location" name="location" th:field="*{locationUrl}" required />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(document).ready(function() {
-    $(".edit-btn").click(function() {
-        // Obtenemos los datos del mesa seleccionado
-        let id = $(this).closest("tr").data("id");
-        let name = $(this).closest("tr").data("name");
-        let date = $(this).closest("tr").data("date");
-        let hour = $(this).closest("tr").data("hour");
-        let locationUrl = $(this).closest("tr").data("locationUrl");
-
-        // Rellena los campos del formulario en la ventana modal
-        $("#editMesaModal #id").val(id);
-        $("#editMesaModal #name").val(name);
-        $("#editMesaModal #date").val(date);
-        $("#editMesaModal #hour").val(hour);
-        $("#editMesaModal #location").val(locationUrl);
-    });
-});
-</script>
 </body>
 </html>

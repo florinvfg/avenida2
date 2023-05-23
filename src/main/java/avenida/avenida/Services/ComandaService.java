@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import avenida.avenida.Modelo.Comanda;
@@ -75,10 +77,22 @@ public Comanda updatecomanda(int comandaId, Comanda comandaDetails) {
     }
 
     public List<Comanda> getAllComandas() {
-        return null;
+        return ComandaRepository.findAll();
     }
 
     public void saveComanda(int mesaId, int productoId, LocalDate date, LocalTime hour) {
     }
+
+    public Optional<Comanda> findByUuidString(String uuidString) {
+        return null;
+    }
     
+ public Comanda findById(UUID id) {
+    Optional<Comanda> comanda = ComandaRepository.findById(id);
+    if (comanda.isPresent()) {
+        return comanda.get();
+    } else {
+        throw new RuntimeException("Evento no encontrado con el ID: " + id);
+    }
+  }
 }

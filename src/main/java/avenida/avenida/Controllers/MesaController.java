@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,18 +22,23 @@ import avenida.avenida.Services.MesaService;
 @RequestMapping("/mesa")
 public class MesaController {
 
-    @Autowired
-    private MesaService mesasService;
-
-// Guardar una mesa nueva
+    // Guardar una mesa nueva
     @PostMapping("/create")
     public String createMesa(@ModelAttribute("newMesa") Mesa mesa) {
         String hourString =mesa.getHour().toString();
         mesa.setHour(convertToLocalTime(hourString));       
 // Crea un nuevo registro
-        mesasService.save(mesa);
-        return "redirect:/mesa/listado-mesa";
+        MesaService.save(mesa);
+        return "/views/Mesa/mesa-listado";
     }
+
+    @GetMapping("/add")
+    public String showAddForm(Model model) {
+        model.addAttribute("newMesa", new Mesa()); 
+        return "/views/Mesa/mesa-add";
+    }
+    
+
     
 // Actualizar mesa (POST)
     @PostMapping("/update-post")
@@ -42,13 +46,13 @@ public class MesaController {
         String hourString = mesa.getHour().toString();
         mesa.setHour(convertToLocalTime(hourString));
 
-        mesasService.save(mesa);
-        return "redirect:/mesa/listado-mesa";
+        MesaService.save(mesa);
+        return "redirect:/Mesa/mesa-listado";
     }
     
 // Obtener todas las mesas (GET)
     @GetMapping
-    public ResponseEntity<List<Mesa>> getAllMesas() {
+    public ResponseEntity<List<Mesa>> getAllMesa() {
         List<Mesa> mesa = MesaService.findAll();
         return new ResponseEntity<>(mesa, HttpStatus.OK);
     }
@@ -65,7 +69,7 @@ public class MesaController {
     public String showEditForm(@PathVariable("id") int id, Model model) {
         Mesa mesa = MesaService.findById(id);
         model.addAttribute("mesa", mesa);
-        return "/views/mesa/edit-mesa";
+        return "/views/Mesa/edit-mesa";
     }
 
 // Método para listar mesaos
@@ -83,7 +87,7 @@ public class MesaController {
       
         Mesa mesa = MesaService.findById(id);
         model.addAttribute("mesa", mesa);
-        return "/views/mesa/mesa-details";
+        return "/views/Mesa/mesa-details";
     }
 
 //Convertir hora
