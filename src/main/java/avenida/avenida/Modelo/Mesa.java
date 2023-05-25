@@ -38,23 +38,20 @@ public Mesa(int id, int numComensales, String locationUrl) {
    // Getters y setters
 
 
-    public int getName() {
-        return  (int) numComensales;
+//toString
+    @Override
+    public String toString() {
+        return "Mesa [id=" + id + ", locationUrl=" + locationUrl + ", numComensales=" + numComensales + "]";
     }
 
     public int getId() {
-         return id;
+        return id;
     }
 
     public void setId(int id) {
+        this.id = id;
     }
 
-   
-    public void setName(int numComensales) {
-        this.numComensales = numComensales;
-    }
-
-    // Getters y setters
     public String getLocationUrl() {
         return locationUrl;
     }
@@ -63,10 +60,12 @@ public Mesa(int id, int numComensales, String locationUrl) {
         this.locationUrl = locationUrl;
     }
 
-//toString
-    @Override
-    public String toString() {
-        return "Mesa [id=" + id + ", locationUrl=" + locationUrl + ", numComensales=" + numComensales + "]";
+    public int getNumComensales() {
+        return numComensales;
+    }
+
+    public void setNumComensales(int numComensales) {
+        this.numComensales = numComensales;
     }
 
    

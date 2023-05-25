@@ -25,10 +25,10 @@ public class MesaController {
     private MesaService MesaService;
     
 //boton de mesa listado para ir a añadir una mesa    
-    @GetMapping("/mesa-add")
+    @GetMapping("/agregarMesa")
     public String showAddForm(Model model) {
         model.addAttribute("newMesa", new Mesa()); 
-        return "views/Mesa/mesa-add";
+        return "views/Mesa/agregarMesa";
     } 
     
 //guardar mesa
@@ -65,14 +65,14 @@ public String saveMesa(@ModelAttribute("newMesa") Mesa newMesa) {
     
 
 // Método para listar mesas
-    @GetMapping("/listado-mesa")
-    public String listarMesa(Model model) {
-        List<Mesa> mesa = MesaService.findAll();
-        model.addAttribute("mesa", mesa);
-        model.addAttribute("mesa", new Mesa());
-        model.addAttribute("newMesa", new Mesa()); // Añade esta línea aquí
-        return "views/Mesa/mesa-listado";
-    }
+@GetMapping("/listado-mesa")
+public String listarMesa(Model model) {
+    List<Mesa> listaMesas = MesaService.findAll();
+    model.addAttribute("listaMesas", listaMesas);
+    model.addAttribute("newMesa", new Mesa());
+    return "views/Mesa/mesa-listado";
+}
+
  
     @GetMapping("/mesa-details/id/{id}")
     public String showMesaDetails(@PathVariable("id") int id, Model model) {

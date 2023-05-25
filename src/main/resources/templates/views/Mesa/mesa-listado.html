@@ -9,19 +9,24 @@
     <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">volver a Home</button>
     <table class="table table-striped">
         <thead class="thead-dark">
-        <tr><th>Id</th><th></th><th></th>NumComensales<th></th><th>Ubicación</th><th></th></tr>
+            <tr>
+                <th>Id</th>
+                <th>Numero Comensales</th>
+                <th>Ubicacion</th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="mesa : ${mesas}">
-            <td th:text="${mesa.id}" th:data-id="${mesa.id}"></td>
-            <td th:text="${mesa.numComensales}" th:data-numComensales="${mesa.numComensales}"></td>
-            <td th:text="${mesa.locationUrl}" th:data-locationUrl="${mesa.locationUrl}"></td>
+        <tr th:each="mesa : ${listaMesas}">
+            <td th:text="${mesa.id}"></td>
+            <td th:text="${mesa.numComensales}"></td>
+            <td th:text="${mesa.locationUrl}"></td>
             <td>
                 <a th:href="@{/Mesa/edit-mesa/{id}(id=${mesa.id})}" class="btn btn-warning">Editar</a>
             </td>                                
         </tr>
         </tbody>
     </table>
+    
 </div>
 
 </body>

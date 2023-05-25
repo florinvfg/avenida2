@@ -28,9 +28,6 @@ public Mesa updatemesa(int mesaId, Mesa mesaDetails) {
     // Encuentra el mesa existente por su ID
     Mesa existingmesa = mesaRepository.findById(mesaId)
             .orElseThrow();
-    
-    // Actualiza los campos necesarios en  mesa existente
-    existingmesa.setName(mesaDetails.getName());
     existingmesa.setLocationUrl(mesaDetails.getLocationUrl());
     
     // Guarda y devuelve el mesa actualizada
