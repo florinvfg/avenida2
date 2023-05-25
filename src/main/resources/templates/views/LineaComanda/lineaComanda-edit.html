@@ -16,7 +16,7 @@
             <div class="row">
                 <!-- producto -->
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <label for="producto">producto:</label>
+                    <label for="producto">Producto:</label>
                     <select class="form-control" th:field="*{producto}" id="producto">
                         <option th:each="producto : ${productos}"
                                 th:value="${producto.id}"

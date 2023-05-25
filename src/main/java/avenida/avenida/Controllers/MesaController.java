@@ -1,10 +1,8 @@
 package avenida.avenida.Controllers;
 
 import java.util.List;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalTime;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,35 +19,28 @@ import avenida.avenida.Services.MesaService;
 @Controller
 @RequestMapping("/mesa")
 public class MesaController {
-
-    // Guardar una mesa nueva
-    @PostMapping("/create")
-    public String createMesa(@ModelAttribute("newMesa") Mesa mesa) {
-        String hourString =mesa.getHour().toString();
-        mesa.setHour(convertToLocalTime(hourString));       
-// Crea un nuevo registro
-        MesaService.save(mesa);
-        return "/views/Mesa/mesa-listado";
-    }
-
-    @GetMapping("/add")
+    
+    
+    @Autowired
+    private MesaService MesaService;
+    
+//boton de mesa listado para ir a añadir una mesa    
+    @GetMapping("/mesa-add")
     public String showAddForm(Model model) {
         model.addAttribute("newMesa", new Mesa()); 
-        return "/views/Mesa/mesa-add";
-    }
+        return "views/Mesa/mesa-add";
+    } 
     
+//guardar mesa
+    @PostMapping("/mesa/agregarMesa")
+public String saveMesa(@ModelAttribute("newMesa") Mesa newMesa) {
+    // Guardar la nueva mesa
+    MesaService.save(newMesa);
+    // Redirigir a la lista de mesas
+    return "redirect:/mesa/listado-mesa";
+}
 
-    
-// Actualizar mesa (POST)
-    @PostMapping("/update-post")
-    public String updatemesa(@ModelAttribute("mesao") Mesa mesa) {
-        String hourString = mesa.getHour().toString();
-        mesa.setHour(convertToLocalTime(hourString));
 
-        MesaService.save(mesa);
-        return "redirect:/Mesa/mesa-listado";
-    }
-    
 // Obtener todas las mesas (GET)
     @GetMapping
     public ResponseEntity<List<Mesa>> getAllMesa() {
@@ -58,41 +49,41 @@ public class MesaController {
     }
 
 // Obtener una mesa por ID (GET)
-    @GetMapping("/{id}")
+    @GetMapping("id/{id}")
     public ResponseEntity<Mesa> getMesaById(@PathVariable int id) {
         Mesa mesa = MesaService.findById(id);
         return new ResponseEntity<>(mesa, HttpStatus.OK);
     }
 
 // Editar una mesa por ID (GET)
-    @GetMapping("/edit/{id}")
+    @GetMapping("/edit/id/{id}")
     public String showEditForm(@PathVariable("id") int id, Model model) {
         Mesa mesa = MesaService.findById(id);
         model.addAttribute("mesa", mesa);
-        return "/views/Mesa/edit-mesa";
+        return "views/Mesa/edit-mesa";
     }
+    
 
-// Método para listar mesaos
+// Método para listar mesas
     @GetMapping("/listado-mesa")
     public String listarMesa(Model model) {
         List<Mesa> mesa = MesaService.findAll();
         model.addAttribute("mesa", mesa);
         model.addAttribute("mesa", new Mesa());
         model.addAttribute("newMesa", new Mesa()); // Añade esta línea aquí
-        return "/views/Mesa/mesa-listado";
+        return "views/Mesa/mesa-listado";
     }
  
-    @GetMapping("/mesa-details/{id}")
+    @GetMapping("/mesa-details/id/{id}")
     public String showMesaDetails(@PathVariable("id") int id, Model model) {
       
         Mesa mesa = MesaService.findById(id);
         model.addAttribute("mesa", mesa);
-        return "/views/Mesa/mesa-details";
+        return "views/Mesa/mesa-details";
     }
 
-//Convertir hora
-    private LocalTime convertToLocalTime(String hourString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        return LocalTime.parse(hourString, formatter);
-    }
+
+   
+    
 }
+

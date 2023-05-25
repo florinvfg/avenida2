@@ -5,18 +5,16 @@
 <h1>Listado de Mesa</h1>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container">
-    <a href="/mesa/add" class="btn btn-primary my-3">Agregar mesa</a>
+    <a href="/mesa/agregarMesa" class="btn btn-primary my-3">Agregar mesa</a>
     <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">volver a Home</button>
     <table class="table table-striped">
         <thead class="thead-dark">
-        <tr><th>ID</th><th>Nombre</th><th>Fecha</th><th>Hora</th><th>Ubicación</th><th>Acciones</th></tr>
+        <tr><th>Id</th><th></th><th></th>NumComensales<th></th><th>Ubicación</th><th></th></tr>
         </thead>
         <tbody>
         <tr th:each="mesa : ${mesas}">
             <td th:text="${mesa.id}" th:data-id="${mesa.id}"></td>
-            <td th:text="${mesa.name}" th:data-name="${mesa.name}"></td>
-            <td th:text="${mesa.date}" th:data-date="${mesa.date}"></td>
-            <td th:text="${mesa.hour}" th:data-hour="${mesa.hour}"></td>
+            <td th:text="${mesa.numComensales}" th:data-numComensales="${mesa.numComensales}"></td>
             <td th:text="${mesa.locationUrl}" th:data-locationUrl="${mesa.locationUrl}"></td>
             <td>
                 <a th:href="@{/Mesa/edit-mesa/{id}(id=${mesa.id})}" class="btn btn-warning">Editar</a>

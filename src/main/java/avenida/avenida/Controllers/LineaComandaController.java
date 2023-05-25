@@ -51,7 +51,7 @@ public class LineaComandaController {
         @PostMapping("/lineaComanda")
         public String createLineaComanda(@ModelAttribute LineaComanda lineaComanda) {
             lineaComandaService.save(lineaComanda);
-            return "redirect:/lineaComanda/listado-lineaComanda";
+            return "redirect:/LineaComanda/listado-lineaComanda";
         }
     
         // cargar editar lineaComanda
@@ -67,16 +67,17 @@ public class LineaComandaController {
                 model.addAttribute("users", users);
     
                 return "views/LineaComanda/lineaComanda-edit";
-            } catch (RuntimeException e) {
-                return "error"; // Mostrar una página de error personalizada si la reparación no se encuentra
-            }
+             } catch (RuntimeException e) {
+                return "erorr"; // Mostrar una página de error personalizada si la reparación no se encuentra
+            } 
         }
+        
     
         // añadir lineaComanda
-        @PostMapping("/lineaComanda/add")
-        public String addLineaComanda(@ModelAttribute LineaComanda lineaComanda, BindingResult result) {
+        @PostMapping("/lineaComanda/lineaComanda")
+        public String createLineaComanda(@ModelAttribute LineaComanda lineaComanda, BindingResult result) {
             if (result.hasErrors()) {
-                return "error";
+                return "lineaComanda";
             }
     
             UUID userId = lineaComanda.getUser().getId();
@@ -93,7 +94,7 @@ public class LineaComandaController {
         }
     
         // editar lineaComanda
-        @PostMapping("/update")
+        @PostMapping("/update-post")
         public String updateLineaComanda(@ModelAttribute("lineaComanda") LineaComanda lineaComanda, BindingResult result, Model model) {
             if (result.hasErrors()) {
                 // Manejar errores de validación aquí
@@ -102,7 +103,7 @@ public class LineaComandaController {
     
             lineaComandaService.save(lineaComanda);
     
-            return "redirect:/lineaComanda/listado-lineaComanda";
+            return "redirect:/LineaComanda/listado-lineaComanda";
             // Redirige al usuario a la lista de lineaComanda después de guardar los cambios
         }
     
@@ -110,7 +111,7 @@ public class LineaComandaController {
         public String showLineaComanda(Model model) {
             List<LineaComanda> lineaComanda = lineaComandaService.findAll();
             model.addAttribute("lineaComanda", lineaComanda);
-            return "LineaComanda";
+            return "lineaComanda";
         }
     
         @GetMapping("/listado-lineaComanda")
@@ -118,7 +119,7 @@ public class LineaComandaController {
             List<LineaComanda> lineaComanda = lineaComandaService.findAll();
             List<User> users = userService.findAll();
             List<Producto> productos = productoService.findAll();
-            model.addAttribute("lineaComandas", lineaComanda);
+            model.addAttribute("lineaComanda", lineaComanda);
             model.addAttribute("users", users);
             model.addAttribute("productos", productos);
             return "views/LineaComanda/listado-lineaComanda";
@@ -133,7 +134,7 @@ public class LineaComandaController {
             model.addAttribute("productos", productos);
             model.addAttribute("users", users);
     
-            return "views/LineaComanda/lineaComanda-add";
+            return "views/lineaComanda/LineaComanda/lineaComanda-add";
         }
         @PutMapping("/{id}")
     public ResponseEntity<LineaComanda> updateLineaComanda(@PathVariable int id, @Valid @RequestBody LineaComanda lineaComanda) {
@@ -144,6 +145,6 @@ public class LineaComandaController {
     @PostMapping("/delete/{id}")
     public String deleteLineaComanda(@PathVariable int id) {
         lineaComandaService.deleteById(id);
-        return "redirect:/lineaComanda/listado-lineaComanda";
+        return "redirect:/LineaComanda/listado-lineaComanda";
     }
 }

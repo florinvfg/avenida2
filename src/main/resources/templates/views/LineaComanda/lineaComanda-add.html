@@ -8,11 +8,11 @@
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div class="container">
-    <form th:action="@{/lineaComanda/lineaComanda}" th:object="${lineaComanda}" method="post">
+    <form th:action="@{/LineaComanda/lineaComanda}" th:object="${lineaComanda}" method="post">
         <div class="row">
         <!-- producto -->
         <div class="col-md-6 col-lg-4 mb-3">
-            <label for="producto">producto:</label>
+            <label for="producto">Producto:</label>
             <select class="form-control" th:field="*{producto}" id="producto">
                 <option th:each="producto : ${productos}"
                         th:value="${producto.id}"

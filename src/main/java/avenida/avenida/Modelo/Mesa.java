@@ -1,117 +1,57 @@
 package avenida.avenida.Modelo;
 
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "mesa")
 public class Mesa {
-
+   
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-        name = "UUID",
-        strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Type(type="org.hibernate.type.UUIDBinaryType")
-    @Column(name = "id", columnDefinition = "BINARY(16)", updatable = false, nullable = false, unique = true)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private int id;
 
-
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
-
-    @Column(name = "hour")
-    private LocalTime hour;
-
-    @Column(name = "registryDate", updatable = false, nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime registryDate;
-
-    @Column(name = "location_url")
+   @Column(name = "location_url")
     private String locationUrl;
 
 
+    @Column(name = "numComensales")
+    private int numComensales;
+    
     // Constructor vacío
     public Mesa() {
     }
 
 // Constructor con argumentos
-public Mesa(String name, LocalDate date, LocalTime hour, String locationUrl) {
-    this.name = name;
-    this.date = date;
-    this.hour = hour;
+public Mesa(int id, int numComensales, String locationUrl) {
+    this.numComensales = numComensales;
+    this.id = id;
     this.locationUrl = locationUrl;
 }
 
-    // Getters y setters
+   // Getters y setters
 
 
-    public String getName() {
-        return name;
+    public int getName() {
+        return  (int) numComensales;
     }
 
-    public UUID getId() {
-        return id;
+    public int getId() {
+         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setId(int id) {
     }
 
-    public void setRegistryDate(LocalDateTime registryDate) {
-        this.registryDate = registryDate;
-    }
-
-    public void setName(String nombre) {
-        this.name = nombre;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate fecha) {
-        this.date = fecha;
-    }
-
-    public LocalTime getHour() {
-        return hour;
-    }
-
-    public void setHour(LocalTime localTime) {
-        this.hour = localTime;
-    }
-
-    public LocalDateTime getRegistryDate() {
-        return registryDate;
-    }
-
-        public Mesa(UUID id, String name, LocalDate date, LocalTime hour, LocalDateTime registryDate,
-            String locationUrl) {
-        this.id = id;
-        this.name = name;
-        this.date = date;
-        this.hour = hour;
-        this.registryDate = registryDate;
-        this.locationUrl = locationUrl;
+   
+    public void setName(int numComensales) {
+        this.numComensales = numComensales;
     }
 
     // Getters y setters
@@ -123,20 +63,12 @@ public Mesa(String name, LocalDate date, LocalTime hour, String locationUrl) {
         this.locationUrl = locationUrl;
     }
 
-    // Método para asignar automáticamente la fecha y hora de registro antes de persistir
-    @PrePersist
-    public void prePersist() {
-        this.registryDate = LocalDateTime.now();
+//toString
+    @Override
+    public String toString() {
+        return "Mesa [id=" + id + ", locationUrl=" + locationUrl + ", numComensales=" + numComensales + "]";
     }
 
-    public Object getPrecio() {
-        return null;
+   
     }
 
-    public void setPrecio(Object precio) {
-    }
-
-    public Mesa orElseThrow(Object object) {
-        return null;
-    }
-}

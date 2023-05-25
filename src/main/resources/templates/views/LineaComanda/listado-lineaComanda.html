@@ -3,10 +3,10 @@
 <head th:replace="fragments/common-head :: common-head">
 </head>
 <body>
-    <h1>LineaComandas de productos</h1>
+    <h1>LineaComandas producto</h1>
     <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container">
-        <a th:href="@{/lineaComanda/lineaComanda-add}" class="btn btn-primary">Añadir LineaComanda</a>
+        <a th:href="@{/LineaComanda/lineaComanda-add}" class="btn btn-primary">Añadir LineaComanda</a>
         <form>
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -20,7 +20,7 @@
                     <label for="bikeFilter">Buscar por producto</label>
                     <select class="form-control" id="bikeFilter" name="bikeFilter">
                         <option value="" selected>Seleccione una producto</option>
-                        <option th:each="bike : ${productos}" th:value="${bike.id}" th:text="${bike.marca} + ' ' + ${bike.modelo}"></option>
+                        <option th:each="bike : ${producto}" th:value="${bike.id}" th:text="${bike.marca} + ' ' + ${bike.modelo}"></option>
                     </select>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="lineaComanda : ${lineaComandas}"> <!-- Corregir el nombre del atributo aquí -->
+                <tr th:each="lineaComanda : ${lineaComanda}"> <!-- Corregir el nombre del atributo aquí -->
                     <td th:text="${lineaComanda.id}"></td>
                     <td th:text="${lineaComanda.user.userName} + ' ' + ${lineaComanda.user.userSurname}"></td>
                     <td th:text="${lineaComanda.producto.marca} + ' ' + ${lineaComanda.producto.modelo}"></td>
@@ -57,7 +57,7 @@
                     <td th:text="${lineaComanda.total}"></td>
                     <!-- Columna para el botón Editar -->
                     <td>
-                        <a th:href="@{'/lineaComanda/edit/' + ${lineaComanda.id}}" class="btn btn-primary">Editar</a>
+                        <a th:href="@{'LineaComanda/lineaComanda-edit/' + ${lineaComanda.id}}" class="btn btn-primary">Editar</a>
                     </td>
                     <!-- Columna para el botón Eliminar -->
                     <td>
@@ -83,7 +83,7 @@
             function filterlineaComandaes() {
                 var userFilter = $('#userFilter').val();
                 var bikeFilter = $('#bikeFilter').val();
-                var url = '/lineaComanda/listado-lineaComanda';
+                var url = '/LineaComanda/listado-lineaComanda';
 
                 if (userFilter !== '' || bikeFilter !== '') {
                     url += '?';
