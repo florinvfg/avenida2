@@ -22,7 +22,14 @@
             <td th:text="${mesa.locationUrl}"></td>
             <td>
                 <a th:href="@{/Mesa/edit-mesa/{id}(id=${mesa.id})}" class="btn btn-warning">Editar</a>
-            </td>                                
+            </td>  
+             <!-- Columna para el botón Eliminar -->
+             <td>
+                <form th:action="@{'/mesa/delete/' + ${mesa.id}}" method="post">
+                    <input type="hidden" name="_method" value="delete" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </td>                              
         </tr>
         </tbody>
     </table>

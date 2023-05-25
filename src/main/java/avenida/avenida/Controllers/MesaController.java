@@ -81,7 +81,11 @@ public String listarMesa(Model model) {
         model.addAttribute("mesa", mesa);
         return "views/Mesa/mesa-details";
     }
-
+    @PostMapping("/delete/{id}")
+    public String deleteReparacion(@PathVariable int id) {
+        MesaService.deleteById(id);
+        return "redirect:/mesa/listado-mesa";
+    }
 
    
     

@@ -54,7 +54,12 @@ public Mesa updatemesa(int mesaId, Mesa mesaDetails) {
     public Mesa getMesaById(int mesaId) {
         return null;
     }
-    
+
+    public void deleteById(int id) {
+        Mesa existingMesa = findById(id);
+        mesaRepository.delete(existingMesa);
+    }
+  
 }
 
 
