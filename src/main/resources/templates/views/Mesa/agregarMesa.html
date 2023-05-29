@@ -15,7 +15,7 @@
     <form th:action="@{mesa/agregarMesa}" th:object="${newMesa}" method="post">
         <div class="form-group">
             <label for="name">NumeroComensales:</label>
-            <input type="text" class="form-control" id="id" name="id" th:field="*{id}" required />
+            <input type="number" class="form-control" th:field="*{numComensales}" required />
         </div>
         <div class="form-group">
             <label for="locationUrl">Ubicación:</label>

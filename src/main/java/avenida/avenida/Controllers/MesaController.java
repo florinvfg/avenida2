@@ -36,9 +36,11 @@ public class MesaController {
 public String saveMesa(@ModelAttribute("newMesa") Mesa newMesa) {
     // Guardar la nueva mesa
     MesaService.save(newMesa);
+    newMesa.setNumComensales(newMesa.getNumComensales());
     // Redirigir a la lista de mesas
     return "redirect:/mesa/listado-mesa";
 }
+
 
 
 // Obtener todas las mesas (GET)
@@ -60,7 +62,7 @@ public String saveMesa(@ModelAttribute("newMesa") Mesa newMesa) {
     public String showEditForm(@PathVariable("id") int id, Model model) {
         Mesa mesa = MesaService.findById(id);
         model.addAttribute("mesa", mesa);
-        return "views/Mesa/edit-mesa";
+        return "views/mesa/edit-mesa";
     }
     
 

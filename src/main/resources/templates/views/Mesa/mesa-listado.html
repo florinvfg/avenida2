@@ -21,8 +21,9 @@
             <td th:text="${mesa.numComensales}"></td>
             <td th:text="${mesa.locationUrl}"></td>
             <td>
-                <a th:href="@{/Mesa/edit-mesa/{id}(id=${mesa.id})}" class="btn btn-warning">Editar</a>
-            </td>  
+                <a th:href="@{/mesa/edit-mesa/{id}(id=${mesa.id})}" class="btn btn-warning">Editar</a>
+            </td> 
+             
              <!-- Columna para el botón Eliminar -->
              <td>
                 <form th:action="@{'/mesa/delete/' + ${mesa.id}}" method="post">

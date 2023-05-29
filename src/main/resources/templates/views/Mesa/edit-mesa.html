@@ -31,7 +31,7 @@
         </div>
     </div>
         </form>
-            <!-- Botón para eliminar la reparación -->
+            <!-- Botón para eliminar mesa-->
             <div class="col-md-6 col-12 mb-3"> <!-- Ajustar el contenedor del botón de eliminar -->
                 <form th:action="@{'/mesa/delete/' + ${mesa.id}}" method="post">
                     <input type="hidden" name="_method" value="delete" />
