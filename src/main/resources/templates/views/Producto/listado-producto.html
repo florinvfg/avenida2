@@ -5,9 +5,35 @@
 <h1>Lista de Productos</h1>
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container">
-    <a href="/Producto/agregarProducto" class="btn btn-primary my-3">Agregar producto</a>
+    <a href="/producto/agregarProducto" class="btn btn-primary my-3">Agregar producto</a>
     <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">volver a Home</button>
-    
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Nombre del Producto</th>
+                <th>Precio del Producto</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="producto : ${listaProducto}">
+            <td th:text="${mesa.nombre}"></td>
+            <td th:text="${mesa.precio}"></td>
+            
+            <td>
+                <a th:href="@{/Producto/edit-producto/{id}(id=${producto.id})}" class="btn btn-warning">Editar</a>
+            </td> 
+             
+             <!-- Columna para el botón Eliminar -->
+             <td>
+                <form th:action="@{'/producto/delete/' + ${producto.id}}" method="post">
+                    <input type="hidden" name="_method" value="delete" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </td>                              
+        </tr>
+        </tbody>
+    </table>
     
 </div>
 

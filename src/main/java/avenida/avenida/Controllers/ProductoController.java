@@ -23,19 +23,22 @@ import java.util.List;
     //boton de mesa listado para ir a añadir un producto   
     @GetMapping("/agregarProducto")
     public String showAddForm(Model model) {
+        
         model.addAttribute("newProducto", new Producto()); 
         return "/views/Producto/agregarProducto";
+        
     } 
     //guardar producto
-  /*   @PostMapping("/producto/agregarProducto")
+     @PostMapping("/producto/agregarProducto")
     public String saveProducto(@ModelAttribute Producto producto) {
         // Guardar un nuevo producto
-        ProductoService.save(producto);
-        producto.setNombre(producto.getNombre());
+        Producto newProducto = productoService.save(producto); 
+        //ProductoService.save(producto);
+        //producto.setNombre(producto.getNombre());
         // Redirigir a la lista de productos
         return "redirect:/producto/listado-producto";
     }
-   */ 
+   
     // Obtener todos los productos (GET)
         @GetMapping
         public ResponseEntity<List<Producto>> getAllproductos() {
