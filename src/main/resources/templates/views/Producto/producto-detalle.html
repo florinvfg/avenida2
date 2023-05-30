@@ -28,7 +28,7 @@
                 </tr>
             </table>
             <button type="button" class="btn btn-danger" onclick="mostrarModalEliminar()">Eliminar</button>
-            <a href="/producto/listado-producto" class="btn btn-primary">Volver al listado</a>
+            <a href="/Producto/listado-producto" class="btn btn-primary">Volver al listado</a>
         </div>
         
         <!--Ventana modal de edicion-->
@@ -168,7 +168,7 @@
                     <div class="modal-body">
                         <!-- mensaje de que el producto se ha actualizado con el id de la producto-->
                         <p>La producto con ID:
-                            <span id="modalproductoId"></span> se ha actualizado con éxito.
+                            <span id="modalProductoId"></span> se ha actualizado con éxito.
                         </p>
                     </div>
                     <div class="modal-footer">
@@ -287,7 +287,7 @@ document.getElementById('modalEliminarProductoId').textContent = productoId;
 
 //redirigir al listado principal despues de eliminar un producto
 function redirigirAlListado() {
-    window.location.href = "/producto/listado-producto";
+    window.location.href = "/Producto/listado-producto";
 }
     </script>
 </html>

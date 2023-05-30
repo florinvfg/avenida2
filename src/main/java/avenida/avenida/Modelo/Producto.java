@@ -23,20 +23,20 @@ public class Producto {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "marca")
-    private String marca;
+    @Column(name = "nombre")
+    private String nombre;
 
-    @Column(name = "modelo")
-    private String modelo;
+    @Column(name = "precio")
+    private String precio;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LineaComanda> lineaComanda = new ArrayList<>();  
 
 
     //constructores
-    public Producto(String marca, String modelo) {
-        this.marca = marca;
-        this.modelo = modelo;
+    public Producto(String nombre, String precio) {
+        this.nombre = nombre;
+        this.precio = precio;
     }
 
     public Producto() {
@@ -44,10 +44,10 @@ public class Producto {
 
     // Getters y setters
 
-    public Producto(int id, String marca, String modelo, List<LineaComanda> lineaComanda) {
+    public Producto(int id, String nombre, String precio, List<LineaComanda> lineaComanda) {
         this.id = id;
-        this.marca = marca;
-        this.modelo = modelo;
+        this.nombre = nombre;
+        this.precio = precio;
         this.lineaComanda = lineaComanda;
     }
 
@@ -59,20 +59,20 @@ public class Producto {
         this.id = id;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getPrecio() {
+        return precio;
     }
 
     public void setModelo(String modelo) {
-        this.modelo = modelo;
+        this.precio = modelo;
     }
 
     public List<LineaComanda> getlineaComanda() {
@@ -89,8 +89,8 @@ public class Producto {
     public String toString() {
         return "producto{" +
                 "id=" + id +
-                ", marca='" + marca + '\'' +
-                ", modelo='" + modelo + '\'' +
+                ", nombre ='" + nombre + '\'' +
+                ", precio ='" + precio + '\'' +
                 '}';
     }
 
@@ -99,6 +99,21 @@ public class Producto {
     }
 
     public void setReparaciones(Object reparaciones) {
+    }
+
+   
+
+    public void setNombre(Object nombre) {
+    }
+
+    public void setPrecio(String precio2) {
+    }
+
+    public Object getLineaComanda() {
+        return null;
+    }
+
+    public void setLineaComanda(Object lineaComanda2) {
     }
 
    

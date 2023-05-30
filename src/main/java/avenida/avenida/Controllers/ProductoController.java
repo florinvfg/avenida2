@@ -20,7 +20,22 @@ import java.util.List;
     
         @Autowired
         private ProductoService productoService;
-    
+    //boton de mesa listado para ir a añadir un producto   
+    @GetMapping("/agregarProducto")
+    public String showAddForm(Model model) {
+        model.addAttribute("newProducto", new Producto()); 
+        return "/views/Producto/agregarProducto";
+    } 
+    //guardar producto
+  /*   @PostMapping("/producto/agregarProducto")
+    public String saveProducto(@ModelAttribute Producto producto) {
+        // Guardar un nuevo producto
+        ProductoService.save(producto);
+        producto.setNombre(producto.getNombre());
+        // Redirigir a la lista de productos
+        return "redirect:/producto/listado-producto";
+    }
+   */ 
     // Obtener todos los productos (GET)
         @GetMapping
         public ResponseEntity<List<Producto>> getAllproductos() {
@@ -35,10 +50,10 @@ import java.util.List;
             return new ResponseEntity<>(producto, HttpStatus.OK);
         }
     
-    // Obtener productos por marca (GET)
-        @GetMapping("/marca")
-        public ResponseEntity<List<Producto>> getProductosPorMarca(@RequestParam String marca) {
-            List<Producto> productos = productoService.findByMarca(marca);
+    // Obtener producto por nombre (GET)
+        @GetMapping("/nombre")
+        public ResponseEntity<List<Producto>> getProductosPorNombre(@RequestParam String nombre) {
+            List<Producto> productos = productoService.findByNombre(nombre);
             return new ResponseEntity<>(productos, HttpStatus.OK);
         }
     
@@ -50,13 +65,13 @@ import java.util.List;
             return "/views/producto/producto-detalle";
         }
     
-    // Crear una nueva producto (POST)
+   /*  // Crear una nueva producto (POST)
         @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Producto> createproducto(@ModelAttribute Producto producto) {
-        Producto newProducto = productoService.save(producto);
+    public ResponseEntity<Producto> createProducto(@ModelAttribute Producto producto) {
+        Producto newProducto = ProductoService.save(producto);
         return new ResponseEntity<>(newProducto, HttpStatus.CREATED);
     }  
-    
+    */
     // Actualizar un producto existente (PUT)
         @PutMapping("/{id}")
         public ResponseEntity<Producto> updateProducto(@PathVariable int id, @RequestBody Producto producto) {
@@ -66,7 +81,7 @@ import java.util.List;
     
     // Eliminar una producto por ID (DELETE)
         @DeleteMapping("/{id}")
-        public ResponseEntity<Void> deleteproducto(@PathVariable int id) {
+        public ResponseEntity<Void> deleteProducto(@PathVariable int id) {
             productoService.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -81,6 +96,6 @@ import java.util.List;
             List<Producto> productos = productoService.findAll();
             model.addAttribute("productos", productos);
             model.addAttribute("producto", new Producto()); // Añade esta línea
-            return "/views/producto/listado-producto";
+            return "/views/Producto/listado-producto";
         }
  }

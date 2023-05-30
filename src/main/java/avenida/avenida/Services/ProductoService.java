@@ -16,6 +16,11 @@ public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
+    @Autowired
+    public ProductoService(ProductoRepository productoRepository) {
+        this.productoRepository = productoRepository;
+    }
+
     // Encontrar todas las productos
     public List<Producto> findAll() {
         return productoRepository.findAll();
@@ -32,25 +37,25 @@ public class ProductoService {
     }
 
     // Encontrar una producto por marca
-    public List<Producto> findByMarca(String marca) {
+    public List<Producto> findByPrecio(String precio) {
         // Aquí puedes implementar la lógica para filtrar las productos por marca
         // Ejemplo: Utilizar un repositorio para buscar las productos con la marca especificada
-        return productoRepository.findByMarca(marca);
+        return productoRepository.findByPrecio(precio);
     }
 
     // Guardar una producto
     public Producto save(Producto producto) {
         return productoRepository.save(producto);
-    }
+    }    
 
     // Actualizar una producto existente
     public Producto update(int id, Producto productoDetails) {
         Producto producto = findById(id);
 
-        producto.setModelo(productoDetails.getModelo());
-        producto.setMarca(productoDetails.getMarca());
+        producto.setNombre(productoDetails.getNombre());
+        producto.setPrecio(productoDetails.getPrecio());
         producto.setId(productoDetails.getId());
-        producto.setReparaciones(productoDetails.getReparaciones());
+        producto.setLineaComanda(productoDetails.getLineaComanda());
 
         return productoRepository.save(producto);
     }
@@ -64,4 +69,10 @@ public class ProductoService {
     public Producto getProductoById(int productoId) {
         return null;
     }
+
+    public List<Producto> findByNombre(String nombre) {
+        return null;
+    }
+
+
 }
