@@ -36,7 +36,7 @@ import java.util.List;
         // Guardar un nuevo producto
 
         // Redirigir a la lista de productos
-        return "/views/Producto/agregarProducto";
+        return "/views/producto/agregarProducto";
     }
    
     // Obtener todos los productos (GET)

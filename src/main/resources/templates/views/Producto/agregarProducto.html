@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head th:replace="fragments/common-head :: common-head">
-    </head>
+<head th:replace="fragments/common-head :: common-head">
+</head>
 <body>
     <h2>Agregar Producto</h2>
-    <!-- Fragmento de la barra de navegación -->
-    <div th:replace="fragments/navbar :: navbar"></div>
-
-
-   
-    
-
+    <form th:action="@{producto/agregarMesaProducto}" th:object="${newMesa}" method="post">
   
+        <!-- Fragmento de la barra de navegación -->
+        <div th:replace="fragments/navbar :: navbar"></div>
+    </form>
 </body>
 </html>
-
-

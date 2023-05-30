@@ -12,20 +12,16 @@
             <tr>
                 <th>Nombre del Producto</th>
                 <th>Precio del Producto</th>
-                
             </tr>
         </thead>
         <tbody>
-        <tr th:each="producto : ${listaProducto}">
-            <td th:text="${mesa.nombre}"></td>
-            <td th:text="${mesa.precio}"></td>
-            
+        <tr th:each="producto : ${productos}">
+            <td th:text="${producto.nombre}"></td>
+            <td th:text="${producto.precio}"></td>
             <td>
                 <a th:href="@{/Producto/edit-producto/{id}(id=${producto.id})}" class="btn btn-warning">Editar</a>
-            </td> 
-             
-             <!-- Columna para el botón Eliminar -->
-             <td>
+            </td>
+            <td>
                 <form th:action="@{'/producto/delete/' + ${producto.id}}" method="post">
                     <input type="hidden" name="_method" value="delete" />
                     <button type="submit" class="btn btn-danger">Eliminar</button>
@@ -34,8 +30,6 @@
         </tr>
         </tbody>
     </table>
-    
 </div>
-
 </body>
 </html>
