@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
-<head th:replace="fragments/common-head :: common-head">
-</head>
+    <head th:replace="fragments/common-head :: common-head">
+    </head>
 <body>
+    <!-- Fragmento de la barra de navegación -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="text-start"style="color: red;">Producto</h1>
+        </div>
+    </div>
     <h2>Agregar Producto</h2>
-    <form th:action="@{producto/agregarMesaProducto}" th:object="${newMesa}" method="post">
-  
-        <!-- Fragmento de la barra de navegación -->
-        <div th:replace="fragments/navbar :: navbar"></div>
+
+    <form th:action="@{producto/agregarProducto}" th:object="${newProducto}" method="post">
+        <div class="form-group">
+            <label for="name">Nombre de Producto:</label>
+            <input type="text" class="form-control" th:field="*{nombre}" required />
+        </div>
+        <div class="form-group">
+            <label for="name">Precio del Producto:</label>
+            <input type="number" class="form-control" th:field="*{precio}" required />
+        </div>
+
+       
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
     </form>
+    
+    <!-- Incluir el fragmento del footer -->
+    <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -34,11 +34,19 @@ import java.util.List;
      @GetMapping("/agregarProducto")
     public String agregarProducto(Model model) {
         // Guardar un nuevo producto
-
+        model.addAttribute("newProducto", new Producto());
         // Redirigir a la lista de productos
-        return "/views/producto/agregarProducto";
+        return "/views/Producto/agregarProducto";
     }
-   
+   //guardar producto
+   @PostMapping("/producto/agregaProducto")
+   public String saveProducto(@ModelAttribute("newProducto") Producto newProducto) {
+       // Guardar la nueva mesa
+       ProductoService.save(newProducto);
+       newProducto.setNombre(newProducto.getNombre());
+       // Redirigir a la lista de mesas
+       return "redirect:/mesa/listado-mesa";
+   }
     // Obtener todos los productos (GET)
         @GetMapping
         public ResponseEntity<List<Producto>> getAllproductos() {
