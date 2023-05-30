@@ -8,7 +8,7 @@
 
     <div class="container">
         <h1>Editar Producto</h1>
-        <form action="/producto/update-post" method="post" th:object="${producto}">
+        <form action="/producto/agregarProducto" method="post" th:object="${producto}">
             <input class="col-12" type="text" name="id" id="userId" th:value="${producto.id}" readonly />
             <div class="form-group">
                 <label for="name">numComensales:</label>

@@ -20,23 +20,23 @@ import java.util.List;
     
         @Autowired
         private ProductoService productoService;
-    //boton de mesa listado para ir a añadir un producto   
-    @GetMapping("/agregarProducto")
-    public String showAddForm(Model model) {
-        
-        model.addAttribute("newProducto", new Producto()); 
-        return "/views/Producto/agregarProducto";
-        
-    } 
-    //guardar producto
-     @PostMapping("/producto/agregarProducto")
-    public String saveProducto(@ModelAttribute Producto producto) {
+
+        //ir a ver todos los productos
+        @GetMapping("/listado-producto")
+        public String listarProductos(Model model) {
+            List<Producto> productos = productoService.findAll();
+            model.addAttribute("productos", productos);
+            model.addAttribute("producto", new Producto()); // Añade esta línea
+            return "/views/Producto/listado-producto";
+        }
+
+    //ir a la ventana de Guardar producto
+     @GetMapping("/agregarProducto")
+    public String agregarProducto(Model model) {
         // Guardar un nuevo producto
-        Producto newProducto = productoService.save(producto); 
-        //ProductoService.save(producto);
-        //producto.setNombre(producto.getNombre());
+
         // Redirigir a la lista de productos
-        return "redirect:/producto/listado-producto";
+        return "/views/Producto/agregarProducto";
     }
    
     // Obtener todos los productos (GET)
@@ -93,12 +93,5 @@ import java.util.List;
         public ProductoController(ProductoService productoService) {
             this.productoService = productoService;
         }
-    
-        @GetMapping("/listado-producto")
-        public String listarProductos(Model model) {
-            List<Producto> productos = productoService.findAll();
-            model.addAttribute("productos", productos);
-            model.addAttribute("producto", new Producto()); // Añade esta línea
-            return "/views/Producto/listado-producto";
-        }
+
  }
