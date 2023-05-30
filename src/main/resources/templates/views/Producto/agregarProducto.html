@@ -12,7 +12,7 @@
     </div>
     <h2>Agregar Producto</h2>
 
-    <form th:action="@{producto/agregarProducto}" th:object="${newProducto}" method="post">
+    <form th:action="@{/producto/agregaProducto}" th:object="${newProducto}" method="post">
         <div class="form-group">
             <label for="name">Nombre de Producto:</label>
             <input type="text" class="form-control" th:field="*{nombre}" required />

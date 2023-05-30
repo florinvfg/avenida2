@@ -27,94 +27,69 @@ public class Producto {
     private String nombre;
 
     @Column(name = "precio")
-    private String precio;
+    private double precio;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LineaComanda> lineaComanda = new ArrayList<>();  
+    private List<LineaComanda> lineaComanda = new ArrayList<>();
 
 
     //constructores
-    public Producto(String nombre, String precio) {
-        this.nombre = nombre;
-        this.precio = precio;
-    }
-
-    public Producto() {
-    }
-
-    // Getters y setters
-
-    public Producto(int id, String nombre, String precio, List<LineaComanda> lineaComanda) {
+    public Producto(int id, String nombre, double precio, List<LineaComanda> lineaComanda) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.lineaComanda = lineaComanda;
     }
 
+
+    public Producto() {
+    }
+
+//getter y setter
     public int getId() {
         return id;
     }
+
 
     public void setId(int id) {
         this.id = id;
     }
 
+
     public String getNombre() {
         return nombre;
     }
+
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getPrecio() {
+
+    public double getPrecio() {
         return precio;
     }
 
-    public void setModelo(String modelo) {
-        this.precio = modelo;
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
-    public List<LineaComanda> getlineaComanda() {
+
+    public List<LineaComanda> getLineaComanda() {
         return lineaComanda;
     }
 
-    public void setlineaComanda(List<LineaComanda> lineaComanda) {
+
+    public void setLineaComanda(List<LineaComanda> lineaComanda) {
         this.lineaComanda = lineaComanda;
     }
 
-    // toString
-
-    @Override
-    public String toString() {
-        return "producto{" +
-                "id=" + id +
-                ", nombre ='" + nombre + '\'' +
-                ", precio ='" + precio + '\'' +
-                '}';
-    }
-
-     public Object getReparaciones() {
-        return null;
-    }
-
-    public void setReparaciones(Object reparaciones) {
-    }
-
-   
-
-    public void setNombre(Object nombre) {
-    }
-
-    public void setPrecio(String precio2) {
-    }
-
-    public Object getLineaComanda() {
-        return null;
-    }
-
-    public void setLineaComanda(Object lineaComanda2) {
-    }
-
-   
+//ToString
+  
+@Override
+public String toString() {
+    return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", lineaComanda=" + lineaComanda
+            + "]";
+}   
 }

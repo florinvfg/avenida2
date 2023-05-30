@@ -14,11 +14,11 @@ import java.util.Optional;
 public class ProductoService {
 
     @Autowired
-    private static ProductoRepository productoRepository;
+    private final ProductoRepository productoRepository;
 
     @Autowired
     public ProductoService(ProductoRepository productoRepository) {
-        ProductoService.productoRepository = productoRepository;
+        this.productoRepository = productoRepository;
     }
 
     // Encontrar todas las productos
@@ -44,9 +44,9 @@ public class ProductoService {
     }
 
     // Guardar una producto
-    public static Producto save(Producto producto) {
+    public Producto save(Producto producto) {
         return productoRepository.save(producto);
-    }    
+    }
 
     // Actualizar una producto existente
     public Producto update(int id, Producto productoDetails) {
