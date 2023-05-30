@@ -11,7 +11,7 @@
                 type="button"
                 class="btn btn-warning"
                 data-toggle="modal"
-                data-target="#editarproductoModal"
+                data-target="#editarProductoModal"
             >Editar</button>
             <table class="table">
                 <tr>
@@ -28,7 +28,7 @@
                 </tr>
             </table>
             <button type="button" class="btn btn-danger" onclick="mostrarModalEliminar()">Eliminar</button>
-            <a href="/productos/listado-productos" class="btn btn-primary">Volver al listado</a>
+            <a href="/producto/listado-producto" class="btn btn-primary">Volver al listado</a>
         </div>
         
         <!--Ventana modal de edicion-->
@@ -36,13 +36,13 @@
             class="modal fade"
             id="editarproductoModal"
             tabindex="-1"
-            aria-labelledby="editarproductoModalLabel"
+            aria-labelledby="editarProductoModalLabel"
             aria-hidden="true"
         >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editarproductoModalLabel">Editar Producto</h5>
+                        <h5 class="modal-title" id="editarProductoModalLabel">Editar Producto</h5>
                         <button
                             type="button"
                             class="btn-close"
@@ -51,7 +51,7 @@
                         ></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editarproductoForm">
+                        <form id="editarProductoForm">
                             <input type="hidden" id="productoId" th:value="${producto.id}">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">nombre</label>
@@ -85,13 +85,13 @@
             class="modal fade"
             id="eliminarproductoModal"
             tabindex="-1"
-            aria-labelledby="eliminarproductoModalLabel"
+            aria-labelledby="eliminarProductoModalLabel"
             aria-hidden="true"
         >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="eliminarproductoModalLabel">Confirmar eliminación</h5>
+                        <h5 class="modal-title" id="eliminarProductoModalLabel">Confirmar eliminación</h5>
                         <button
                             type="button"
                             class="btn-close"
@@ -101,7 +101,7 @@
                     </div>
                     <div class="modal-body">
                         ¿Estás seguro de que deseas eliminar la producto con ID:
-                        <span id="modalEliminarproductoId"></span>
+                        <span id="modalEliminarProductoId"></span>
                         ?
                     </div>                    
                     <div class="modal-footer">
@@ -131,7 +131,7 @@
                         ></button>
                     </div>
                     <div class="modal-body">
-                        La producto se ha eliminado correctamente.
+                        El producto se ha eliminado correctamente.
                     </div>
                     <div class="modal-footer">
                         <button
@@ -166,7 +166,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <!-- mensaje de que la producto se ha actualizado con el id de la producto-->
+                        <!-- mensaje de que el producto se ha actualizado con el id de la producto-->
                         <p>La producto con ID:
                             <span id="modalproductoId"></span> se ha actualizado con éxito.
                         </p>
@@ -218,7 +218,7 @@
     precio: precio,
   };
 
-  fetch(`/productos/${productoId}`, {
+  fetch(`/producto/${productoId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -228,8 +228,8 @@
     .then((response) => {
       if (response.ok) {
         // Mostrar ventana modal de confirmación
-        document.getElementById('modalproductoId').innerText = productoId; // Agregar esta línea
-        $('#editarproductoModal').modal('hide');
+        document.getElementById('modalProductoId').innerText = productoId; // Agregar esta línea
+        $('#editarProductoModal').modal('hide');
         $('#confirmModal').modal('show');
         // Recargar la página después de un tiempo
         setTimeout(() => {
@@ -237,14 +237,14 @@
         }, 2000); // El tiempo de espera en milisegundos antes de recargar la página
       } else {
         // Mostrar ventana modal de error
-        $('#editarproductoModal').modal('hide');
+        $('#editarProductoModal').modal('hide');
         $('#errorModal').modal('show');
       }
     })
     .catch((error) => {
       console.error('Error:', error);
       // Mostrar ventana modal de error
-      $('#editarproductoModal').modal('hide');
+      $('#editarProductoModal').modal('hide');
       $('#errorModal').modal('show');
     });
 }
@@ -252,24 +252,24 @@
 function eliminarproducto() {
     const productoId = document.getElementById('productoId').value;
 
-    fetch(`/productos/${productoId}`, {
+    fetch(`/producto/${productoId}`, {
         method: 'DELETE',
     })
         .then((response) => {
             if (response.ok) {
                 // Mostrar ventana modal de eliminación exitosa
-                $('#eliminarproductoModal').modal('hide');
+                $('#eliminarProductoModal').modal('hide');
                 $('#eliminacionExitosaModal').modal('show');
             } else {
                 // Mostrar ventana modal de error
-                $('#eliminarproductoModal').modal('hide');
+                $('#eliminarProductoModal').modal('hide');
                 $('#errorModal').modal('show');
             }
         })
         .catch((error) => {
             console.error('Error:', error);
             // Mostrar ventana modal de error
-            $('#eliminarproductoModal').modal('hide');
+            $('#eliminarProductoModal').modal('hide');
             $('#errorModal').modal('show');
         });
 }
@@ -277,17 +277,17 @@ function eliminarproducto() {
 //mostrar modal Eliminar
 function mostrarModalEliminar() {
   const productoId = document.getElementById('productoId').value;
-  document.getElementById('modalEliminarproductoId').innerText = productoId;
-  $('#eliminarproductoModal').modal('show');
+  document.getElementById('modalEliminarProductoId').innerText = productoId;
+  $('#eliminarProductoModal').modal('show');
 }
 
 
-//obtener el id de una producto para eliminarla
-document.getElementById('modalEliminarproductoId').textContent = productoId;
+//obtener el id de un producto para eliminarle
+document.getElementById('modalEliminarProductoId').textContent = productoId;
 
-//redirigir al listado principal despues de eliminar una bici
+//redirigir al listado principal despues de eliminar un producto
 function redirigirAlListado() {
-    window.location.href = "/productos/listado-productos";
+    window.location.href = "/producto/listado-producto";
 }
     </script>
 </html>

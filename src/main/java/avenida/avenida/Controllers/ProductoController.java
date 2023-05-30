@@ -47,7 +47,7 @@ import java.util.List;
         public String verproductoDetalle(@PathVariable int id, Model model) {
             Producto producto = productoService.findById(id);
             model.addAttribute("producto", producto);
-            return "/views/productos/producto-detalle";
+            return "/views/producto/producto-detalle";
         }
     
     // Crear una nueva producto (POST)
@@ -57,7 +57,7 @@ import java.util.List;
         return new ResponseEntity<>(newProducto, HttpStatus.CREATED);
     }  
     
-    // Actualizar una producto existente (PUT)
+    // Actualizar un producto existente (PUT)
         @PutMapping("/{id}")
         public ResponseEntity<Producto> updateProducto(@PathVariable int id, @RequestBody Producto producto) {
             Producto updatedProducto = productoService.update(id, producto);
@@ -76,11 +76,11 @@ import java.util.List;
             this.productoService = productoService;
         }
     
-        @GetMapping("/listado-productos")
+        @GetMapping("/listado-producto")
         public String listarProductos(Model model) {
             List<Producto> productos = productoService.findAll();
             model.addAttribute("productos", productos);
             model.addAttribute("producto", new Producto()); // Añade esta línea
-            return "/views/productos/listado-productos";
+            return "/views/producto/listado-producto";
         }
  }
