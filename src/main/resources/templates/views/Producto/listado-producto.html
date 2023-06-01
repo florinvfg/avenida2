@@ -19,7 +19,7 @@
             <td th:text="${producto.nombre}"></td>
             <td th:text="${producto.precio}"></td>
             <td>
-                <a th:href="@{/Producto/edit-producto/{id}(id=${producto.id})}" class="btn btn-warning">Editar</a>
+                <a th:href="@{/producto/edit-producto/{id}(id=${producto.id})}" class="btn btn-warning">Editar</a>
             </td>
             <td>
                 <form th:action="@{'/producto/delete/' + ${producto.id}}" method="delete">

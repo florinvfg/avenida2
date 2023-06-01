@@ -79,11 +79,11 @@ import java.util.List;
         }
     
     //Obtener producto para editar en html
-        @GetMapping("/detalle/{id}")
+        @GetMapping("/edit-producto/{id}")
         public String verproductoDetalle(@PathVariable int id, Model model) {
             Producto producto = productoService.findById(id);
             model.addAttribute("producto", producto);
-            return "/views/producto/producto-detalle";
+            return "/views/Producto/edit-producto";
         }
     
    /*  // Crear una nueva producto (POST)
