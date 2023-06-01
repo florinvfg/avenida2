@@ -41,11 +41,11 @@ import java.util.List;
    //guardar producto
   /*  @PostMapping("/producto/agregaProducto")
    public String saveProducto(@ModelAttribute("newProducto") Producto newProducto) {
-       // Guardar la nueva mesa
+       // Guardar un nuevo producto
        ProductoService.save(newProducto);
        newProducto.setNombre(newProducto.getNombre());
        // Redirigir a la lista de mesas
-       return "redirect:/mesa/listado-mesa";
+       return "redirect:/producto/listado-producto";
    }*/
 
    @PostMapping("/agregaProducto")
@@ -101,10 +101,10 @@ import java.util.List;
         }
     
     // Eliminar una producto por ID (DELETE)
-        @DeleteMapping("/{id}")
-        public ResponseEntity<Void> deleteProducto(@PathVariable int id) {
+        @GetMapping("/delete/{id}")
+        public String deleteProducto(@PathVariable int id) {
             productoService.delete(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return "redirect:/producto/listado-producto";
         }
     
     // Creando la interfaz web
