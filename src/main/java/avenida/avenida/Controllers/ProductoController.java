@@ -110,7 +110,7 @@ import java.util.List;
         }*/
     
     // Eliminar una producto por ID (DELETE)
-        @GetMapping("/delete/{id}")
+        @PostMapping("/delete/{id}")
         public String deleteProducto(@PathVariable int id) {
             productoService.delete(id);
             return "redirect:/producto/listado-producto";
