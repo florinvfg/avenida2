@@ -2,6 +2,7 @@ package avenida.avenida.Controllers;
 
 import avenida.avenida.Modelo.Producto;
 import avenida.avenida.Services.ProductoService;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,10 +48,12 @@ import java.util.List;
        // Redirigir a la lista de mesas
        return "redirect:/producto/listado-producto";
    }*/
+  
+
 
    @PostMapping("/agregaProducto")
    public String saveProducto(@ModelAttribute("newProducto") Producto newProducto) {
-       // Guardar el nuevo producto
+       // Guardar un nuevo producto
        productoService.save(newProducto);
        // Redirigir a la lista de mesas
        return "redirect:/producto/listado-producto";
@@ -86,19 +89,25 @@ import java.util.List;
             return "/views/Producto/edit-producto";
         }
     
-   /*  // Crear una nueva producto (POST)
+   /*  // Crear un nuevo producto (POST)
         @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Producto> createProducto(@ModelAttribute Producto producto) {
         Producto newProducto = ProductoService.save(producto);
         return new ResponseEntity<>(newProducto, HttpStatus.CREATED);
     }  
     */
+    @PostMapping("/edit-producto/{id}")
+    public String updateProducto(@PathVariable int id, @ModelAttribute("producto") Producto producto) {
+        producto.setId(id); // Establece el ID del producto
+        productoService.save(producto); // Guarda los cambios en el producto
+        return "redirect:/producto/listado-producto";
+    }
     // Actualizar un producto existente (PUT)
-        @PutMapping("/{id}")
+       /*  @PutMapping("/{id}")
         public ResponseEntity<Producto> updateProducto(@PathVariable int id, @RequestBody Producto producto) {
             Producto updatedProducto = productoService.update(id, producto);
             return new ResponseEntity<>(updatedProducto, HttpStatus.OK);
-        }
+        }*/
     
     // Eliminar una producto por ID (DELETE)
         @GetMapping("/delete/{id}")

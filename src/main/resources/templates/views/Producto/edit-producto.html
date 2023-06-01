@@ -8,18 +8,20 @@
 
     <div class="container">
        
-        <form action="/producto/agregarProducto" method="post" th:object="${producto}">
-            <input class="col-12" type="text" name="id" id="userId" th:value="${producto.id}" readonly />
+        <form th:action="@{/producto/edit-producto/{id}(id=${producto.id})}" method="post" th:object="${producto}">
+
+            
             <div class="form-group">
                 <label for="name">Nombre del Producto:</label>
-                <input type="text" id="id" name="id" th:value="${producto.id}" class="form-control" />
+                <input type="text" id="nombre" name="nombre" th:value="${producto.nombre}" class="form-control" />
             </div>
             <div class="form-group">
                 <label for="name">Precio del Producto:</label>
-                <input type="text" id="id" name="id" th:value="${producto.id}" class="form-control" />
+                <input type="number" id="precio" name="precio" th:value="${producto.precio}" class="form-control" />
             </div>
             
-            <button type="submit" class="btn btn-success">Actualizar Producto</button>
+            <button type="submit" class="btn btn-success" >Actualizar Producto</button>
+
             <a href="/producto/listado-producto" class="btn btn-primary">Volver al listado</a>
         </div>
     </div>

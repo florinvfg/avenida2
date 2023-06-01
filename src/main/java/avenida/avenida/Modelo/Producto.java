@@ -1,5 +1,4 @@
 package avenida.avenida.Modelo;
-
 import javax.persistence.Id;
 
 import java.util.ArrayList;
