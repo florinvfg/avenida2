@@ -58,11 +58,11 @@ public String saveMesa(@ModelAttribute("newMesa") Mesa newMesa) {
     }
 
 // Editar una mesa por ID (GET)
-    @GetMapping("/edit/id/{id}")
+    @GetMapping("edit-mesa/{id}")
     public String showEditForm(@PathVariable("id") int id, Model model) {
         Mesa mesa = MesaService.findById(id);
         model.addAttribute("mesa", mesa);
-        return "views/mesa/edit-mesa";
+        return "views/Mesa/edit-mesa";
     }
     
 

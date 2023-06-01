@@ -7,21 +7,14 @@
     <div th:replace="fragments/navbar :: navbar"></div>
 
     <div class="container">
-        <h1>Editar Mesa</h1>
-        <form action="/mesa/update-post" method="post" th:object="${mesa}">
+        <h1>Editar Mesa </h1>
+        <form th:action="@{/mesa/edit-mesa/{id}(id=${mesa.id})}" method="post" th:object="${mesa}">
             <input class="col-12" type="text" name="id" id="userId" th:value="${mesa.id}" readonly />
             <div class="form-group">
                 <label for="name">numComensales:</label>
-                <input type="text" id="id" name="id" th:value="${mesa.id}" class="form-control" />
+                <input type="number" id="numComensales" name="numComensales" th:value="${mesa.id}" step="0.01" class="form-control" />
             </div>
-            <div class="form-group">
-                <label for="date">Fecha:</label>
-                <input type="date" id="date" name="date" th:value="${mesa.date}" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="hour">Hora:</label>
-                <input type="time" id="hour" name="hour" th:value="${mesa.hour}" class="form-control" />
-            </div>
+           
             <div class="form-group">
                 <label for="locationUrl">URL del lugar:</label>
                 <input type="text" id="locationUrl" name="locationUrl" th:value="${mesa.locationUrl}" class="form-control" />
