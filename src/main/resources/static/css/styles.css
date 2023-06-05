@@ -40,3 +40,14 @@
     border: 2px solid var(--primary-color);
     background-color: var(--background-color);
 }
+/*Formato para líneas de \views\Comanda\comanda-view-edit.html*/
+.form-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-row div {
+  flex: 1;
+}

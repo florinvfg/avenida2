@@ -1,5 +1,6 @@
 package avenida.avenida.Controllers;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,11 @@ public class ComandaController {
     @GetMapping("/listado")
     public String getComandas(Model model) {
         List<Comanda> comandas = comandaService.findAll();
+        
+        comandas = comandas.stream()
+        .filter(comanda -> comanda.getMesa() != null && comanda.getMesa().getLocationUrl() != null)
+        .collect(Collectors.toList());
+
         model.addAttribute("comandas", comandas);
         return "views/Comanda/comanda-listado";
     }

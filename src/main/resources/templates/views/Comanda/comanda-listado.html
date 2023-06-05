@@ -23,8 +23,8 @@
         <tbody>
         <tr th:each="comanda : ${comandas}">
             <td th:text="${comanda.id}" th:data-id="${comanda.id}"></td>
-          <!--  <td th:text="${comanda.mesa.id + ' - ' + comanda.mesa.locationUrl + ' - Sillas:' + comanda.mesa.numComensales}" th:data-mesa="${comanda.mesa.id}"></td>
-        -->
+          <!--  -->  <td th:text="${comanda.mesa.id + ' - ' + comanda.mesa.locationUrl + ' - Sillas:' + comanda.mesa.numComensales}" th:data-mesa="${comanda.mesa.id}"></td>
+      
             <td th:text="${comanda.idCamarero.id}" th:data-camarero="${comanda.idCamarero.id}"></td>
             <td th:text="${comanda.date}" th:data-date="${comanda.date}"></td>
             <td th:text="${comanda.hour}" th:data-hour="${comanda.hour}"></td>
