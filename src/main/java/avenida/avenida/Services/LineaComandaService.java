@@ -26,7 +26,11 @@ public class LineaComandaService {
         } else {
             throw new RuntimeException("Reparación no encontrada con el ID: " + id);
         }
-    }    
+    } 
+    
+    public List<LineaComanda> findByComandaId(int comandaId) {
+        return lineaComandaRepository.findByComandaId(comandaId);
+    }
 
     public LineaComanda save(LineaComanda lineaComanda) {
         return lineaComandaRepository.save(lineaComanda);
@@ -34,11 +38,8 @@ public class LineaComandaService {
 
     public LineaComanda update(int id, LineaComanda lineaComanda) {
         LineaComanda existinglineaComanda = findById(id);
-        existinglineaComanda.setUser(lineaComanda.getUser());
-        existinglineaComanda.setproducto(lineaComanda.getproducto());
-        existinglineaComanda.setFecha(lineaComanda.getFecha());
-        existinglineaComanda.setFechaSalida(lineaComanda.getFechaSalida());
-        existinglineaComanda.setDescripcion(lineaComanda.getDescripcion());
+        existinglineaComanda.setProducto(lineaComanda.getProducto());
+        existinglineaComanda.setUnidades(lineaComanda.getUnidades());
         existinglineaComanda.setImporte(lineaComanda.getImporte());
         return lineaComandaRepository.save(existinglineaComanda);
     }

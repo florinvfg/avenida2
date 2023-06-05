@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="fragments/common-head :: common-head">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<h1>Editar Comanda</h1>
+<div th:replace="fragments/navbar :: navbar"></div>
+<form action="#" th:action="@{/comanda/edit/{id}(id=${comanda.id})}" th:object="${comanda}" method="post">
+    <div class="row">
+        <div class="col-md-3 col-sm-6">
+            <div class="form-group">
+                <label for="id">ID Comanda</label>
+                <input type="text" id="id" th:field="*{id}" class="form-control" readonly />
+            </div>
+        </div>
+      <!--  <div class="col-md-3 col-sm-6">
+            <div class="form-group">
+                <label for="mesa">Mesa</label>
+                <span th:text="${comanda.mesa.id + ' - ' + comanda.mesa.locationUrl + ' - ' + comanda.mesa.numComensales}" class="form-control" readonly></span>
+            </div>                              
+        </div>
+        -->
+        <div class="col-md-3 col-sm-6">
+            <div class="form-group">
+                <label for="camarero">ID Camarero</label>
+                <input type="text" id="camarero" th:field="*{idCamarero.id}" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="form-group">
+                <label for="numComensales">Número de comensales</label>
+                <input type="number" id="numComensales" th:field="*{numComensales}" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="form-group">
+                <label for="importeComanda">Importe Comanda</label>
+                <input type="text" id="importeComanda" th:value="${comanda != null ? comanda.importeComanda : ''}" class="form-control" readonly />
+            </div>
+        </div>        
+    </div>
+    
+    <!-- Lineas de Comanda -->
+    <h3>Lineas de Comanda</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Unidades</th>
+                <th>Concepto</th>
+                <th>Estado</th>
+                <th>Importe</th>
+                <th>IVA</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="lineaComanda : ${lineasComanda}">
+                <td th:text="${lineaComanda.producto.nombre}"></td>
+                <td th:text="${lineaComanda.unidades}"></td>
+                <td th:text="${lineaComanda.estado}"></td>
+                <td th:text="${lineaComanda.importe}"></td>
+                <td th:text="${lineaComanda.iva}"></td>
+                <td th:text="${lineaComanda.total}"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h5>Añadir Líneas de Comanda</h5>
+    <div id="lineaComandaContainer">
+        <!-- Los formularios se agregarán aquí mediante JavaScript -->
+    </div>
+    <button type="button" id="addLineaComandaButton" class="btn btn-primary">Añadir Línea de Comanda</button>
+    <a th:href="@{/comanda/delete/{id}(id=${comanda.id})}" class="btn btn-danger">Eliminar</a>
+    <style>
+  
+    </style>
+    
+    <script th:inline="javascript">
+       function createForm(fields, productos, comandaId) {
+            var form = document.createElement("form");
+            form.action = "/lineaComanda/add";
+            form.method = "post";
+            form.className = "form-row";
+            // Aquí creamos y agregamos el campo oculto con el ID de la comanda al formulario.
+            var hiddenInput = document.createElement("input");
+            hiddenInput.type = "hidden";
+            hiddenInput.name = "comanda.id";
+            hiddenInput.value = comandaId;
+            form.appendChild(hiddenInput);
+            fields.forEach(function (field) {
+                form.appendChild(createFieldDiv(field, productos));
+            });
+            var submitButton = createButton("submit", "Guardar", "btn btn-primary");
+            form.appendChild(submitButton);
+            return form;
+        }
+    
+        function createFieldDiv(field, productos) {
+            var div = document.createElement("div");
+            var label = createLabel(field);
+            div.appendChild(label);
+            var input = (field === "producto") ? createProductSelect(productos) : createInput(field);
+            // Asegurarse de que el select tenga el nombre correcto
+            if (field === "producto") {
+                input.name = "producto.id";
+            }
+            div.appendChild(input);
+            return div;
+        }
+
+        function createLabel(field) {
+            var label = document.createElement("label");
+            label.for = field;
+            label.textContent = field.charAt(0).toUpperCase() + field.slice(1);
+            return label;
+        }
+    
+        function createProductSelect(productos) {
+            var select = document.createElement("select");
+            select.className = "form-control";
+            if (productos && productos.length > 0)  {
+                productos.forEach(function(producto) {
+                    var option = document.createElement("option");
+                    option.value = producto.id;
+                    option.textContent = producto.nombre;
+                    option.dataset.precio = producto.precio;
+                    select.appendChild(option);
+                });
+            } else {
+                console.log('No hay productos available.'); // debug line
+            }
+
+// Añadir un evento "change" al select para cambiar el precio cuando se selecciona un producto
+            select.addEventListener("change", function(event) {
+                var selectedOption = event.target.options[event.target.selectedIndex];
+                var precio = selectedOption.dataset.precio; // Obtengo el precio de la opción seleccionada
+                var conceptoInput = document.getElementById("concepto");
+                var estadoInput = document.getElementById("estado");
+                var importeInput = document.getElementById("importe");
+
+                if (conceptoInput) {
+                    conceptoInput.value = selectedOption.textContent; // Actualiza el valor del campo de concepto
+                }
+
+                if (estadoInput) {
+                    estadoInput.value = "Pendiente"; // Actualiza el valor del campo de estado
+                }
+
+                if (importeInput) {
+                    importeInput.value = precio; // Actualiza el valor del campo de importe
+                }
+            });
+            return select;
+        }
+
+        function createInput(field) {
+            var input = document.createElement("input");
+            input.type = (field === "importe" || field === "iva" || field === "total") ? "number" : "text";
+            if (input.type === "number") {
+                input.step = "0.01";  // Permite decimales
+            }
+            input.className = "form-control";
+            input.id = field;
+            input.name = field;
+
+// Si el campo es 'iva', establece un valor por defecto de 0 si el valor está vacío
+            if (field === "iva") {
+                input.value = "0";
+                input.addEventListener("blur", function(event) {
+                    if (event.target.value.trim() === "") {
+                        event.target.value = "0";
+                    }
+                });
+            }
+
+            if (field === "unidades") {
+                input.addEventListener("input", function(event) {
+                    var unidades = event.target.value; // Obtengo el valor de las unidades
+                    var precioInput = document.getElementById("importe");
+                    var totalInput = document.getElementById("total");
+
+                    if (precioInput && totalInput) {
+                        var precio = precioInput.value; // Obtengo el valor del precio
+                        totalInput.value = unidades * precio; // Calculo el total y actualizo
+                    }
+                });
+            }
+            return input;
+        }
+    
+        function createButton(type, textContent, className) {
+            var button = document.createElement("button");
+            button.type = type;
+            button.textContent = textContent;
+            button.className = className;
+            return button;
+        }
+    
+        document.addEventListener("DOMContentLoaded", function() {
+        var productos = [];
+        try {
+            productos = JSON.parse(/*[[${productosJson}]]*/'[]');
+            console.log('Productos parseados:', productos);
+        } catch (error) {
+            console.error("Error parsing productosJson:", error);
+        }
+
+        document.getElementById("addLineaComandaButton").addEventListener("click", function () {
+            var container = document.getElementById("lineaComandaContainer");
+            var fields = ["producto", "unidades", "concepto", "estado", "importe", "iva", "total"];
+            var comandaId = document.querySelector('input[name="id"]').value;  // Obtenemos el ID de la comanda
+            var form = createForm(fields, productos, comandaId);  // Pasamos el ID de la comanda
+            container.appendChild(form);
+
+            var deleteButton = createButton("button", "Eliminar", "btn btn-danger");
+            deleteButton.addEventListener("click", function () {
+                container.removeChild(form);
+            });
+            form.appendChild(deleteButton);
+        });
+    });
+    </script>
+    
+</body>
+</html>

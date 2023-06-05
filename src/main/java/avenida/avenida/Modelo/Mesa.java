@@ -20,7 +20,6 @@ public class Mesa {
    @Column(name = "location_url")
     private String locationUrl;
 
-
     @Column(name = "numComensales")
     private int numComensales;
     

@@ -1,0 +1,46 @@
+<!-- lineasComanda.html -->
+<div class="form-row align-items-center" th:fragment="lineaComanda">
+    <form action="/lineaComanda/add" method="post" class="form-inline" th:object="${lineaComanda}">
+        <div class="col-auto">
+            <label for="producto">Producto</label>
+            <select id="productoId" name="productoId" class="form-control" th:field="*{productoId}">
+                <option th:each="producto : ${productos}" th:value="${producto.id}" th:text="${producto.nombre}" th:selected="${producto.id.equals(lineaComanda.productoId)}"></option>
+            </select>
+                    
+        </div>
+
+        <div class="col-auto">
+            <label for="concepto">Concepto</label>
+            <input id="concepto" name="concepto" type="text" class="form-control" th:field="*{concepto}" />
+        </div>
+
+        <div class="col-auto">
+            <label for="unidades">Unidades</label>
+            <input id="unidades" name="unidades" type="number" class="form-control" th:field="*{unidades}" />
+        </div>
+
+        <div class="col-auto">
+            <label for="estado">Estado</label>
+            <input id="estado" name="estado" type="text" class="form-control" th:field="*{estado}" />
+        </div>
+
+        <div class="col-auto">
+            <label for="importe">Importe</label>
+            <input id="importe" name="importe" type="number" class="form-control" th:field="*{importe}" />
+        </div>
+
+        <div class="col-auto">
+            <label for="iva">IVA</label>
+            <input id="iva" name="iva" type="number" class="form-control" th:field="*{iva}" />
+        </div>
+
+        <div class="col-auto">
+            <label for="total">Total</label>
+            <input id="total" name="total" type="number" class="form-control" th:field="*{total}" />
+        </div>
+
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2">Guardar</button>
+        </div>
+    </form>
+</div>

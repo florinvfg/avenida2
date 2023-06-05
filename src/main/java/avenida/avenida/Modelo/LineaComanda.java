@@ -3,16 +3,13 @@ package avenida.avenida.Modelo;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import java.time.LocalDate;
-import java.math.BigDecimal;
-import org.springframework.format.annotation.DateTimeFormat;
-//Reparaciones
+//LineaComandas
 @Entity
 @Table(name = "lineaComanda")
 public class LineaComanda {
@@ -23,58 +20,58 @@ public class LineaComanda {
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "id_comanda", nullable = false)
+    private Comanda comanda;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_producto", nullable = false)
     private Producto producto;
-
-    @ManyToOne
-    @JoinColumn(name = "id_user", nullable = false)
-    private User user;
-
-    @Column(name = "fecha_entrada")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate fecha;
-
-    @Column(name = "fecha_salida")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate fechaSalida;
 
     @Column(name = "concepto")
     private String concepto;
 
-    @Column(name = "descripcion")
-    private String descripcion;
+    @Column(name = "unidades")
+    private int unidades;
 
     @Column(name = "estado")
     private String estado;
 
     @Column(name = "importe")
-    private BigDecimal importe;
+    private double importe;
 
     @Column(name = "iva")
-    private BigDecimal iva;
+    private int iva;
 
     @Column(name = "total")
-    private BigDecimal total;
+    private double total;
+
+    // getter y setter para Comanda
+    public Comanda getComanda() {
+        return comanda;
+    }
+
+    public void setComanda(Comanda comanda) {
+        this.comanda = comanda;
+    }
 
 //Constructors
     public LineaComanda() {
     }
 
-    public LineaComanda(int id, Producto producto, User user, LocalDate fecha, LocalDate fechaSalida, String concepto,
-            String descripcion, String estado, BigDecimal importe, BigDecimal iva, BigDecimal total) {
+    public LineaComanda(int id, Comanda comanda, Producto producto, String concepto, int unidades, String estado,
+            double importe, int iva, double total) {
         this.id = id;
+        this.comanda = comanda;
         this.producto = producto;
-        this.user = user;
-        this.fecha = fecha;
-        this.fechaSalida = fechaSalida;
         this.concepto = concepto;
-        this.descripcion = descripcion;
+        this.unidades = unidades;
         this.estado = estado;
         this.importe = importe;
         this.iva = iva;
         this.total = total;
     }
-
+    
+//Getter y setter
     public int getId() {
         return id;
     }
@@ -83,36 +80,12 @@ public class LineaComanda {
         this.id = id;
     }
 
-    public Producto getproducto() {
+    public Producto getProducto() {
         return producto;
     }
 
-    public void setproducto(Producto producto) {
+    public void setProducto(Producto producto) {
         this.producto = producto;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User uuid) {
-        this.user = uuid;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public LocalDate getFechaSalida() {
-        return fechaSalida;
-    }
-
-    public void setFechaSalida(LocalDate fechaSalida) {
-        this.fechaSalida = fechaSalida;
     }
 
     public String getConcepto() {
@@ -123,12 +96,12 @@ public class LineaComanda {
         this.concepto = concepto;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public int getUnidades() {
+        return unidades;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setUnidades(int unidades) {
+        this.unidades = unidades;
     }
 
     public String getEstado() {
@@ -139,34 +112,34 @@ public class LineaComanda {
         this.estado = estado;
     }
 
-    public BigDecimal getImporte() {
+    public double getImporte() {
         return importe;
     }
 
-    public void setImporte(BigDecimal importe) {
+    public void setImporte(double importe) {
         this.importe = importe;
     }
 
-    public BigDecimal getIva() {
+    public int getIva() {
         return iva;
     }
 
-    public void setIva(BigDecimal iva) {
+    public void setIva(int iva) {
         this.iva = iva;
     }
 
-    public BigDecimal getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(double total) {
         this.total = total;
     }
-
-//Getters & setters
-
-
+//ToString
+    @Override
+    public String toString() {
+        return "LineaComanda [id=" + id + ", comanda=" + comanda + ", producto=" + producto + ", concepto=" + concepto
+                + ", unidades=" + unidades + ", estado=" + estado + ", importe=" + importe + ", iva=" + iva + ", total="
+                + total + "]";
+    }
 }
-
-    
-

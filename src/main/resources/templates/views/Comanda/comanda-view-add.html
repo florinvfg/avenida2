@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="fragments/common-head :: common-head">
+</head>
+<body>
+<h1>Añadir Comada Nueva</h1>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container">
+    <form action="#" th:action="@{/comanda/add}" th:object="${comanda}" method="post">
+        <div class="row">
+        <div class="form-group col-md-3 col-sm-6">
+            <label for="date">Fecha</label>
+            <input type="text" id="date" th:field="*{date}" class="form-control datepicker" />
+        </div>
+        <div class="form-group col-md-3 col-sm-6">
+            <label for="hour">Hora</label>
+            <input type="time" id="hour" th:field="*{hour}" class="form-control" />
+        </div>        
+        <div class="form-group col-md-3 col-sm-6">
+            <label for="mesa">Mesa</label>
+            <select id="mesa" th:field="*{mesa.id}" class="form-control">
+                <option th:each="mesa : ${mesas}" th:value="${mesa.id}" th:text="${mesa.id + ' - ' + mesa.locationUrl + ' - ' + mesa.numComensales}"></option>
+            </select>
+        </div>
+        <div class="form-group col-md-3 col-sm-6">
+            <label for="camarero">Camarero</label>
+            <select id="camarero" th:field="*{idCamarero.id}" class="form-control">
+                <option th:each="camarero : ${users}" th:value="${camarero.id}" th:text="${camarero.userName + ' - ' + camarero.id}"></option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-3 col-sm-6">
+            <label for="numComensales">Número de comensales</label>
+            <input type="number" id="numComensales" th:field="*{numComensales}" class="form-control" />
+        </div>
+        <!-- Here you may want to add more fields for other properties of Comanda -->
+        <button type="submit" class="btn btn-primary col-12">Guardar Comanda</button>
+    </div>
+    </form>
+    <br>
+</div>
+</body>
+</html>
+
+
