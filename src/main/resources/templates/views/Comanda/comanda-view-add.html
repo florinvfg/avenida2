@@ -19,7 +19,7 @@
         <div class="form-group col-md-3 col-sm-6">
             <label for="mesa">Mesa</label>
             <select id="mesa" th:field="*{mesa.id}" class="form-control">
-                <option th:each="mesa : ${mesas}" th:value="${mesa.id}" th:text="${mesa.id + ' - ' + mesa.locationUrl + ' - ' + mesa.numComensales}"></option>
+                <option th:each="mesa : ${mesas}" th:value="${mesa.id}" th:text="${mesa.id + ' - ' + mesa.locationUrl}"></option>
             </select>
         </div>
         <div class="form-group col-md-3 col-sm-6">
@@ -32,6 +32,7 @@
         <div class="form-group col-md-3 col-sm-6">
             <label for="numComensales">Número de comensales</label>
             <input type="number" id="numComensales" th:field="*{numComensales}" class="form-control" />
+            
         </div>
         <!-- Here you may want to add more fields for other properties of Comanda -->
         <button type="submit" class="btn btn-primary col-12">Guardar Comanda</button>

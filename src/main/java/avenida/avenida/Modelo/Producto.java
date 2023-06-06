@@ -29,16 +29,20 @@ public class Producto {
     @Column(name = "precio")
     private double precio;
 
+    @Column(name = "iva")
+    private int iva;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "producto")
     @JsonIgnore
     private List<LineaComanda> lineaComanda;
     
 
     //constructores
-    public Producto(int id, String nombre, double precio, List<LineaComanda> lineaComanda) {
+    public Producto(int id, String nombre, double precio, int iva, List<LineaComanda> lineaComanda) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
+        this.iva = iva;
         this.lineaComanda = lineaComanda;
     }
 
@@ -71,11 +75,18 @@ public class Producto {
         return precio;
     }
 
-
+   
     public void setPrecio(double precio) {
         this.precio = precio;
     }
 
+    public int getIva() {
+        return iva;
+    }
+
+    public void setIva(int iva) {
+        this.iva = iva;
+    }
 
     public List<LineaComanda> getLineaComanda() {
         return lineaComanda;
@@ -92,6 +103,7 @@ public String toString() {
     return "Producto [id=" + id 
             + ", nombre=" + nombre 
             + ", precio=" + precio
+            + ", iva=" + iva
             + ", numeroLineasComanda=" + (lineaComanda != null ? lineaComanda.size() : "0") + "]";
 }
 
