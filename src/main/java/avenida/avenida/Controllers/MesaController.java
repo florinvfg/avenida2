@@ -65,7 +65,26 @@ public String saveMesa(@ModelAttribute("newMesa") Mesa newMesa) {
         return "views/Mesa/edit-mesa";
     }
     
-
+ // Actualizar una mesa por ID (POST)
+ @PostMapping("/edit-mesa/{id}")
+ public String updateMesa(@PathVariable("id") int id, @ModelAttribute("mesa") Mesa mesa) {
+     Mesa existingMesa = MesaService.findById(id);
+     
+     if (existingMesa == null) {
+         // Manejar el caso cuando la mesa no existe
+         return "redirect:/mesa/listado-mesa";
+     }
+     
+     // Actualizar los atributos de la mesa existente
+     existingMesa.setNumComensales(mesa.getNumComensales());
+     // Actualizar más atributos si es necesario...
+     
+     MesaService.save(existingMesa);
+     
+     // Redirigir a la lista de mesas
+     return "redirect:/mesa/listado-mesa";
+ }
+ 
 // Método para listar mesas
 @GetMapping("/listado-mesa")
 public String listarMesa(Model model) {
