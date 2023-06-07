@@ -13,6 +13,8 @@ public interface ComandaRepository extends JpaRepository<Comanda, UUID> {
 List<Comanda> findByMesa(String mesa);
 
 void deleteById(int id);
+
+
   }
 
   

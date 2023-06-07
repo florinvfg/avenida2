@@ -38,7 +38,12 @@
         <artifactId>spring-boot-devtools</artifactId>
         <optional>true</optional>
     	</dependency>
-
+        <!-- Sanitizar codigo bibliotecas OWASP Sanitizer-->
+			<dependency>
+				<groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+				<artifactId>owasp-java-html-sanitizer</artifactId>
+				<version>20220608.1</version>
+			</dependency>
 		<!-- Spring Boot Starter Thymeleaf: para utilizar Thymeleaf como motor de plantillas -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

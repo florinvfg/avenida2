@@ -2,6 +2,8 @@ package avenida.avenida.Controllers;
 
 import java.util.List;
 
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ public class MesaController {
     
     @Autowired
     private MesaService MesaService;
+
+      // Instancia a Sanitizador de HTML import org.owasp.html.PolicyFactory; import org.owasp.html.Sanitizers;
+      private static final PolicyFactory POLICY_FACTORY = Sanitizers.FORMATTING.and(Sanitizers.LINKS);
     
 //boton de mesa listado para ir a añadir una mesa    
     @GetMapping("/agregarMesa")
@@ -35,8 +40,9 @@ public class MesaController {
     @PostMapping("/mesa/agregarMesa")
 public String saveMesa(@ModelAttribute("newMesa") Mesa newMesa) {
     // Guardar la nueva mesa
-    MesaService.save(newMesa);
+    newMesa.setLocationUrl(POLICY_FACTORY.sanitize(newMesa.getLocationUrl()));
     newMesa.setNumComensales(newMesa.getNumComensales());
+    MesaService.save(newMesa);
     // Redirigir a la lista de mesas
     return "redirect:/mesa/listado-mesa";
 }
@@ -78,7 +84,7 @@ public String saveMesa(@ModelAttribute("newMesa") Mesa newMesa) {
      // Actualizar los atributos de la mesa existente
      existingMesa.setNumComensales(mesa.getNumComensales());
      // Actualizar más atributos si es necesario...
-     
+    existingMesa.setLocationUrl(POLICY_FACTORY.sanitize(mesa.getLocationUrl()));
      MesaService.save(existingMesa);
      
      // Redirigir a la lista de mesas

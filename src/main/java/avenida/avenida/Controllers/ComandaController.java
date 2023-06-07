@@ -2,6 +2,8 @@ package avenida.avenida.Controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.owasp.html.Sanitizers;
+import org.owasp.html.PolicyFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,6 +39,7 @@ public class ComandaController {
     @Autowired
     private MesaService mesaService;
 
+  
     @Autowired
     private UserService userService;
 
@@ -124,7 +130,7 @@ public class ComandaController {
             comandaService.save(comanda);
             return "redirect:/comanda/listado";
         }
-
+    @Transactional
     @GetMapping("/delete/{id}")
     public String deleteComanda(@PathVariable int id) {
     comandaService.delete(id);

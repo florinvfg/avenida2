@@ -2,6 +2,8 @@ package avenida.avenida.Controllers;
 
 
 
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +29,9 @@ public class LineaComandaController {
     
         @Autowired
         private ProductoService productoService;
-    
+     // Instancia a Sanitizador de HTML import org.owasp.html.PolicyFactory; import org.owasp.html.Sanitizers;
+     private static final PolicyFactory POLICY_FACTORY = Sanitizers.FORMATTING.and(Sanitizers.LINKS);
+
 //añadir lineaComanda
         @PostMapping("/add")
         public String addLineaComanda(@ModelAttribute LineaComanda lineaComanda, @RequestParam("producto.id") int productId) {
@@ -46,13 +50,26 @@ public class LineaComandaController {
                 return "redirect:/error";
             }
             lineaComanda.setComanda(comanda);
-
+            lineaComanda.setConcepto(POLICY_FACTORY.sanitize(lineaComanda.getConcepto()));
+            lineaComanda.setEstado(POLICY_FACTORY.sanitize(lineaComanda.getEstado()));
             // Ahora puedes guardar la LineaComanda
             lineaComandaService.save(lineaComanda);
 
             return "redirect:/comanda/edit/" + lineaComanda.getComanda().getId();
         }
 
+        @GetMapping("/delete/{id}")
+        public String deleteLineaComanda(@PathVariable int id) {
+            LineaComanda lineaComanda = lineaComandaService.findById(id);
+            if (lineaComanda == null) {
+                // Maneja el caso en el que la línea de comanda no se encuentra
+                return "redirect:/error";
+            }
+            int comandaId = lineaComanda.getComanda().getId();
+            lineaComandaService.deleteById(id);
+            return "redirect:/comanda/edit/" + comandaId;
+        }
+    
 
 
 

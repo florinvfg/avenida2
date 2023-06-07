@@ -3,7 +3,8 @@ package avenida.avenida.Controllers;
 import avenida.avenida.Modelo.Producto;
 import avenida.avenida.Services.ProductoService;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +23,9 @@ import java.util.List;
         @Autowired
         private ProductoService productoService;
 
+        // Instancia a Sanitizador de HTML import org.owasp.html.PolicyFactory; import org.owasp.html.Sanitizers;
+    private static final PolicyFactory POLICY_FACTORY = Sanitizers.FORMATTING.and(Sanitizers.LINKS);
+
         //ir a ver todos los productos
         @GetMapping("/listado-producto")
         public String listarProductos(Model model) {
@@ -39,21 +43,13 @@ import java.util.List;
         // Redirigir a la lista de productos
         return "/views/Producto/agregarProducto";
     }
-   //guardar producto
-  /*  @PostMapping("/producto/agregaProducto")
-   public String saveProducto(@ModelAttribute("newProducto") Producto newProducto) {
-       // Guardar un nuevo producto
-       ProductoService.save(newProducto);
-       newProducto.setNombre(newProducto.getNombre());
-       // Redirigir a la lista de mesas
-       return "redirect:/producto/listado-producto";
-   }*/
-  
+ 
 
 
    @PostMapping("/agregaProducto")
    public String saveProducto(@ModelAttribute("newProducto") Producto newProducto) {
        // Guardar un nuevo producto
+       newProducto.setNombre(POLICY_FACTORY.sanitize(newProducto.getNombre()));
        productoService.save(newProducto);
        // Redirigir a la lista de mesas
        return "redirect:/producto/listado-producto";
