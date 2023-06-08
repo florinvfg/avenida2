@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+    <head th:replace="fragments/common-head :: common-head">
+<head>
+
+<body>
+    <h1>Listado de Contactos</h1>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container">
+        <a href="/contacto/contacto-details" class="btn btn-primary my-3">Agregar Contacto</a>
+        <button type="button" class="btn btn-primary my-3" onclick="location.href='/hello'">volver a Home</button>
+        <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="contacto : ${contactos}">
+            <td th:text="${contacto.nombre}"></td>
+            <td th:text="${contacto.email}"></td>
+            <td th:text="${contacto.telefono}"></td>
+            <td>
+                <a th:href="@{/contacto/edit-contacto/{id}(id=${contacto.id})}" class="btn btn-warning">Editar</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

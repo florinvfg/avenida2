@@ -32,7 +32,7 @@ public class Contacto {
     }
 
     public Contacto(Long id, String nombre, String email, String telefono) {
-        this.id = id;
+        this.id = (long) id;
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
@@ -44,8 +44,8 @@ public class Contacto {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long nuevoId) {
+        this.id = nuevoId;
     }
 
     public String getNombre() {
